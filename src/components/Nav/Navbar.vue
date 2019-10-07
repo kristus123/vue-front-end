@@ -45,4 +45,8 @@ export default {
 
 <style>
 
+ a {
+   color: rgba(255,255,255,.5);
+ }
+
 </style>
