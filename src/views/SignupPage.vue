@@ -35,7 +35,7 @@
 
     <b-form-row class="justify-content-center">
       <b-col cols="8">
-        <b-button id="submitBtn" type="submit" variant="primary">Signup</b-button>
+        <b-button id="submitBtn" type="submit" variant="primary" value="Submit">Signup</b-button>
       </b-col>
     </b-form-row>
 
@@ -65,18 +65,17 @@ export default {
 
     methods: {
         validatePassword() {
-            if(password !== rePassword) {
+            if(this.password !== this.rePassword) {
                 this.errorMsg = "The passwords are not the same!";
                 this.showErrorMsg = true;
                 return false;
             } else {
-
                 return true;
             }
         },
 
         onSubmitForm() {
-            if(!validatePassword()) {
+            if(!this.validatePassword()) {
                 return;
             }
 
