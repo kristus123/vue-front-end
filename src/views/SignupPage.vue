@@ -3,11 +3,17 @@
   <b-row class="justify-content-center">
   <div id="signupForm">
     <h2 id="signup-header">SIGN UP</h2>
+
     <b-form v-on:submit.prevent="onSubmitForm">
       <b-form-row class="justify-content-center">
         <b-col cols="8">
           <b-form-group class="text-white" id="email-input-group" label="Email address" label-for="email-input">
-            <b-form-input v-model="email" :state="emailState" id="email-input" type="email" placeholder="Enter email" required></b-form-input>
+            <b-input-group>
+                <b-input-group-prepend>
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </b-input-group-prepend>
+                <b-form-input v-model="email" :state="emailState" id="email-input" type="email" placeholder="Enter email" required></b-form-input>
+            </b-input-group>
           </b-form-group>
         </b-col>
       </b-form-row>
@@ -15,7 +21,12 @@
     <b-form-row class="justify-content-center">
       <b-col cols="8">
         <b-form-group class="text-white" id="password-input-group" label="Password" label-for="password-input" description="Minimum length 8">
+          <b-input-group>
+                <b-input-group-prepend>
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                </b-input-group-prepend>
           <b-form-input v-model="password" :state="passwordState" id="password-input" type="password" placeholder="Enter password" required></b-form-input>
+          </b-input-group>
         </b-form-group>
       </b-col>
     </b-form-row>
@@ -23,7 +34,12 @@
         <b-form-row class="justify-content-center">
       <b-col cols="8">
         <b-form-group class="text-white" id="re-password-input-group" label="Re-enter password" label-for="re-password-input">
+            <b-input-group>
+                <b-input-group-prepend>
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                </b-input-group-prepend>
           <b-form-input v-model="rePassword" :state="rePasswordState" id="re-password-input" type="password" placeholder="Enter password again" required></b-form-input>
+            </b-input-group>
         </b-form-group>
       </b-col>
     </b-form-row>
@@ -98,10 +114,6 @@ export default {
                 return this.rePasswordState = true;
             }
         },
-
-        onSubmitForm() {
-
-        }
     }
 }
 </script>
