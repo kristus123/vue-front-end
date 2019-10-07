@@ -16,3 +16,11 @@ export default {
   }
 }
 </script>
+
+<style>
+
+.home {
+    margin-top: 60px;
+  }
+
+</style>
