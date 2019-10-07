@@ -1,10 +1,9 @@
 <template>
-<b-container class="loginPage">
+<b-container class="signupPage">
   <b-row class="justify-content-center">
-  <div id="loginForm">
-    <h2 id="login-header">LOG IN</h2>
+  <div id="signupForm">
+    <h2 id="signup-header">SIGN UP</h2>
     <b-form>
-
       <b-form-row class="justify-content-center">
         <b-col cols="8">
           <b-form-group class="text-white" id="email-input-group" label="Email address" label-for="email-input">
@@ -21,25 +20,23 @@
       </b-col>
     </b-form-row>
 
-    <b-form-row class="justify-content-center">
+        <b-form-row class="justify-content-center">
       <b-col cols="8">
-      <b-form-group id="remember-checkbox-group">
-        <b-form-checkbox-group id="checkbox-group">
-          <b-form-checkbox class="text-white">Remember me</b-form-checkbox>
-        </b-form-checkbox-group>
-      </b-form-group>
+        <b-form-group class="text-white" id="re-password-input-group" label="Re-enter password" label-for="re-password-input">
+          <b-form-input id="re-password-input" type="password" placeholder="Enter password again" required></b-form-input>
+        </b-form-group>
       </b-col>
     </b-form-row>
 
     <b-form-row class="justify-content-center">
       <b-col cols="8">
-        <b-button id="submitBtn" type="submit" variant="success">Login</b-button>
+        <b-button id="submitBtn" type="submit" variant="primary">Signup</b-button>
       </b-col>
     </b-form-row>
 
   </b-form>
   <div id="footer-content">
-    <p>Don't have an account? <router-link to="/signup">Sign up</router-link></p>
+    <p>Have an account? <router-link to="/login">Log in</router-link></p>
   </div>
   </div>
   </b-row>
@@ -49,50 +46,19 @@
 </template>
 
 <script>
-import authenticationService from '@/services/AuthenticationService.js';
 export default {
-  data() { return {
-    username :"",
-    password :"",
-    signedIn : authenticationService.isAuthenticated()
-  }},
-
-  methods : {
-    async login() {
-
-
-
-
-      const cred = await authenticationService.login(this.username, this.password);
-
-      if (cred === false) {
-        //console.log(cred)
-        console.log("failed")
-        
-      } else {
-        
-          this.$store.state.userObject = await  authenticationService.getUserInfo()
-          console.log(this.$store.state.userObject.email);
-          console.log(this.signedIn)
-          this.signedIn = true;
-        
-      }
-      this.username = "";
-      this.password = ""; 
-    }
-  }
-
+    
 }
 </script>
 
 <style>
 
-.loginPage  {
+.signupPage  {
   margin-top: 60px;
 }
 
-#loginForm {
-  background-image: url("../assets/field-game-grass-104675.jpg");
+#signupForm {
+  background-image: url("../assets/afternoon-barcelona-boca-juniors-61135.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -101,18 +67,19 @@ export default {
   border-radius: 10px;
 }
 
-#login-header {
+#signup-header {
   color: white;
   padding-top: 30px;
   padding-bottom: 30px;
 }
 
-#email-input-group {
+#email-input-group #password-input-group {
   text-align: left;
 }
 
-#password-input-group {
-  text-align: left;
+#re-password-input-group {
+    text-align: left;
+    padding-bottom: 30px;
 }
 
 #submitBtn {
