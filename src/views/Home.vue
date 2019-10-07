@@ -1,26 +1,43 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <div>
+    <h1>Welcome to the football-arena</h1>
+    <hr class="pretty" /> 
+
+    </div>
+    
+
+<home-page-cards />
+
+
   </div>
 </template>
 
 <script>
+import HomePageCards from "@/components/cards/HomePageCards";
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'home',
-  components: {
-    HelloWorld
-  }
-}
+  name: "home",
+  components: { HomePageCards }
+};
 </script>
 
 <style>
-
 .home {
-    margin-top: 60px;
-  }
+  margin-top: 60px;
+}
 
+.landing-image {
+  max-width: 50%;
+}
+
+h2 {
+  color: grey;
+}
+hr.pretty {
+  max-width: 40%;
+
+  border-top: 2px solid orange;
+}
 </style>
