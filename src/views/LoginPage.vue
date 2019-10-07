@@ -1,18 +1,21 @@
 <template>
-<div>
-  <div v-if="!signedIn">
-      <h2>name</h2>
-      <input v-model="username" />
-      <h2>password</h2>
-      <input v-model="password"  type="password" />
-      <hr>
-      <button v-on:click="login"  type="submit">submit</button>
-  </div>
+<b-container class="loginPage">
+  <b-form>
+    <b-form-row class="justify-content-center">
+      <b-form-group id="email-input-group" label="Email address:" label-for="email-input">
+        <b-form-input id="email-input" type="email" placeholder="Enter email" required></b-form-input>
+      </b-form-group>
+    </b-form-row>
 
-  <div v-else>
-      <h1>aleardy isAuthenticated</h1>
-  </div>
-</div>
+    <b-form-row class="justify-content-center">
+      <b-form-group id="password-input-group" label="Enter password:" label-for="password-input">
+        <b-form-input id="password-input" type="password" placeholder="Enter password" required></b-form-input>
+      </b-form-group>
+    </b-form-row>
+    <b-button type="submit" variant="primary">Login</b-button>
+    <b-button type="reset" variant="danger">Reset</b-button>
+  </b-form>
+</b-container>
 </template>
 
 <script>
@@ -53,5 +56,9 @@ export default {
 </script>
 
 <style>
+
+.loginPage  {
+  margin-top: 60px;
+}
 
 </style>
