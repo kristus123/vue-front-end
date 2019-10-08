@@ -8,7 +8,12 @@
       <b-form-row class="justify-content-center">
         <b-col cols="8">
           <b-form-group class="text-white" id="email-input-group" label="Email address" label-for="email-input">
+            <b-input-group>
+                <b-input-group-prepend>
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </b-input-group-prepend>
             <b-form-input id="email-input" type="email" placeholder="Enter email" required></b-form-input>
+            </b-input-group>
           </b-form-group>
         </b-col>
       </b-form-row>
@@ -16,7 +21,12 @@
     <b-form-row class="justify-content-center">
       <b-col cols="8">
         <b-form-group class="text-white" id="password-input-group" label="Password" label-for="password-input">
+           <b-input-group>
+                <b-input-group-prepend>
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                </b-input-group-prepend>
           <b-form-input id="password-input" type="password" placeholder="Enter password" required></b-form-input>
+           </b-input-group>
         </b-form-group>
       </b-col>
     </b-form-row>
@@ -59,10 +69,7 @@ export default {
 
   methods : {
     async login() {
-
-
-
-
+      
       const cred = await authenticationService.login(this.username, this.password);
 
       if (cred === false) {
