@@ -2,20 +2,10 @@
 <b-container>
     <b-row class="justify-content-center">
         <b-col cols="6">
-            <player-stats-line />
-        </b-col>
-        <b-col cols="6">
-            <player-stats-bar />
+            <player-stats-line :chartdata="chartdata" :options="options" />
         </b-col>
     </b-row>
-    <b-row class="justify-content-center">
-        <b-col cols="6">
-            <player-stats-pie />
-        </b-col>
-        <b-col cols="6">
-            <player-stats-bar />
-        </b-col>
-    </b-row>
+
 
     <b-row>
         <h2>{{showMsg}}</h2>
@@ -26,15 +16,54 @@
 <script>
 
 import PlayerStatsLine from '@/components/charts/player/playerStatsLine'
-import PlayerStatsBar from '@/components/charts/player/playerStatsBar'
-import PlayerStatsPie from '@/components/charts/player/playerStatsPie'
 
 export default {
     name : "playerStats",
     components: {
-        PlayerStatsLine,
-        PlayerStatsBar,
-        PlayerStatsPie
+        PlayerStatsLine
+    },
+    data() {
+        return {
+        chartdata: {
+          //Data to be represented on x-axis
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+          datasets: [
+            {
+              label: 'Data One',
+              backgroundColor: '#f87979',
+              pointBackgroundColor: 'white',
+              borderWidth: 1,
+              pointBorderColor: '#249EBF',
+              //Data to be represented on y-axis
+              data: [40, 20, 30, 50, 90, 10, 20, 40, 50, 70, 90, 100]
+            }
+          ]
+        },
+        //Chart.js options that controls the appearance of the chart
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              },
+              gridLines: {
+                display: true
+              }
+            }],
+            xAxes: [ {
+              gridLines: {
+                display: false
+              }
+            }]
+          },
+          legend: {
+            display: true
+          },
+          responsive: true,
+          maintainAspectRatio: false
+        }            
+
+        }
     }
     
 }
