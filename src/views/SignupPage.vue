@@ -3,19 +3,30 @@
   <b-row class="justify-content-center">
   <div id="signupForm">
     <h2 id="signup-header">SIGN UP</h2>
+
     <b-form v-on:submit.prevent="onSubmitForm">
       <b-form-row class="justify-content-center">
         <b-col cols="8">
           <b-form-group class="text-white" id="email-input-group" label="Email address" label-for="email-input">
-            <b-form-input id="email-input" type="email" placeholder="Enter email" required></b-form-input>
+            <b-input-group>
+                <b-input-group-prepend>
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </b-input-group-prepend>
+                <b-form-input v-model="email" :state="emailState" id="email-input" type="email" placeholder="Enter email" required></b-form-input>
+            </b-input-group>
           </b-form-group>
         </b-col>
       </b-form-row>
 
     <b-form-row class="justify-content-center">
       <b-col cols="8">
-        <b-form-group class="text-white" id="password-input-group" label="Password" label-for="password-input">
-          <b-form-input v-model="password" id="password-input" type="password" placeholder="Enter password" required></b-form-input>
+        <b-form-group class="text-white" id="password-input-group" label="Password" label-for="password-input" description="Minimum length 8">
+          <b-input-group>
+                <b-input-group-prepend>
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                </b-input-group-prepend>
+          <b-form-input v-model="password" :state="passwordState" id="password-input" type="password" placeholder="Enter password" required></b-form-input>
+          </b-input-group>
         </b-form-group>
       </b-col>
     </b-form-row>
@@ -23,10 +34,16 @@
         <b-form-row class="justify-content-center">
       <b-col cols="8">
         <b-form-group class="text-white" id="re-password-input-group" label="Re-enter password" label-for="re-password-input">
-          <b-form-input v-model="rePassword" id="re-password-input" type="password" placeholder="Enter password again" required></b-form-input>
+            <b-input-group>
+                <b-input-group-prepend>
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                </b-input-group-prepend>
+          <b-form-input v-model="rePassword" :state="rePasswordState" id="re-password-input" type="password" placeholder="Enter password again" required></b-form-input>
+            </b-input-group>
         </b-form-group>
       </b-col>
     </b-form-row>
+
     <b-form-row class="justify-content-center">
       <b-col cols="8">
         <b-alert v-if="showErrorMsg" id="errMsg" show variant="warning">{{errorMsg}}</b-alert>
@@ -58,28 +75,45 @@ export default {
             errorMsg: '',
             email: '',
             password: '',
-            rePassword: ''
+            rePassword: '',
+            emailState: '-',
+            rePasswordState: '-',
+            passwordState: '-',
+            emailReg : /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
         };
     },
 
-    methods: {
-        validatePassword() {
-            if(this.password !== this.rePassword) {
-                this.errorMsg = "The passwords are not the same!";
-                this.showErrorMsg = true;
-                return false;
-            } else {
-                return true;
-            }
+    watch: {
+        email: function() {
+            this.validateEmail();
         },
 
-        onSubmitForm() {
-            if(!this.validatePassword()) {
-                return;
-            }
+        password: function() {
+            this.validatePassword();
+        },
 
+        rePassword: function() {
+            this.validateRePassword();
         }
+    },
+
+    methods: {
+        validateEmail() {
+            return (this.email == "") ? "" : (this.emailReg.test(this.email)) ? this.emailState = true : this.emailState = false;
+        },
+
+        validatePassword() {
+            return this.password.length < 8 ? this.passwordState = false : this.passwordState = true;
+        },
+
+        validateRePassword() {
+            if(this.password !== this.rePassword) {
+                return this.rePasswordState = false;
+            } else {
+                return this.rePasswordState = true;
+            }
+        },
     }
 }
 </script>
@@ -127,6 +161,10 @@ export default {
 
 #footer-content {
   padding-top: 20px;
+}
+
+.text-muted {
+    color:white!important;
 }
 
 </style>
