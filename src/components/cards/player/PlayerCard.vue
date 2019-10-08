@@ -17,15 +17,27 @@
             </b-row>
             <hr>
             <b-row>
-                <b-col>Season Goals:{{playerSeasonGoals}}</b-col>
-                <b-col>Total Goals:{{playerTotalGoals}}</b-col>
+                <b-col>Season Goals</b-col>
+                <b-col>Total Goals</b-col>
             </b-row>
+            <b-row>
+                <b-col>{{playerSeasonGoals}}</b-col>
+                <b-col>{{playerTotalGoals}}</b-col>
+            </b-row>
+            <b-row class= "row-margin">
+                <b-col>Sum stats</b-col>
+                <b-col>Sum stats</b-col>
+            </b-row>
+
         </b-card>
     </b-container>
 </template>
 
 <script>
 export default {
+    
+    
+    
     data() {
         return {
             teamName : "Juventus",
@@ -35,6 +47,8 @@ export default {
             playerTotalGoals:"300"
         }
     }
+
+    
 }
 </script>
 
@@ -56,5 +70,9 @@ export default {
         margin: auto;
         width: 50%;
         padding: 10px;
+    }
+
+    .row-margin {
+        margin-top:30px;
     }
 </style>
