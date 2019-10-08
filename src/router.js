@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import LoginPage from '@/views/LoginPage'
 import SignupPage from '@/views/SignupPage'
 import PlayerCard from '@/views/PlayerCard'
+import PlayerStats from '@/views/PlayerStats'
 
 Vue.use(Router)
 
@@ -31,7 +32,13 @@ export default new Router({
       path : "/playerCard",
       name : "playerCard",
       component: PlayerCard
+    }, 
+    {
+      path : "/playerStats",
+      name : "playerStats",
+      component : PlayerStats
     },
+  
     {
       path: '/about',
       name: 'about',
