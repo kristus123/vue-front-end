@@ -28,12 +28,13 @@
                 <b-col>Sum stats</b-col>
                 <b-col>Sum stats</b-col>
             </b-row>
-
         </b-card>
     </b-container>
 </template>
 
 <script>
+
+
 export default {
     
     
