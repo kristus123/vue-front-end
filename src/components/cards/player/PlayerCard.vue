@@ -25,19 +25,24 @@
                 <b-col>{{playerTotalGoals}}</b-col>
             </b-row>
             <b-row class= "row-margin">
-                <b-col>Sum stats</b-col>
-                <b-col>Sum stats</b-col>
+                <b-col><player-stats-bar :width="100" :height="100" :chartdata="chartdata" :options="barOptions" /></b-col>
+                <b-col><player-stats-pie :width="100" :height="100" :chartdata="pieDataCollection" :options="pieOptions"/></b-col>
             </b-row>
         </b-card>
     </b-container>
+    
 </template>
 
 <script>
-
+import PlayerStatsBar from '@/components/charts/player/playerStatsBar';
+import PlayerStatsPie from '@/components/charts/player/playerStatsPie';
 
 export default {
     
-    
+    components: {
+        PlayerStatsBar,
+        PlayerStatsPie
+    },
     
     data() {
         return {
@@ -45,7 +50,73 @@ export default {
             playerPosition: "Attacker",
             playerNumber: "7",
             playerSeasonGoals:"40",
-            playerTotalGoals:"300"
+            playerTotalGoals:"300",
+            chartdata: {
+            //Data to be represented on x-axis
+            labels: ['Ronaldo', 'Other'],
+            datasets: [
+                {
+                label: 'Goals',
+                backgroundColor: '#f87979',
+                pointBackgroundColor: 'white',
+                borderWidth: 1,
+                pointBorderColor: '#249EBF',
+                //Data to be represented on y-axis
+                data: [10,20]
+                }
+            ]
+            },
+            //Chart.js options that controls the appearance of the chart
+            barOptions: {
+            scales: {
+                yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                },
+                gridLines: {
+                    display: false
+                }
+                }],
+                xAxes: [ {
+                    ticks: {
+                        display: false
+                    },
+                    gridLines: {
+                        display: false
+                }
+                }]
+            },
+            legend: {
+                display: false
+            },
+            responsive: false,
+            maintainAspectRatio: false
+            },
+            // --------------- PIE DATA AND OPTIONS ---------------
+            pieDataCollection: {
+                //Data to be represented on x-axis
+                labels: ['Penalty', 'Header', 'Free-kick'],
+                datasets: [
+                    {
+                    label: 'Goal types',
+                    backgroundColor: ['#33ff41', '#39af41', '#b9af41'] ,
+                    pointBackgroundColor: 'white',
+                    borderWidth: 1,
+                    pointBorderColor: '#249EBF',
+                    //Data to be represented on y-axis
+                    data: [10, 20, 30]
+                    },
+                    
+                ],
+                
+            },
+            pieOptions: {
+                legend: {
+                    display: false
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
         }
     }
 
