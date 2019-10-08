@@ -3,7 +3,7 @@
   <b-row class="justify-content-center">
   <div id="loginForm">
     <h2 id="login-header">LOG IN</h2>
-    <b-form>
+    <b-form v-on:submit.prevent="onSubmitForm">
 
       <b-form-row class="justify-content-center">
         <b-col cols="8">
@@ -33,6 +33,12 @@
 
     <b-form-row class="justify-content-center">
       <b-col cols="8">
+        <b-alert v-if="showErrorMsg" id="errMsg" show variant="danger">{{errorMsg}}</b-alert>
+      </b-col>
+    </b-form-row>
+
+    <b-form-row class="justify-content-center">
+      <b-col cols="8">
       <b-form-group id="remember-checkbox-group">
         <b-form-checkbox-group id="checkbox-group">
           <b-form-checkbox class="text-white">Remember me</b-form-checkbox>
@@ -43,7 +49,7 @@
 
     <b-form-row class="justify-content-center">
       <b-col cols="8">
-        <b-button id="submitBtn" type="submit" variant="success">Login</b-button>
+        <b-button id="submitBtn" type="submit" variant="success" value="submit">Login</b-button>
       </b-col>
     </b-form-row>
 
@@ -64,12 +70,20 @@ export default {
   data() { return {
     username :"",
     password :"",
-    signedIn : authenticationService.isAuthenticated()
+    signedIn : authenticationService.isAuthenticated(),
+    errorMsg : "Username or password is incorrect!",
+    showErrorMsg : false
   }},
 
   methods : {
+
+    onSubmitForm() {
+      this.showErrorMsg = true;
+
+    },
+
     async login() {
-      
+
       const cred = await authenticationService.login(this.username, this.password);
 
       if (cred === false) {
@@ -134,6 +148,10 @@ export default {
 
 #footer-content {
   padding-top: 20px;
+}
+
+#errMsg {
+  font-size: 13px;
 }
 
 </style>
