@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import LoginPage from '@/views/LoginPage'
 import SignupPage from '@/views/SignupPage'
+import TeamsPage from '@/views/TeamsPage'
 
 Vue.use(Router)
 
@@ -25,6 +26,11 @@ export default new Router({
       name : "signup",
       component : SignupPage
 
+    },
+    {
+      path : "/teamsPage",
+      name : "teamsPage",
+      component : TeamsPage
     },
     {
       path: '/about',
