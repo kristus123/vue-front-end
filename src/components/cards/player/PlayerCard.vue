@@ -1,5 +1,6 @@
 <template>
     <b-container>
+        
         <b-card
             title="Ronaldo"
             tag="article"
@@ -10,6 +11,8 @@
                     <img src="https://img.etimg.com/thumb/msid-67641060,width-1200,height-900,resizemode-4,imgsize-18028/cristiano-ronaldo.jpg" alt="avatar" class="player-image">
                 </div>
             </b-row>
+
+                
             <b-row class="row-below-img">
                 <b-col>{{teamName}}</b-col>
                 <b-col>{{playerPosition}}</b-col>
@@ -62,6 +65,8 @@
                     <font color="33ff4">Goal types</font>
                 </b-col>
             </b-row>
+            
+            <slot />    
         </b-card>
     </b-container>
     

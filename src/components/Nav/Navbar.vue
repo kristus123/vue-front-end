@@ -13,7 +13,7 @@
           <b-nav-item>
             <router-link to="/about">About</router-link>
           </b-nav-item>
-
+<!-- 
           <div v-if="this.$store.state.userObject.roles[0] === 'STANDARD'">
             <b-nav-item>
               <router-link to="/STANDARD">STANDARD</router-link>
@@ -24,7 +24,7 @@
             <b-nav-item>
               <router-link to="/ADMIN">ADMIN</router-link>
             </b-nav-item>
-          </div>
+          </div> -->
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
