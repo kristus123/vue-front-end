@@ -67,13 +67,7 @@ export default {
 
     created: async function () {
         try {
-            let config = {
-                headers: {
-                    'Content-type' : 'application/json'
-                }
-            };
             for(var i = 0; i < this.teams.length; i++) {
-                console.log(this.teams[i].name);
             const resp = await axios
                 .get('https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=' + this.teams[i].name)
                 .then(resp => resp.data);
@@ -82,8 +76,6 @@ export default {
                 this.teams[i].stadium = this.infoTeams[i].teams[0].strStadium;
                 this.teams[i].formed = this.infoTeams[i].teams[0].intFormedYear;
                 this.teams[i].description = this.infoTeams[i].teams[0].strDescriptionEN;
-                console.log(this.teams[i]);
-                
             }
             
 

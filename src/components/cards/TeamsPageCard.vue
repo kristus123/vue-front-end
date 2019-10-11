@@ -1,22 +1,20 @@
 <template>
     <b-container id="container">
-        <div v-if="showTeam">
-            You cliked!
-            {{this.someId}}
-        </div>
         <b-row>
             <b-col id="cards" cols="3" v-for="team in teams" :key="team.id">
-                <div id="background-card" v-on:click="onCardClick(team.id)">
+                <router-link class="router" :to="{ name: 'teamPage', params: {teamId, teams} }">
+                <div id="background-card" v-on:click="onClickCard(team.id)">
                     <h5 id="teamTitle" class="text-white"><img id="teamLogo" :src="team.img"/>{{team.name}}</h5>
                     <b-card id="cardTeam">
                         <div id="info">
-                            <p><strong>Stadium: </strong>{{team.stadium}}</p>
-                            <p><strong>Year formed: </strong>{{team.formed}}</p>
-                            <p><strong>Coach: </strong>{{team.coach}}</p>
-                            <p id="description"><strong>Description: </strong>{{team.description}}</p>
+                            <b-row><p><strong>Stadium: </strong>{{team.stadium}}</p></b-row>
+                            <b-row><p><strong>Year formed: </strong>{{team.formed}}</p></b-row>
+                            <b-row><p><strong>Coach: </strong>{{team.coach}}</p></b-row>
+                            <b-row><p id="description"><strong>Description: </strong>{{team.description}}</p></b-row>
                         </div>
                     </b-card>
                 </div>
+                </router-link>
             </b-col>
         </b-row>
     </b-container>
@@ -30,16 +28,13 @@ export default {
     props : ["teams"],
     data() {
         return {
-            showTeam: false,
-            someId : ''
+            teamId : 'some id'
         }
     },
 
     methods: {
-        onCardClick(id) {
-            this.showTeam = true;
-            this.someId = id;
-
+        onClickCard(id) {
+            this.teamId = id;
         }
     }
     
@@ -86,9 +81,15 @@ export default {
 }
 
 #cards:hover{
-    transform: rotateZ(4deg);
+    transform: rotateZ(2deg);
     transition-duration: .3s;
 
+
+}
+
+#cards:active {
+    transform: scale(1.1, 1.1);
+    transition-duration: .1s;
 }
 
 
