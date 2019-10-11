@@ -5,6 +5,14 @@ import LoginPage from '@/views/LoginPage'
 import SignupPage from '@/views/SignupPage'
 import TeamsPage from '@/views/TeamsPage'
 
+import PlayerCard  from '@/views/players/PlayerCard'
+import PlayerStats from '@/views/players/PlayerStats'
+
+import FlexibleForm from '@/components/forms/FlexibleForm';
+import AddTeam from '@/components/userPanelComponents/AddTeam';
+import UserPanel from '@/views/players/userpanel/UserPanel';
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -17,16 +25,50 @@ export default new Router({
       component: Home
     },
     {
-      path : "/login",
-      name : "login",
-      component : LoginPage
+      path: "/login",
+      name: "login",
+      component: LoginPage
     },
     {
-      path : "/signup",
-      name : "signup",
-      component : SignupPage
+      path: "/signup",
+      name: "signup",
+      component: SignupPage
 
     },
+
+    {
+      path: "/player",
+      name: "player",
+      children: [
+        {
+          path: "playerCard",
+          component: PlayerCard
+        },
+        {
+          path     : "playerStats",
+          component: PlayerStats
+        },
+        
+      ]
+    },
+    {
+      path: "/UserPanel",
+      name: "UserPanel",
+      component: UserPanel,
+      children : [
+        {
+          path     : "AddTeam",
+          component: AddTeam
+        },
+      ]
+    },
+
+    {
+      path: "/testForm",
+      name: "testForm",
+      component: FlexibleForm
+    },
+
     {
       path : "/teamsPage",
       name : "teamsPage",

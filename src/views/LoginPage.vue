@@ -3,12 +3,17 @@
   <b-row class="justify-content-center">
   <div id="loginForm">
     <h2 id="login-header">LOG IN</h2>
-    <b-form>
+    <b-form v-on:submit.prevent="onSubmitForm">
 
       <b-form-row class="justify-content-center">
         <b-col cols="8">
-          <b-form-group class="text-white" id="email-input-group" label="Email address" label-for="email-input">
-            <b-form-input id="email-input" type="email" placeholder="Enter email" required></b-form-input>
+          <b-form-group class="text-white" id="email-input-group" label="Username" label-for="email-input">
+            <b-input-group>
+                <b-input-group-prepend>
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </b-input-group-prepend>
+            <b-form-input id="email-input" type="text" v-model="username" placeholder="Enter Username" required></b-form-input>
+            </b-input-group>
           </b-form-group>
         </b-col>
       </b-form-row>
@@ -16,8 +21,20 @@
     <b-form-row class="justify-content-center">
       <b-col cols="8">
         <b-form-group class="text-white" id="password-input-group" label="Password" label-for="password-input">
-          <b-form-input id="password-input" type="password" placeholder="Enter password" required></b-form-input>
+           <b-input-group>
+                <b-input-group-prepend>
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                </b-input-group-prepend>
+                
+          <b-form-input id="password-input" type="password" v-model="password" placeholder="Enter password" required></b-form-input>
+           </b-input-group>
         </b-form-group>
+      </b-col>
+    </b-form-row>
+
+    <b-form-row class="justify-content-center">
+      <b-col cols="8">
+        <b-alert v-if="showErrorMsg" id="errMsg" show variant="danger">{{errorMsg}}</b-alert>
       </b-col>
     </b-form-row>
 
@@ -33,7 +50,7 @@
 
     <b-form-row class="justify-content-center">
       <b-col cols="8">
-        <b-button id="submitBtn" type="submit" variant="success">Login</b-button>
+        <b-button id="submitBtn" type="submit" variant="success" value="submit">Login</b-button>
       </b-col>
     </b-form-row>
 
@@ -54,31 +71,41 @@ export default {
   data() { return {
     username :"",
     password :"",
-    signedIn : authenticationService.isAuthenticated()
+    signedIn : authenticationService.isAuthenticated(),
+    errorMsg : "Username or password is incorrect!",
+    showErrorMsg : false
   }},
 
   methods : {
+
+    onSubmitForm() {
+      if (this.login()) {
+
+      } else { 
+        this.showErrorMsg = true;
+      }
+    },
+
     async login() {
-
-
-
 
       const cred = await authenticationService.login(this.username, this.password);
 
       if (cred === false) {
-        //console.log(cred)
-        console.log("failed")
+        return false;
+
         
       } else {
         
-          this.$store.state.userObject = await  authenticationService.getUserInfo()
-          console.log(this.$store.state.userObject.email);
+          this.$store.state.userObject = await authenticationService.getUserInfo()
+          console.log(this.$store.state.userObject.username);
           console.log(this.signedIn)
           this.signedIn = true;
+          
+          
         
       }
-      this.username = "";
-      this.password = ""; 
+      // this.username = "";
+      // this.password = ""; 
     }
   }
 
@@ -127,6 +154,10 @@ export default {
 
 #footer-content {
   padding-top: 20px;
+}
+
+#errMsg {
+  font-size: 13px;
 }
 
 </style>
