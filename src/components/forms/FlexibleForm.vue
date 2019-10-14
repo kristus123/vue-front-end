@@ -1,4 +1,5 @@
 <template>
+<form @submit.prevent="submitForm">
   <center>
     <div> <!-- style="padding:20px; margin-top:30px;" -->
       <b-card
@@ -21,8 +22,9 @@
               </b-col>
               <b-col sm="12">
                 <b-form-input
+                :type="input.type"
                   v-model="input.value"
-                  id="input-default"
+                  :name="input.title"
                   :placeholder="input.placeholder"
                   required
                 />
@@ -32,10 +34,11 @@
         </div>
 
         <hr />
-        <b-button @click="submitForm" variant="primary">Search</b-button>
+        <b-button type="submit" variant="primary">Search</b-button>
       </b-card>
     </div>
   </center>
+</form>
 </template>
 
 <script>
@@ -43,7 +46,7 @@ export default {
   methods: {
     submitForm() {
       this.$emit("clicked", this.info);
-      console.log(this.info);
+      //e.preventDefault();
     }
   },
   props: ["inputs", "width"],

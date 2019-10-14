@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="addTeam">
-     
+    <center>
+      <div class="addTeam">
         <div v-if="step === 0">
           <label>
             <h3>Name of team</h3>
@@ -11,35 +11,62 @@
           <label>
             <h3>Select a coach</h3>
           </label>
-          <b-form-select class="form" v-model="selected" :options="coaches"></b-form-select>
+          <b-form-select class="form" v-model="selectedCoach" :options="coaches"></b-form-select>
 
           <label>
             <h3>Select an owner</h3>
           </label>
-          <b-form-select class="form" v-model="selected" :options="owners"></b-form-select>
+          <b-form-select class="form" v-model="selectedOwner" :options="owners"></b-form-select>
 
           <hr />
-          <label>next Step</label>
-          <br />
+
           <b-button @click="next">Add players to the team</b-button>
         </div>
- 
-    </div>
+      </div>
+    </center>
 
     <div v-if="step === 1">
       <h1>Select players</h1>
-      <player-card>
-        <hr>
-        <b-button variant="outline-primary">Select for your Team</b-button>
-      </player-card>
-    
-    
-    <center>
-      <hr>
-      <h1>Next Step</h1>
-      <b-button style="margin-bottom:20px;">Soon done !</b-button>
-    </center>
+      <hr />
+      <b-container class="bv-example-row">
+        <b-row>
+          <b-col cols="9">
+            <player-card>
+              <hr />
 
+              <b-button
+                v-on:click="() => addToTeam(1)"
+                v-if="!selectedPlayers.includes(1)"
+                variant="outline-primary"
+              >Select for your Team</b-button>
+
+              <b-button
+                
+                v-on:click="() => removeFromTeam(1)"
+                v-else
+                variant="outline-warning"
+              >Already selected</b-button>
+            </player-card>
+          </b-col>
+          <b-col>
+            <div class="card">
+              <div class="card-body">
+                <h4>Currently selected</h4>
+
+                <ul>
+                  <li v-for="player in selectedPlayers">{{player}}</li>
+                </ul>
+              </div>
+            </div>
+          </b-col>
+        </b-row>
+      </b-container>
+
+      <center>
+        <hr />
+        <h1>Next Step</h1>
+        <b-button style="margin-bottom:20px;">Soon done !</b-button>
+      </center>
     </div>
   </div>
 </template>
@@ -51,6 +78,14 @@ export default {
   components: { FlexibleForm, PlayerCard },
 
   methods: {
+    addToTeam(player) {
+      this.selectedPlayers.push(player);
+    },
+
+    removeFromTeam(id) {
+      this.selectedPlayers.splice( this.selectedPlayers.indexOf(id), 1 );
+    },
+
     next() {
       this.step++;
     }
@@ -59,12 +94,13 @@ export default {
   data() {
     return {
       step: 0,
-      selected: null,
+      selectedCoach: null,
+      selectedOwner: null,
       name: "",
       coach: "",
       owner: "",
 
-      players: [],
+      selectedPlayers: [2],
 
       coaches: [
         { value: null, text: "Select a coach" },

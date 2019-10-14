@@ -3,13 +3,19 @@
     <center>
       <div class="topnav">
         <router-link to="/UserPanel/AddTeam">Add team</router-link>
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
-        <a href="#about">About</a>
-      </div>
-    </center>
 
+        <router-link to="/UserPanel/createPerson">Create Person</router-link>
+        
+
+        <router-link to="/UserPanel/createMatch">Create a match</router-link>
+        
+        
+      </div>
+    
+
+    </center>
     <router-view  style="margin-top:10px;" />
+
   </div>
 </template>
 
