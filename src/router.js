@@ -11,6 +11,8 @@ import FlexibleForm from '@/components/forms/FlexibleForm';
 import AddTeam from '@/components/userPanelComponents/AddTeam';
 import UserPanel from '@/views/players/userpanel/UserPanel';
 
+import AdminHome from '@/views/admin/Home';
+
 
 Vue.use(Router)
 
@@ -60,6 +62,11 @@ export default new Router({
           component: AddTeam
         },
       ]
+    },
+    {
+      path: "/admin",
+      name: "admin",
+      component: AdminHome
     },
 
     {
