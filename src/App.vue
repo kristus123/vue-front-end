@@ -26,4 +26,14 @@ export default {
   color: #2c3e50;
   margin-top: 0px;
 }
+
+.router{
+  all:unset;
+
+}
+
+.router:hover {
+  text-decoration: none;
+  color:inherit;
+}
 </style>
