@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import LoginPage from '@/views/LoginPage'
 import SignupPage from '@/views/SignupPage'
+import TeamsPage from '@/views/TeamsPage'
+import TeamPage from '@/views/TeamPage'
 
 import PlayerCard  from '@/views/players/PlayerCard'
 import PlayerStats from '@/views/players/PlayerStats'
@@ -75,6 +77,17 @@ export default new Router({
       component: FlexibleForm
     },
 
+    {
+      path : "/teamsPage",
+      name : "teamsPage",
+      component : TeamsPage
+    },
+    {
+      path : "/teamPage",
+      name : "teamPage",
+      component : TeamPage,
+      props: true
+    },
     {
       path: '/about',
       name: 'about',
