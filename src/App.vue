@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <Navbar></Navbar>
+      <Navbar v-if="showNavbar"></Navbar>
     </div>
     <router-view/>
   </div>
@@ -13,6 +13,11 @@ import Navbar from '@/components/Nav/Navbar.vue'
 export default {
   components: {
     Navbar
+  },
+  data() {
+    return {
+      showNavbar : false
+    }
   }
 }
 </script>

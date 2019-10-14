@@ -1,16 +1,21 @@
 <template>
+<b-container>
     <sidebar-menu  style="text-align: left;" :menu="menu"/>
-    
+    <router-view style="margin: 20px;"/>
+</b-container>
+
 </template>
 
 <script>
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
 import {SidebarMenu} from 'vue-sidebar-menu'
+import Separator from '@/components/Nav/admin/Separator'
 
 
 export default {
     components: {
-        SidebarMenu
+        SidebarMenu,
+        Separator
     },
 
     data() {
@@ -18,11 +23,14 @@ export default {
             menu: [
                 {
                     header: true,
-                    title: "Main Nav",
+                    title: "Admin",
                     hiddenOnCollapse: true
                 },
                 {
-                    href:"#",
+                    href: {
+                        path: '/admin'
+                    },
+
                     title: "Dashboard",
                     icon: "fas fa-columns"
                 },
@@ -33,6 +41,50 @@ export default {
                         {
                             title: "Player",
                             icon: 'fas fa-running',
+                            child: [
+                                {
+                                    href: {
+                                        path:"/admin/add/player"
+                                    },
+                                    title: "Add",
+                                    icon: 'fas fa-plus-circle'
+                                },
+                                {
+                                    href: "#",
+                                    title: "Delete",
+                                    icon: 'fas fa-minus-circle'
+                                },
+                                {
+                                    href:"#",
+                                    title: "Update",
+                                    icon: "fas fa-wrench"
+                                }
+                            ]
+                        },
+                        {
+                            title: "Person",
+                            icon: 'fas fa-user',
+                            child: [
+                                {
+                                    href: "#",
+                                    title: "Add",
+                                    icon: 'fas fa-plus-circle'
+                                },
+                                {
+                                    href: "#",
+                                    title: "Delete",
+                                    icon: 'fas fa-minus-circle'
+                                },
+                                {
+                                    href:"#",
+                                    title: "Update",
+                                    icon: "fas fa-wrench"
+                                }
+                            ]
+                        }, 
+                        {
+                            title: "Association",
+                            icon: 'fas fa-arrows-alt',
                             child: [
                                 {
                                     href: "#",
@@ -51,251 +103,209 @@ export default {
                                 }
                             ]
                         },
-                {
-                    title: "Person",
-                    icon: 'fas fa-user',
-                    child: [
                         {
-                            href: "#",
-                            title: "Add",
-                            icon: 'fas fa-plus-circle'
+                            title: "Coach",
+                            icon: 'fas fa-user-shield',
+                            child: [
+                                {
+                                    href: "#",
+                                    title: "Add",
+                                    icon: 'fas fa-plus-circle'
+                                },
+                                {
+                                    href: "#",
+                                    title: "Delete",
+                                    icon: 'fas fa-minus-circle'
+                                },
+                                {
+                                    href:"#",
+                                    title: "Update",
+                                    icon: "fas fa-wrench"
+                                }
+                            ]
                         },
                         {
-                            href: "#",
-                            title: "Delete",
-                            icon: 'fas fa-minus-circle'
+                            title: "Owner",
+                            icon: 'fas fa-user-tie',
+                            child: [
+                                {
+                                    href: "#",
+                                    title: "Add",
+                                    icon: 'fas fa-plus-circle'
+                                },
+                                {
+                                    href: "#",
+                                    title: "Delete",
+                                    icon: 'fas fa-minus-circle'
+                                },
+                                {
+                                    href:"#",
+                                    title: "Update",
+                                    icon: "fas fa-wrench"
+                                }
+                            ]
                         },
                         {
-                            href:"#",
-                            title: "Update",
-                            icon: "fas fa-wrench"
-                        }
-                    ]
-                }, 
-                {
-                    title: "Association",
-                    icon: 'fas fa-arrows-alt',
-                    child: [
-                        {
-                            href: "#",
-                            title: "Add",
-                            icon: 'fas fa-plus-circle'
+                            title: "Contact",
+                            icon: 'fas fa-address-book',
+                            child: [
+                                {
+                                    href: "#",
+                                    title: "Add",
+                                    icon: 'fas fa-plus-circle'
+                                },
+                                {
+                                    href: "#",
+                                    title: "Delete",
+                                    icon: 'fas fa-minus-circle'
+                                },
+                                {
+                                    href:"#",
+                                    title: "Update",
+                                    icon: "fas fa-wrench"
+                                }
+                            ]
                         },
                         {
-                            href: "#",
-                            title: "Delete",
-                            icon: 'fas fa-minus-circle'
+                            title: "Match Position",
+                            icon: 'fas fa-list-ol',
+                            child: [
+                                {
+                                    href: "#",
+                                    title: "Add",
+                                    icon: 'fas fa-plus-circle'
+                                },
+                                {
+                                    href: "#",
+                                    title: "Delete",
+                                    icon: 'fas fa-minus-circle'
+                                },
+                                {
+                                    href:"#",
+                                    title: "Update",
+                                    icon: "fas fa-wrench"
+                                }
+                            ]
                         },
                         {
-                            href:"#",
-                            title: "Update",
-                            icon: "fas fa-wrench"
-                        }
-                    ]
-                },
-                {
-                    title: "Coach",
-                    icon: 'fas fa-user-shield',
-                    child: [
-                        {
-                            href: "#",
-                            title: "Add",
-                            icon: 'fas fa-plus-circle'
+                            title: "Result",
+                            icon: 'fas fa-medal',
+                            child: [
+                                {
+                                    href: "#",
+                                    title: "Add",
+                                    icon: 'fas fa-plus-circle'
+                                },
+                                {
+                                    href: "#",
+                                    title: "Delete",
+                                    icon: 'fas fa-minus-circle'
+                                },
+                                {
+                                    href:"#",
+                                    title: "Update",
+                                    icon: "fas fa-wrench"
+                                }
+                            ]
                         },
                         {
-                            href: "#",
-                            title: "Delete",
-                            icon: 'fas fa-minus-circle'
+                            title: "Team",
+                            icon: 'fas fa-users',
+                            child: [
+                                {
+                                    href: "#",
+                                    title: "Add",
+                                    icon: 'fas fa-plus-circle'
+                                },
+                                {
+                                    href: "#",
+                                    title: "Delete",
+                                    icon: 'fas fa-minus-circle'
+                                },
+                                {
+                                    href:"#",
+                                    title: "Update",
+                                    icon: "fas fa-wrench"
+                                }
+                            ]
                         },
                         {
-                            href:"#",
-                            title: "Update",
-                            icon: "fas fa-wrench"
-                        }
-                    ]
-                },
-                {
-                    title: "Owner",
-                    icon: 'fas fa-user-tie',
-                    child: [
-                        {
-                            href: "#",
-                            title: "Add",
-                            icon: 'fas fa-plus-circle'
+                            title: "Address",
+                            icon: 'fas fa-address-card',
+                            child: [
+                                {
+                                    href: "#",
+                                    title: "Add",
+                                    icon: 'fas fa-plus-circle'
+                                },
+                                {
+                                    href: "#",
+                                    title: "Delete",
+                                    icon: 'fas fa-minus-circle'
+                                },
+                                {
+                                    href:"#",
+                                    title: "Update",
+                                    icon: "fas fa-wrench"
+                                }
+                            ]
                         },
                         {
-                            href: "#",
-                            title: "Delete",
-                            icon: 'fas fa-minus-circle'
+                            title: "Location",
+                            icon: 'fas fa-map-marked-alt',
+                            child: [
+                                {
+                                    href: "#",
+                                    title: "Add",
+                                    icon: 'fas fa-plus-circle'
+                                },
+                                {
+                                    href: "#",
+                                    title: "Delete",
+                                    icon: 'fas fa-minus-circle'
+                                },
+                                {
+                                    href:"#",
+                                    title: "Update",
+                                    icon: "fas fa-wrench"
+                                }
+                            ]
                         },
                         {
-                            href:"#",
-                            title: "Update",
-                            icon: "fas fa-wrench"
-                        }
-                    ]
-                },
-                {
-                    title: "Contact",
-                    icon: 'fas fa-address-book',
-                    child: [
-                        {
-                            href: "#",
-                            title: "Add",
-                            icon: 'fas fa-plus-circle'
+                            title: "Season",
+                            icon: 'fas fa-calendar-alt',
+                            child: [
+                                {
+                                    href: "#",
+                                    title: "Add",
+                                    icon: 'fas fa-plus-circle'
+                                },
+                                {
+                                    href: "#",
+                                    title: "Delete",
+                                    icon: 'fas fa-minus-circle'
+                                },
+                                {
+                                    href:"#",
+                                    title: "Update",
+                                    icon: "fas fa-wrench"
+                                }
+                            ]
                         },
                         {
-                            href: "#",
-                            title: "Delete",
-                            icon: 'fas fa-minus-circle'
-                        },
-                        {
-                            href:"#",
-                            title: "Update",
-                            icon: "fas fa-wrench"
-                        }
-                    ]
-                },
-                {
-                    title: "Match Position",
-                    icon: 'fas fa-list-ol',
-                    child: [
-                        {
-                            href: "#",
-                            title: "Add",
-                            icon: 'fas fa-plus-circle'
-                        },
-                        {
-                            href: "#",
-                            title: "Delete",
-                            icon: 'fas fa-minus-circle'
-                        },
-                        {
-                            href:"#",
-                            title: "Update",
-                            icon: "fas fa-wrench"
-                        }
-                    ]
-                },
-                {
-                    title: "Result",
-                    icon: 'fas fa-medal',
-                    child: [
-                        {
-                            href: "#",
-                            title: "Add",
-                            icon: 'fas fa-plus-circle'
-                        },
-                        {
-                            href: "#",
-                            title: "Delete",
-                            icon: 'fas fa-minus-circle'
-                        },
-                        {
-                            href:"#",
-                            title: "Update",
-                            icon: "fas fa-wrench"
-                        }
-                    ]
-                },
-                {
-                    title: "Team",
-                    icon: 'fas fa-users',
-                    child: [
-                        {
-                            href: "#",
-                            title: "Add",
-                            icon: 'fas fa-plus-circle'
-                        },
-                        {
-                            href: "#",
-                            title: "Delete",
-                            icon: 'fas fa-minus-circle'
-                        },
-                        {
-                            href:"#",
-                            title: "Update",
-                            icon: "fas fa-wrench"
-                        }
-                    ]
-                },
-                {
-                    title: "Address",
-                    icon: 'fas fa-address-card',
-                    child: [
-                        {
-                            href: "#",
-                            title: "Add",
-                            icon: 'fas fa-plus-circle'
-                        },
-                        {
-                            href: "#",
-                            title: "Delete",
-                            icon: 'fas fa-minus-circle'
-                        },
-                        {
-                            href:"#",
-                            title: "Update",
-                            icon: "fas fa-wrench"
-                        }
-                    ]
-                },
-                {
-                    title: "Location",
-                    icon: 'fas fa-map-marked-alt',
-                    child: [
-                        {
-                            href: "#",
-                            title: "Add",
-                            icon: 'fas fa-plus-circle'
-                        },
-                        {
-                            href: "#",
-                            title: "Delete",
-                            icon: 'fas fa-minus-circle'
-                        },
-                        {
-                            href:"#",
-                            title: "Update",
-                            icon: "fas fa-wrench"
-                        }
-                    ]
-                },
-                {
-                    title: "Season",
-                    icon: 'fas fa-calendar-alt',
-                    child: [
-                        {
-                            href: "#",
-                            title: "Add",
-                            icon: 'fas fa-plus-circle'
-                        },
-                        {
-                            href: "#",
-                            title: "Delete",
-                            icon: 'fas fa-minus-circle'
-                        },
-                        {
-                            href:"#",
-                            title: "Update",
-                            icon: "fas fa-wrench"
-                        }
-                    ]
-                },
-                {
-                    title: "Goal Type",
-                    icon: 'fas fa-crosshairs',
-                    child: [
-                        {
-                            href: "#",
-                            title: "Add",
-                            icon: 'fas fa-plus-circle'
-                        },
-                        {
-                            href: "#",
-                            title: "Delete",
-                            icon: 'fas fa-minus-circle'
-                        },
+                            title: "Goal Type",
+                            icon: 'fas fa-crosshairs',
+                            child: [
+                                {
+                                    href: "#",
+                                    title: "Add",
+                                    icon: 'fas fa-plus-circle'
+                                },
+                                {
+                                    href: "#",
+                                    title: "Delete",
+                                    icon: 'fas fa-minus-circle'
+                                },
                                 {
                                     href:"#",
                                     title: "Update",
@@ -367,6 +377,20 @@ export default {
                             ]
                         }
                     ]
+                },
+                {
+                    component: Separator
+                },
+                {
+                    header: true,
+                    title: "Settings",
+                    hiddenOnCollapse: true
+
+                },
+                {
+                    href:"#",
+                    title: "Database",
+                    icon: "fas fa-database"
                 }
             ]
         }

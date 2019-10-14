@@ -1,5 +1,7 @@
 <template>
+<b-container>
     <admin-navbar/>
+</b-container>
     
 </template>
 

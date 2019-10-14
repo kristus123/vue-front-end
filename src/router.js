@@ -14,6 +14,7 @@ import AddTeam from '@/components/userPanelComponents/AddTeam';
 import UserPanel from '@/views/players/userpanel/UserPanel';
 
 import AdminHome from '@/views/admin/Home';
+import AddPlayer from '@/components/admin/player/AddPlayer'
 
 
 Vue.use(Router)
@@ -68,7 +69,13 @@ export default new Router({
     {
       path: "/admin",
       name: "admin",
-      component: AdminHome
+      component: AdminHome,
+      children: [
+        {
+          path: "add/player",
+          component: AddPlayer
+        },
+      ]
     },
 
     {
