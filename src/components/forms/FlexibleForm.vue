@@ -1,41 +1,32 @@
 <template>
-  <center>
-    <div> <!-- style="padding:20px; margin-top:30px;" -->
-      <b-card
-        overlay
-        :img-height="180 * inputs.length "
-        
-        img-src="https://images.pexels.com/photos/2799556/pexels-photo-2799556.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-        text-variant="dark"
-        :style="'max-width:' + width + ';'"
-      >
-        <div style="padding-top:40px;">
-          <div style="margin-bottom:20px;" v-for="input in inputs" v-bind:key="input.key">
-            <b-row class="my-1">
-              <b-col sm="2">
-                <label for="input-default" class="text-light">
-                  <strong>
-                    <h3 style="padding-bottom:5px;">{{input.title}}</h3>
-                  </strong>
-                </label>
-              </b-col>
-              <b-col sm="12">
-                <b-form-input
-                  v-model="input.value"
-                  id="input-default"
-                  :placeholder="input.placeholder"
-                  required
-                />
-              </b-col>
-            </b-row>
-          </div>
-        </div>
-
-        <hr />
-        <b-button @click="submitForm" variant="primary">Search</b-button>
-      </b-card>
+  <b-container :style="{width: width}">
+    <b-row class="justify-content-center">
+      <b-col cols="8">
+    <div class="flexForm" :style="{backgroundImage: 'url(' + image + ')'}">
+      <b-form class="addPlayerForm">
+        <b-form-row class="justify-content-center" v-for="input in inputs" :key="input.key">
+          <b-col cols="8">
+            <b-form-group :class="color" :label="input.title" style="text-align:left;">
+              <b-input-group>
+                <b-input-group-prepend>
+                  <span class="input-group-text"><i :class="input.icon"></i></span>
+                </b-input-group-prepend>
+                <b-form-input :type="input.type" v-model="input.value" :placeholder="input.placeholder" :required="input.required" :disabled="input.disabled"></b-form-input>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
+        <b-form-row class="justify-content-center">
+          <b-col cols="12" md="auto" style="padding:20px;">
+           <b-btn variant="success">Submit</b-btn>
+           <b-btn variant="danger">Reset</b-btn>
+          </b-col>
+        </b-form-row>
+      </b-form>
     </div>
-  </center>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
@@ -46,7 +37,7 @@ export default {
       console.log(this.info);
     }
   },
-  props: ["inputs", "width"],
+  props: ["inputs", "width", "color", "image"],
   data: function() {
     return {
       info: this.inputs
@@ -56,4 +47,20 @@ export default {
 </script>
 
 <style>
+
+.flexForm {
+  margin: 20px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+}
+
+.addPlayerForm {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+
 </style>
