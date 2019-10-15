@@ -15,6 +15,7 @@ import UserPanel from '@/views/players/userpanel/UserPanel';
 
 import AdminHome from '@/views/admin/Home';
 import AddPlayer from '@/components/admin/player/AddPlayer'
+import AddPerson from '@/components/admin/person/AddPerson'
 
 
 Vue.use(Router)
@@ -75,6 +76,10 @@ export default new Router({
           path: "add/player",
           component: AddPlayer
         },
+        {
+          path: "add/person",
+          component: AddPerson
+        }
       ]
     },
 

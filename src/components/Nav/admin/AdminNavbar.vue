@@ -66,7 +66,7 @@ export default {
                             icon: 'fas fa-user',
                             child: [
                                 {
-                                    href: "#",
+                                    href: "/admin/add/person",
                                     title: "Add",
                                     icon: 'fas fa-plus-circle'
                                 },
