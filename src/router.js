@@ -17,7 +17,16 @@ import AdminHome from '@/views/admin/Home';
 import AddPlayer from '@/components/admin/player/AddPlayer'
 
 import CreatePerson from '@/components/admin/CreatePerson';
-import CreateMatch from '@/components/admin/CreateMatch'
+import CreateMatch from '@/components/admin/CreateMatch';
+
+import AddCoach from '@/components/admin/coach/AddCoach';
+import DeleteCoach from '@/components/admin/coach/DeleteCoach';
+import UpdateCoach from '@/components/admin/coach/UpdateCoach';
+
+import AddAddress from '@/components/admin/address/AddAddress';
+import DeleteAddress from '@/components/admin/address/DeleteAddress';
+import UpdateAddress from '@/components/admin/address/UpdateAddress';
+import ShowAllAddress from '@/components/admin/address/ShowAllAddress';
 
 Vue.use(Router)
 
@@ -88,6 +97,41 @@ export default new Router({
           path: "add/player",
           component: AddPlayer
         },
+        {
+          path: "add/coach",
+          component: AddCoach
+        },
+
+        {
+          path: "delete/coach",
+          component: DeleteCoach
+        },
+
+        {
+          path: "update/coach",
+          component: UpdateCoach
+        },
+
+
+      
+        {
+          path: "show/address",
+          component: ShowAllAddress
+        },
+
+
+        {
+          path: "add/address",
+          component: AddAddress
+        },
+        {
+          path: "delete/address",
+          component: DeleteAddress
+        },
+        {
+          path: "update/address/:addressId",
+          component: UpdateAddress
+        }        
       ]
     },
 
