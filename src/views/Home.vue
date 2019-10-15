@@ -30,9 +30,9 @@ export default {
   },
   data : function() {return {
     inputs : [
-      {title : "name", placeholder : "Search for a player"},
-      {title : "age", placeholder : "age of player "},
-      {title : "team", placeholder : "What team is the player on"},
+      {title : "name", placeholder : "Search for a player", type:"email"},
+      {title : "age", placeholder : "age of player ", type:"email"},
+      {title : "team", placeholder : "What team is the player on", type:"number"},
     ]
   }},
   name: "home",

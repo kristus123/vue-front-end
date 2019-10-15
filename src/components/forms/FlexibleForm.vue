@@ -47,6 +47,9 @@ export default {
   methods: {
     submitForm() {
       this.$emit("clicked", this.info);
+<<<<<<< HEAD
+      //e.preventDefault();
+=======
       console.log(this.info);
     },
     resetForm() {
@@ -54,6 +57,7 @@ export default {
         console.log(input);
       });
 
+>>>>>>> 990779d16797f379277cf4c79255b0e8b1b054ec
     }
   },
   props: ["inputs", "width", "color", "image"],
