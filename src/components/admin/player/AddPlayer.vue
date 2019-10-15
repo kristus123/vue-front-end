@@ -1,7 +1,7 @@
 <template>
     <b-container>
         <h1>Add a player</h1>
-        <flexible-form :inputs="inputs" width="100%" :image="image" :color="textColor"/>
+        <flexible-form :inputs="inputs" width="100%" :image="image" :color="textColor" @clicked="submitForm"/>
     </b-container>
 </template>
 
@@ -14,6 +14,14 @@ export default {
     components: {
         FlexibleForm
     },
+
+    methods: {
+        submitForm (value) {
+        console.log("____________")
+        console.log(value) // someValue
+        }
+    },
+
     data() {
         return {
             textColor: "text-black",
