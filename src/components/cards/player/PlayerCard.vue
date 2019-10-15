@@ -1,10 +1,8 @@
 <template>
-    <b-container>
         
         <b-card
             title="Ronaldo"
             tag="article"
-            style="max-width: 20rem;"
             class="mb-2">
             <b-row class="justify-content-center">
                 <div class="b-card-image">
@@ -68,7 +66,6 @@
             
             <slot />    
         </b-card>
-    </b-container>
     
 </template>
 
@@ -77,6 +74,8 @@ import PlayerStatsBar from '@/components/charts/player/playerStatsBar';
 import PlayerStatsPie from '@/components/charts/player/playerStatsPie';
 
 export default {
+
+    name: 'PlayerCard',
     
     components: {
         PlayerStatsBar,

@@ -10,6 +10,7 @@
 <script>
 
 import FlexibleForm from '@/components/forms/FlexibleForm'
+import personService from '@/services/person/PersonService'
 
 export default {
     name: 'AddPerson',
@@ -21,9 +22,17 @@ export default {
         submitForm (value) {
         console.log("____________")
         console.log(value) // someValue
-        },
 
-        
+        var personObject = {
+            personId: value[0].value,
+            addressId: value[1].value,
+            firstName: value[2].value,
+            lastName: value[3].value,
+            dateOfBirth: value[4].value
+        }
+        console.log(personObject);
+        personService.addPerson(personObject);
+        },
     },
 
     data() {

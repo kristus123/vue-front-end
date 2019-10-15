@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
@@ -19,6 +18,7 @@ import CreatePerson from '@/components/admin/CreatePerson';
 import AdminHome from '@/views/admin/Home';
 import AddPlayer from '@/components/admin/player/AddPlayer'
 import AddPerson from '@/components/admin/person/AddPerson'
+import DeletePerson from '@/components/admin/person/DeletePerson'
 
 
 Vue.use(Router)
@@ -90,6 +90,10 @@ export default new Router({
         {
           path: "add/person",
           component: AddPerson
+        },
+        {
+          path: "delete/person",
+          component: DeletePerson
         }
       ]
     },
