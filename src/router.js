@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
@@ -12,6 +13,8 @@ import PlayerStats from '@/views/players/PlayerStats'
 import FlexibleForm from '@/components/forms/FlexibleForm';
 import AddTeam from '@/components/userPanelComponents/AddTeam';
 import UserPanel from '@/views/players/userpanel/UserPanel';
+import CreateMatch from '@/components/admin/CreateMatch';
+import CreatePerson from '@/components/admin/CreatePerson';
 
 import AdminHome from '@/views/admin/Home';
 import AddPlayer from '@/components/admin/player/AddPlayer'
@@ -65,6 +68,14 @@ export default new Router({
           path     : "AddTeam",
           component: AddTeam
         },
+        {
+          path     : "createMatch",
+          component: CreateMatch
+        },
+        {
+          path     : "CreatePerson",
+          component: CreatePerson
+        }
       ]
     },
     {

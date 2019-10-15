@@ -21,7 +21,9 @@ export default {
         submitForm (value) {
         console.log("____________")
         console.log(value) // someValue
-        }
+        },
+
+        
     },
 
     data() {
