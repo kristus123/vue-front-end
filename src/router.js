@@ -12,33 +12,13 @@ import PlayerStats from '@/views/players/PlayerStats'
 import FlexibleForm from '@/components/forms/FlexibleForm';
 import AddTeam from '@/components/userPanelComponents/AddTeam';
 import UserPanel from '@/views/players/userpanel/UserPanel';
+import CreateMatch from '@/components/admin/CreateMatch';
+import CreatePerson from '@/components/admin/CreatePerson';
 
 import AdminHome from '@/views/admin/Home';
 import AddPlayer from '@/components/admin/player/AddPlayer'
-
-import CreatePerson from '@/components/admin/CreatePerson';
-import CreateMatch from '@/components/admin/CreateMatch';
-
-import AddCoach from '@/components/admin/coach/AddCoach';
-import DeleteCoach from '@/components/admin/coach/DeleteCoach';
-import UpdateCoach from '@/components/admin/coach/UpdateCoach';
-
-import AddAddress from '@/components/admin/address/AddAddress';
-import DeleteAddress from '@/components/admin/address/DeleteAddress';
-import UpdateAddress from '@/components/admin/address/UpdateAddress';
-import ShowAllAddress from '@/components/admin/address/ShowAllAddress';
-
-import AddLocation from '@/components/admin/location/AddLocation';
-
-import ShowAllLocations from '@/components/admin/location/ShowAllLocations';
-
-import UpdateLocation from '@/components/admin/location/UpdateLocation';
-
-
-
-// // import AddAssociation from '@/components/admin/association/AddAssociation'
-// // import AllAssociations from '@/components/admin/association/AllAssociations';
-// import UpdateAssociation from '@/components/admin/association/UpdateAssociation'
+import AddPerson from '@/components/admin/person/AddPerson'
+import DeletePerson from '@/components/admin/person/DeletePerson'
 
 
 Vue.use(Router)
@@ -96,9 +76,6 @@ export default new Router({
           path     : "CreatePerson",
           component: CreatePerson
         }
-
-        
-        
       ]
     },
     {
@@ -111,52 +88,13 @@ export default new Router({
           component: AddPlayer
         },
         {
-          path: "add/coach",
-          component: AddCoach
-        },
-
-        {
-          path: "delete/coach",
-          component: DeleteCoach
-        },
-
-        {
-          path: "update/coach",
-          component: UpdateCoach
-        },
-      
-        {
-          path: "show/address",
-          component: ShowAllAddress
-        },
-
-
-        {
-          path: "add/address",
-          component: AddAddress
+          path: "add/person",
+          component: AddPerson
         },
         {
-          path: "delete/address",
-          component: DeleteAddress
-        },
-        {
-          path: "update/address/:addressId",
-          component: UpdateAddress
-        },
-        {
-          path: "add/location",
-          component: AddLocation
-        },
-
-        {
-          path: "show/location",
-          component: ShowAllLocations
-        },
-
-        {
-          path: "update/location/:id",
-          component: UpdateLocation
-        },      
+          path: "delete/person",
+          component: DeletePerson
+        }
       ]
     },
 

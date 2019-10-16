@@ -3,7 +3,7 @@
     <b-row class="justify-content-center">
       <b-col cols="8">
         <div class="flexForm" :style="{backgroundImage: 'url(' + image + ')'}">
-          <b-form class="addPlayerForm" v-on:submit.prevent="submitForm">
+          <b-form class="customForm" v-on:submit.prevent="submitForm">
             <b-form-row class="justify-content-center" v-for="input in inputs" :key="input.key">
               <b-col cols="8">
                 <b-form-group :class="color" :label="input.title" style="text-align:left;">
@@ -80,7 +80,7 @@ export default {
   border-radius: 10px;
 }
 
-.addPlayerForm {
+.customForm {
   padding-top: 20px;
   padding-bottom: 20px;
 }

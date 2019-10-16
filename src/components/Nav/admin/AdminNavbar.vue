@@ -65,21 +65,12 @@ export default {
                             title: "Person",
                             icon: 'fas fa-user',
                             child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
+                                        {href: { path: "/admin/add/person"},
+                                        title: "Add",
+                                        icon: 'fas fa-plus-circle'
                                 },
                                 {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
+                                    href: {path: "/admin/delete/person"}}
                             ]
                         }, 
                         {
