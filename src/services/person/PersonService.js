@@ -10,6 +10,11 @@ class PersonService {
         return instance.get(`/v1/admin/get/person`)
             .then(response => response.data);
     }
+
+    deletePerson(personId) {
+        return instance.delete(`/v1/admin/delete/person/${personId}`)
+            .then(response => response.data);
+    }
 }
 
 const personService = new PersonService();

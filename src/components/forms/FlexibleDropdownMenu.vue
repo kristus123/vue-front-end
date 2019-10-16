@@ -3,18 +3,18 @@
     <b-row class="justify-content-center">
         <b-col cols="8">
             <div class="flexDropdown" :style="{backgroundImage: 'url(' + image + ')'}">
-                <b-form class="customDropdownForm">
+                <b-form class="customDropdownForm" v-on:submit.prevent="submitForm">
                     <b-form-row class="justify-content-center">
                         <b-col cols="8">
                             <b-form-group>
                                 <b-input-group>
-                                    <b-form-select v-model="selected" :options="options" v-on:change="onSelected"></b-form-select>
+                                    <b-form-select v-if="options.length > 0" v-model="selected" :options="options" v-on:change="onSelected"></b-form-select>
                                 </b-input-group>
                             </b-form-group>
                         </b-col>
                     </b-form-row>
 
-                    <b-form-row v-if="cardType == 'person'" class="justify-content-center" style="padding-bottom: 20px;">
+                    <b-form-row v-if="cardType == 'person' && showCard" class="justify-content-center" style="padding-bottom: 20px;">
                         <b-col cols="8">
                             <person-card :info="selected"/>
                         </b-col>
@@ -44,6 +44,7 @@
 import PersonCard from '@/components/cards/person/PersonCard'
 import PlayerCard from '@/components/cards/player/PlayerCard'
 
+
 export default {
     name: 'FlexibleDropdownMenu',
 
@@ -56,16 +57,21 @@ export default {
     data() {
         return {
             selected: null,
-            showBtn: false
+            showBtn: false,
+            showCard: false
         }
     },
 
     methods: {
 
         onSelected() {
+            this.showCard = true;
             this.showBtn = true;
-        }
-
+        },
+        submitForm() {
+            this.$emit("clicked", this.selected);
+            //console.log(this.selected);
+        },
     }
     
 }
