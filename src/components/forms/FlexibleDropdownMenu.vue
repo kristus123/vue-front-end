@@ -14,19 +14,19 @@
                         </b-col>
                     </b-form-row>
 
-                    <b-form-row v-if="cardType == 'person' && showCard" class="justify-content-center" style="padding-bottom: 20px;">
+                    <b-form-row id="personCard" v-if="cardType == 'person' && this.onShow" class="justify-content-center" style="padding-bottom: 20px;">
                         <b-col cols="8">
                             <person-card :info="selected"/>
                         </b-col>
                     </b-form-row>
 
-                    <b-form-row v-if="cardType == 'player'" class="justify-content-center" style="padding-bottom: 20px;">
+                    <b-form-row v-if="cardType == 'player' && this.onShow" class="justify-content-center" style="padding-bottom: 20px;">
                         <b-col cols="8">
                             <player-card/>
                         </b-col>
                     </b-form-row>
 
-                    <b-form-row class="justify-content-center" v-if="showBtn">
+                    <b-form-row class="justify-content-center" v-if="this.onShow">
                         <b-col cols="8">
                             <b-btn variant="danger" type="submit" value="submit">Delete</b-btn>
                             <b-btn variant="light">Cancel</b-btn>
@@ -57,20 +57,41 @@ export default {
     data() {
         return {
             selected: null,
-            showBtn: false,
-            showCard: false
+            onShow: false,
         }
     },
 
     methods: {
 
         onSelected() {
-            this.showCard = true;
-            this.showBtn = true;
+
+            this.onShow = true;
+            
         },
         submitForm() {
+            
             this.$emit("clicked", this.selected);
-            //console.log(this.selected);
+
+            this.animate('personCard', 'zoomOutRight', () => {
+                this.onShow = false;
+                this.selected = null;
+            });
+        },
+
+        animate(element, animationName, callback) {
+
+            const node = document.getElementById(element)
+            node.classList.add('animated', animationName)
+
+            function handleAnimationEnd() {
+                node.classList.remove('animated', animationName)
+                node.removeEventListener('animationend', handleAnimationEnd)
+
+                if (typeof callback === 'function') callback()
+            }
+
+            node.addEventListener('animationend', handleAnimationEnd)
+
         },
     }
     

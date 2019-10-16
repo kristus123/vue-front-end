@@ -1,7 +1,7 @@
 <template>
 <b-container>
     <h1 style="color:black; padding-bottom: 10px;">Delete a person</h1>
-    <flexible-dropdown-menu :options="options" :cardType="cardType" :image="image" @clicked="submitForm"/>
+    <flexible-dropdown-menu :options="options" :cardType="cardType" :image="image" :showCard="showCard" :showBtn="showBtn" @clicked="submitForm"/>
 </b-container>
     
 </template>
@@ -43,13 +43,32 @@ export default {
      async submitForm (value) {
             let person = await personService.deletePerson(value.personId);
             let updatedOptions = this.updateOptions(this.options, person)
-            console.log(updatedOptions);
+            this.options = updatedOptions;
+            //this.onSelected(false);
+            console.log(this.options);
         },
 
         updateOptions(array, value) {
             return array.filter(function(element){
-                return element != value;
+
+                if(element.value != null) {
+                    return element.value.personId != value.personId;
+                } else {
+                    return element.value != value;
+                }
+                
             });
+        },
+
+        onSelected(show) {
+            if(show === true) {
+                this.showCard = true;
+                this.showBtn = true;
+            } else {
+                this.showCard = false;
+                this.showBtn = false;
+            }
+
         }
     },
 
@@ -58,6 +77,8 @@ export default {
             options: [],
 
             cardType: 'person',
+            showCard: false,
+            showBtn: false,
             image: require(`@/assets/adult-dark-fashion-53754.jpg`)
         }
     }
