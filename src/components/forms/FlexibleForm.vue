@@ -3,7 +3,7 @@
     <b-row class="justify-content-center">
       <b-col cols="8">
         <div class="flexForm" :style="{backgroundImage: 'url(' + image + ')'}">
-          <b-form class="addPlayerForm" v-on:submit.prevent="submitForm">
+          <b-form class="customForm" v-on:submit.prevent="submitForm">
             <b-form-row class="justify-content-center" v-for="input in inputs" :key="input.key">
               <b-col cols="8">
                 <b-form-group :class="color" :label="input.title" style="text-align:left;">
@@ -47,9 +47,6 @@ export default {
   methods: {
     submitForm() {
       this.$emit("clicked", this.info);
-<<<<<<< HEAD
-      //e.preventDefault();
-=======
       console.log(this.info);
     },
     resetForm() {
@@ -57,7 +54,6 @@ export default {
         console.log(input);
       });
 
->>>>>>> 990779d16797f379277cf4c79255b0e8b1b054ec
     }
   },
   props: ["inputs", "width", "color", "image"],
@@ -84,7 +80,7 @@ export default {
   border-radius: 10px;
 }
 
-.addPlayerForm {
+.customForm {
   padding-top: 20px;
   padding-bottom: 20px;
 }

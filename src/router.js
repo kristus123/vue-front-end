@@ -12,12 +12,14 @@ import PlayerStats from '@/views/players/PlayerStats'
 import FlexibleForm from '@/components/forms/FlexibleForm';
 import AddTeam from '@/components/userPanelComponents/AddTeam';
 import UserPanel from '@/views/players/userpanel/UserPanel';
+import CreateMatch from '@/components/admin/CreateMatch';
+import CreatePerson from '@/components/admin/CreatePerson';
 
 import AdminHome from '@/views/admin/Home';
 import AddPlayer from '@/components/admin/player/AddPlayer'
+import AddPerson from '@/components/admin/person/AddPerson'
+import DeletePerson from '@/components/admin/person/DeletePerson'
 
-import CreatePerson from '@/components/admin/CreatePerson';
-import CreateMatch from '@/components/admin/CreateMatch'
 
 Vue.use(Router)
 
@@ -74,9 +76,6 @@ export default new Router({
           path     : "CreatePerson",
           component: CreatePerson
         }
-
-        
-        
       ]
     },
     {
@@ -88,6 +87,14 @@ export default new Router({
           path: "add/player",
           component: AddPlayer
         },
+        {
+          path: "add/person",
+          component: AddPerson
+        },
+        {
+          path: "delete/person",
+          component: DeletePerson
+        }
       ]
     },
 
