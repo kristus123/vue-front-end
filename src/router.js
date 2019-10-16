@@ -20,6 +20,15 @@ import AddPlayer from '@/components/admin/player/AddPlayer'
 import AddPerson from '@/components/admin/person/AddPerson'
 import DeletePerson from '@/components/admin/person/DeletePerson'
 
+import AddAssociation from '@/components/admin/association/AddAssociation';
+import AllAssociations from '@/components/admin/association/AllAssociations';
+
+import UpdateAssociation from '@/components/admin/association/UpdateAssociation';
+
+import AllUsers from '@/components/admin/userManagement/AllUsers';
+
+import UpdateUser from '@/components/admin/userManagement/UpdateUser';
+
 
 Vue.use(Router)
 
@@ -94,7 +103,41 @@ export default new Router({
         {
           path: "delete/person",
           component: DeletePerson
-        }
+        },
+        {
+          path: "add/association",
+          component: AddAssociation
+        },
+
+        {
+          path: "all/association",
+          component: AllAssociations
+        },   
+        {
+          path: "update/association/:id",
+          component: UpdateAssociation
+        },   
+
+        {
+          path: "manage/user",
+          component: AllUsers
+        },
+
+
+        {
+          path: "manage/user/:id",
+          component: UpdateUser
+        },
+
+
+        
+
+
+
+
+        
+        
+        
       ]
     },
 

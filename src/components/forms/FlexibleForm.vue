@@ -11,7 +11,7 @@
                     <b-input-group-prepend>
                       <span class="input-group-text"><i :class="input.icon"></i></span>
                     </b-input-group-prepend>
-                    <b-form-input :type="input.type" v-model="input.value" :placeholder="input.placeholder" :required="input.required" :disabled="input.disabled"></b-form-input>
+                    <b-form-input :id="input.id" :type="input.type" v-model="input.value" :placeholder="input.placeholder" :required="input.required" :disabled="input.disabled"></b-form-input>
                   </b-input-group>
                   </b-form-group>
                 </b-col>
