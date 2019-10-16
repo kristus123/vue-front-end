@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h1>Add a player</h1>
+    <h1>Add a COACH</h1>
     <flexible-form
       :inputs="inputs"
       width="100%"
@@ -13,6 +13,7 @@
 
 <script>
 import FlexibleForm from "@/components/forms/FlexibleForm";
+import addressService from '@/services/address/AddressService';
 
 export default {
   name: "Addplayer",
@@ -22,8 +23,8 @@ export default {
 
   methods: {
     submitForm(value) {
-      console.log("____________");
-      console.log(value); // someValue
+        addressService.create(value);
+        console.log(value); // someValue
     }
   },
 
@@ -33,45 +34,37 @@ export default {
       image: require(`@/assets/action-adult-athlete-1311619.jpg`),
       inputs: [
         {
-          title: "Player ID",
-          placeholder: "Enter a player ID",
-          type: "number",
+          title: "address",
+          placeholder: "what is the address ?",
+          type: "text",
           required: true,
-          disabled: true,
-          icon: "fas fa-running"
+          disabled: false,
+          icon: "fas fa-users"
         },
         {
-          title: "Person ID",
-          placeholder: "Enter a person ID",
-          type: "number",
-          required: true,
-          disabled: true,
-          icon: "fas fa-user"
-        },
-        {
-          title: "Team ID",
-          placeholder: "Enter a team ID",
+          title: "postal code",
+          placeholder: "Eg. 5059",
           type: "number",
           required: true,
           disabled: false,
           icon: "fas fa-users"
         },
         {
-          title: "Normal Position",
-          placeholder: "Enter a position",
+          title: "City",
+          placeholder: "Eg. Oslo",
           type: "text",
           required: true,
           disabled: false,
-          icon: "fas fa-layer-group"
+          icon: "fas fa-users"
         },
         {
-          title: "Player Number",
-          placeholder: "Enter a player number",
-          type: "number",
-          required: "required",
+          title: "Country",
+          placeholder: "Eg. Sweden",
+          type: "text",
+          required: true,
           disabled: false,
-          icon: "fas fa-hashtag"
-        }
+          icon: "fas fa-users"
+        },
       ]
     };
   }
