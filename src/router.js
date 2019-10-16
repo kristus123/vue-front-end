@@ -28,6 +28,19 @@ import DeleteAddress from '@/components/admin/address/DeleteAddress';
 import UpdateAddress from '@/components/admin/address/UpdateAddress';
 import ShowAllAddress from '@/components/admin/address/ShowAllAddress';
 
+import AddLocation from '@/components/admin/location/AddLocation';
+
+import ShowAllLocations from '@/components/admin/location/ShowAllLocations';
+
+import UpdateLocation from '@/components/admin/location/UpdateLocation';
+
+
+
+// // import AddAssociation from '@/components/admin/association/AddAssociation'
+// // import AllAssociations from '@/components/admin/association/AllAssociations';
+// import UpdateAssociation from '@/components/admin/association/UpdateAssociation'
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -111,8 +124,6 @@ export default new Router({
           path: "update/coach",
           component: UpdateCoach
         },
-
-
       
         {
           path: "show/address",
@@ -131,7 +142,21 @@ export default new Router({
         {
           path: "update/address/:addressId",
           component: UpdateAddress
-        }        
+        },
+        {
+          path: "add/location",
+          component: AddLocation
+        },
+
+        {
+          path: "show/location",
+          component: ShowAllLocations
+        },
+
+        {
+          path: "update/location/:id",
+          component: UpdateLocation
+        },      
       ]
     },
 

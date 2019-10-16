@@ -13,7 +13,8 @@
 
 <script>
 import FlexibleForm from "@/components/forms/FlexibleForm";
-
+import coachService from '@/services/coach/CoachService.js';
+import formService from '@/services/form/FormService.js';
 export default {
   name: "Addplayer",
   components: {
@@ -22,6 +23,7 @@ export default {
 
   methods: {
     submitForm(value) {
+      coachService.turnPersonIntoCoach(value);
       console.log("____________");
       console.log(value); // someValue
     }
@@ -33,7 +35,7 @@ export default {
       image: require(`@/assets/action-adult-athlete-1311619.jpg`),
       inputs: [
         {
-          title: "Person",
+          title: "Person Id",
           placeholder: "Select who you want to be a coach",
           type: "number",
           required: true,
@@ -41,7 +43,7 @@ export default {
           icon: "fas fa-users"
         },
         {
-          title: "Which team should the person coach ?",
+          title: "Which team should the person coach ? (ID) ",
           placeholder: "Select a team",
           type: "number",
           required: true,

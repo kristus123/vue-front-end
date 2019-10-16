@@ -1,5 +1,7 @@
 <template>
-  <b-container>
+  <b-container v-if="inputs != null">
+    <h2>{{address}}</h2>
+
     <h1 style="color:black;">Update an address</h1>
     <flexible-form
       :inputs="inputs"
@@ -8,14 +10,12 @@
       :color="textColor"
       @clicked="submitForm"
     />
-
-    
   </b-container>
 </template>
 
 <script>
 import FlexibleForm from "@/components/forms/FlexibleForm";
-import addressService from '@/services/address/AddressService.js';
+import addressService from "@/services/address/AddressService.js";
 
 export default {
   name: "Addplayer",
@@ -23,56 +23,66 @@ export default {
     FlexibleForm
   },
 
-  beforeMount() {
-    this.address = addressService.findById(this.$route.params.addressId);
+  async beforeMount() {
+    this.address = await addressService.findById(this.$route.params.addressId);
+
+    this.inputs = [
+      {
+        title: "addressId",
+        type: "number",
+        value: this.address.addressId,
+        required: "required",
+        disabled: true,
+        icon: "fas fa-hashtag"
+      },
+      {
+        title: "Address",
+        type: "text",
+        value: this.address.addresses[0],
+        required: true,
+        icon: "fas fa-user"
+      },
+      {
+        title: "Postal code",
+        type: "number",
+        value: this.address.postalCode,
+        required: "required",
+        disabled: false,
+        icon: "fas fa-hashtag"
+      },
+      
+      {
+        title: "City",
+        value: this.address.city,
+        type: "text",
+        required: true,
+        disabled: false,
+        icon: "fas fa-users"
+      },
+      {
+        title: "Country",
+        value: this.address.country,
+        type: "text",
+        required: true,
+        disabled: false,
+        icon: "fas fa-layer-group"
+      }
+    ];
   },
 
   methods: {
-    submitForm(value) {
-      addressService.update(value);
-      console.log("____________");
-      console.log(value); // someValue
+    async submitForm(value) {
+      console.log("updating")
+      this.address = await addressService.update(value);
     }
   },
 
-
-
   data() {
     return {
-      address : {},
-      
+      address: {},
       textColor: "text-black",
       image: require(`@/assets/action-adult-athlete-1311619.jpg`),
-      inputs: [
-        {
-          title: "Address",
-          type: "text",
-          required: true,
-          icon: "fas fa-user"
-        },
-        {
-          title: "Postal code",
-          type: "number",
-          required: "required",
-          disabled: false,
-          icon: "fas fa-hashtag"
-        },
-        {
-          title: "City",
-          type: "text",
-          required: true,
-          disabled: false,
-          icon: "fas fa-users"
-        },
-        {
-          title: "Country",
-          type: "text",
-          required: true,
-          disabled: false,
-          icon: "fas fa-layer-group"
-        },
-        
-      ]
+      inputs: null
     };
   }
 };

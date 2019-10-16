@@ -16,15 +16,15 @@ class AddressService {
     turnFormObjectIntoValidJson(formObject) {
         const jsonObject = {
             "addresses": [
-                formService.findValue("address", formObject)
+                formService.findValue("Address", formObject)
             ],
-            "postalCode": formService.findValue("postal code", formObject),
+            "postalCode": formService.findValue("Postal code", formObject),
             "city": formService.findValue("City", formObject),
             "country": formService.findValue("Country", formObject)
         }
         
-        if (formService.findValue("address", formObject) != null) {
-            jsonObject.addressId = formService.findValue("address", formObject);
+        if (formService.findValue("addressId", formObject) != null) {
+            jsonObject.addressId = formService.findValue("addressId", formObject);
         }
         return jsonObject;
     }
@@ -32,17 +32,22 @@ class AddressService {
 
 
     update(formObject) {
-        const json = turnFormObjectIntoValidJson(formObject);
-
-        instance.put("v1/admin/address/update", json)
+        const json = this.turnFormObjectIntoValidJson(formObject);
+        console.log(json);
+        return instance.put("v1/admin/update/address", json)
             .then(response => response.data)
             .catch(error => console.log(error));
     }
 
     findById(id) {
-        return instance.get(`/v1/admin/address/get/${id}`)
+        return instance.get(`/v1/admin/get/address/${id}`)
             .then(response => response.data)
             .catch(error => console.log(error))
+    }
+
+    getAll() {
+        return instance.get("/v1/admin/get/address")
+            .then(response => response.data)
     }
 
     create(formObject) {

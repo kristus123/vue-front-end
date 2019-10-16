@@ -256,7 +256,7 @@ export default {
                             icon: 'fas fa-map-marked-alt',
                             child: [
                                 {
-                                    href: "#",
+                                    href: {path: '/admin/add/location'},
                                     title: "Add",
                                     icon: 'fas fa-plus-circle'
                                 },

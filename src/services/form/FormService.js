@@ -1,6 +1,6 @@
 class FormService {
     findValue(value, formObject) {
-        const result = formObject.find(({ title }) => title === "address");
+        const result = formObject.find(({ title }) => title === value);
         return result.value
     }
 }

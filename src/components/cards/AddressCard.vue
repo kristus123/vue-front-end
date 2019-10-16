@@ -34,8 +34,21 @@
 </template>
 
 <script>
+import addressService from "@/services/address/AddressService.js";
+
 export default {
-  props: ["address"]
+  props: ["address"],
+  methods: {
+    data : function() {
+      return {
+        show: true
+      }
+    },
+    delete(id) {
+      addressService.delete(id);
+      tis.show = false
+    }
+  }
 };
 </script>
 
