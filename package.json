@@ -1,4 +1,7 @@
 {
+  "resolutions": {
+    "eslint-loader": "2.1.2"
+  },
   "name": "my-app-react",
   "version": "0.1.0",
   "private": true,

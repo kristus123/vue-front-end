@@ -65,25 +65,12 @@ export default {
                             title: "Person",
                             icon: 'fas fa-user',
                             child: [
-                                {
-                                    href: {
-                                        path: "/admin/add/person"
-                                    },
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
+                                        {href: { path: "/admin/add/person"},
+                                        title: "Add",
+                                        icon: 'fas fa-plus-circle'
                                 },
                                 {
-                                    href: {
-                                        path: "/admin/delete/person"
-                                    },
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
+                                    href: {path: "/admin/delete/person"}}
                             ]
                         }, 
                         {
@@ -112,17 +99,17 @@ export default {
                             icon: 'fas fa-user-shield',
                             child: [
                                 {
-                                    href: "#",
+                                    href: {path : "/admin/add/coach"},
                                     title: "Add",
                                     icon: 'fas fa-plus-circle'
                                 },
                                 {
-                                    href: "#",
+                                    href: {path : "/admin/delete/coach"},
                                     title: "Delete",
                                     icon: 'fas fa-minus-circle'
                                 },
                                 {
-                                    href:"#",
+                                    href: {path : "/admin/update/coach"},
                                     title: "Update",
                                     icon: "fas fa-wrench"
                                 }
@@ -237,18 +224,19 @@ export default {
                             title: "Address",
                             icon: 'fas fa-address-card',
                             child: [
+                                
                                 {
-                                    href: "#",
+                                    href: {path: "/admin/show/address"},
+                                    title: "Show all",
+                                    icon: 'fas fa-minus-circle'
+                                },
+                                {
+                                    href: {path: "/admin/add/address"},
                                     title: "Add",
                                     icon: 'fas fa-plus-circle'
                                 },
                                 {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
+                                    href: {path: "/admin/update/address"},
                                     title: "Update",
                                     icon: "fas fa-wrench"
                                 }
@@ -259,7 +247,7 @@ export default {
                             icon: 'fas fa-map-marked-alt',
                             child: [
                                 {
-                                    href: "#",
+                                    href: {path: '/admin/add/location'},
                                     title: "Add",
                                     icon: 'fas fa-plus-circle'
                                 },
