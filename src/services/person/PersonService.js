@@ -13,7 +13,7 @@ class PersonService {
 
     deletePerson(personId) {
         return instance.delete(`/v1/admin/delete/person/${personId}`)
-            .then(response => response.data);
+            .then(response => response);
     }
 }
 

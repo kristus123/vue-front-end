@@ -26,10 +26,12 @@
                         </b-col>
                     </b-form-row>
 
-                    <b-form-row class="justify-content-center" v-if="this.onShow">
-                        <b-col cols="8">
-                            <b-btn variant="danger" type="submit" value="submit">Delete</b-btn>
-                            <b-btn variant="light">Cancel</b-btn>
+                    <b-form-row id="buttons" class="justify-content-center" align-h="between" v-if="this.onShow">
+                        <b-col cols="3">
+                            <b-btn pill variant="outline-danger" size="lg" type="submit" value="submit">Delete</b-btn>
+                        </b-col>
+                        <b-col cols="3">
+                            <b-btn pill variant="outline-secondary" size="lg" v-on:click="resetForm">Cancel</b-btn>
                         </b-col>
                     </b-form-row>
                 </b-form>
@@ -43,6 +45,7 @@
 
 import PersonCard from '@/components/cards/person/PersonCard'
 import PlayerCard from '@/components/cards/player/PlayerCard'
+import animateService from '@/services/AnimateService'
 
 
 export default {
@@ -72,27 +75,17 @@ export default {
             
             this.$emit("clicked", this.selected);
 
-            this.animate('personCard', 'zoomOutRight', () => {
+            animateService.animate('personCard', 'zoomOutRight', null, () => {
                 this.onShow = false;
                 this.selected = null;
             });
         },
+        resetForm() {
 
-        animate(element, animationName, callback) {
+            this.onShow = false;
+            this.selected = null;
 
-            const node = document.getElementById(element)
-            node.classList.add('animated', animationName)
-
-            function handleAnimationEnd() {
-                node.classList.remove('animated', animationName)
-                node.removeEventListener('animationend', handleAnimationEnd)
-
-                if (typeof callback === 'function') callback()
-            }
-
-            node.addEventListener('animationend', handleAnimationEnd)
-
-        },
+        }
     }
     
 }
@@ -111,6 +104,9 @@ export default {
 
 .customDropdownForm {
     padding-top: 20px;
+}
+
+#buttons {
     padding-bottom: 20px;
 }
 
