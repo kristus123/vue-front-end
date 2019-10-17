@@ -41,22 +41,6 @@ export default {
             image: require(`@/assets/adult-dark-fashion-53754.jpg`),
             inputs: [
                 {
-                    title: "Person ID",
-                    placeholder: "Enter a person ID",
-                    type: "number",
-                    required: true,
-                    disabled: false,
-                    icon: "fas fa-user"
-                },
-                {
-                    title: "Address ID",
-                    placeholder: "Enter an address ID",
-                    type: "number",
-                    required: true,
-                    disabled: false,
-                    icon: "fas fa-address-card"
-                },
-                {
                     title: "First name",
                     placeholder: "Enter first name",
                     type: "text",
