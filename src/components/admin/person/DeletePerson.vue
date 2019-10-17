@@ -3,7 +3,7 @@
     <h1 style="color:black; padding-bottom: 10px;">Delete a person</h1>
     <b-row>
         <b-col>
-            <flexible-dropdown-menu :options="options" :cardType="cardType" :image="image" :showCard="showCard" :showBtn="showBtn" @clicked="submitForm"/>
+            <flexible-dropdown-menu :options="options" :cardType="cardType" :image="image" @clicked="submitForm"/>
         </b-col>
     </b-row>
     <b-row id="showSuccessMsg" class="justify-content-center">
