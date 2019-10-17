@@ -1,9 +1,9 @@
 <template>
   <div>
     <h3>{{ this.locationResponse }}</h3>
-    
+
     <h3>{{ this.locationResponse != null }}</h3>
-    
+
     <b-container>
       <h1 style="color:black;">uPDATE a location</h1>
       <flexible-form
@@ -23,8 +23,12 @@ import locationService from "@/services/location/LocationService.js";
 
 export default {
   async beforeMount() {
-    this.locationResponse = await locationService.findById(this.$route.params.id);
-    
+    this.locationResponse = await locationService.findById(
+      this.$route.params.id
+    );
+    this.inputs[0].value = this.locationResponse.locationId;
+    this.inputs[1].value = this.locationResponse.name;
+    this.inputs[2].value = this.locationResponse.description;
   },
 
   name: "Addplayer",
@@ -33,8 +37,10 @@ export default {
   },
 
   methods: {
-    submitForm(value) {
-        console.log(value)
+    async submitForm(value) {
+      console.log(value);
+      this.locationResponse = await locationService.update(value);
+
     }
   },
 
@@ -44,34 +50,36 @@ export default {
       textColor: "text-black",
       image: require(`@/assets/action-adult-athlete-1311619.jpg`),
       inputs: [
-      {
-        title: "Location name",
-        placeholder: "What is the name of the location",
-        type: "text",
-        required: true,
-        value: this.locationResponse != null ? this.locationResponse.name : "null"  ,
-        disabled: false,
-        icon: "fas fa-users"
-      },
-      {
-        title: "Address Id",
-        placeholder: "Select another Id",
-        type: "number",
-        value: this.locationResponse != null ? this.locationResponse.address : "null",
-        required: true,
-        disabled: false,
-        icon: "fas fa-users"
-      },
-      {
-        title: "Desciption",
-        placeholder: "Tell us a little about this place",
-        type: "number",
-        value: this.locationResponse != null ? this.locationResponse.description : "null",
-        required: true,
-        disabled: false,
-        icon: "fas fa-users"
-      }
-    ]
+        {
+          title: "id",
+          placeholder: "Select another Id",
+          type: "text",
+          value: "empty",
+          required: true,
+          disabled: true,
+          icon: "fas fa-users"
+        },
+
+        {
+          title: "Location name",
+          placeholder: "What is the name of the location",
+          type: "text",
+          required: true,
+          value: "empty",
+          disabled: false,
+          icon: "fas fa-users"
+        },
+
+        {
+          title: "Desciption",
+          placeholder: "Tell us a little about this place",
+          type: "text",
+          value: "empty",
+          required: true,
+          disabled: false,
+          icon: "fas fa-users"
+        }
+      ]
     };
   }
 };

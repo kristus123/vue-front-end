@@ -1,5 +1,5 @@
 import instance from '@/services/AxiosService.js';
-import formService from '@/services/address/form/FormService.js'
+import formService from '@/services/form/FormService.js'
 
 const constObject = {
     "addressId": 10,

@@ -24,7 +24,7 @@ export default {
   },
 
   async beforeMount() {
-    this.address = await addressService.findById(this.$route.params.addressId);
+    this.address = await addressService.findById(this.$route.params.id);
 
     this.inputs = [
       {

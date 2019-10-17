@@ -28,6 +28,11 @@ import UpdateAssociation from '@/components/admin/association/UpdateAssociation'
 import AllUsers from '@/components/admin/userManagement/AllUsers';
 
 import UpdateUser from '@/components/admin/userManagement/UpdateUser';
+import CreateUser from '@/components/admin/user/CreateUser';
+
+import UpdateLocation from '@/components/admin/location/UpdateLocation';
+
+import UpdateAddress from '@/components/admin/address/UpdateAddress';
 
 
 Vue.use(Router)
@@ -81,10 +86,7 @@ export default new Router({
           path     : "createMatch",
           component: CreateMatch
         },
-        {
-          path     : "CreatePerson",
-          component: CreatePerson
-        }
+        
       ]
     },
     {
@@ -129,7 +131,25 @@ export default new Router({
           component: UpdateUser
         },
 
+        {
+          path: "create/user",
+          component: CreateUser
+        },
 
+        {
+          path: "update/location/:id",
+          component: UpdateLocation
+        },
+
+        {
+          path: "update/address/:id",
+          component: UpdateAddress
+        },
+
+        {
+          path     : "create/person",
+          component: CreatePerson
+        }
         
 
 
