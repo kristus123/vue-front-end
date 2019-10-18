@@ -10,6 +10,7 @@ class PersonService {
             "dateOfBirth": formService.findValue("Date of birth", formObject)
         }
         return instance.post(`/v1/admin/post/person`, jsonObject).then(response => response.data)
+
     }
 
     getPerson() {
@@ -19,7 +20,7 @@ class PersonService {
 
     deletePerson(personId) {
         return instance.delete(`/v1/admin/delete/person/${personId}`)
-            .then(response => response.data);
+            .then(response => response);
     }
 }
 

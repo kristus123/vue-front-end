@@ -14,22 +14,24 @@
                         </b-col>
                     </b-form-row>
 
-                    <b-form-row v-if="cardType == 'person' && showCard" class="justify-content-center" style="padding-bottom: 20px;">
+                    <b-form-row id="personCard" v-if="cardType == 'person' && this.onShow" class="justify-content-center" style="padding-bottom: 20px;">
                         <b-col cols="8">
                             <person-card :info="selected"/>
                         </b-col>
                     </b-form-row>
 
-                    <b-form-row v-if="cardType == 'player'" class="justify-content-center" style="padding-bottom: 20px;">
+                    <b-form-row v-if="cardType == 'player' && this.onShow" class="justify-content-center" style="padding-bottom: 20px;">
                         <b-col cols="8">
                             <player-card/>
                         </b-col>
                     </b-form-row>
 
-                    <b-form-row class="justify-content-center" v-if="showBtn">
-                        <b-col cols="8">
-                            <b-btn variant="danger" type="submit" value="submit">Delete</b-btn>
-                            <b-btn variant="light">Cancel</b-btn>
+                    <b-form-row id="buttons" class="justify-content-center" align-h="between" v-if="this.onShow">
+                        <b-col cols="3">
+                            <b-btn pill variant="outline-danger" size="lg" type="submit" value="submit">Delete</b-btn>
+                        </b-col>
+                        <b-col cols="3">
+                            <b-btn pill variant="outline-secondary" size="lg" v-on:click="resetForm">Cancel</b-btn>
                         </b-col>
                     </b-form-row>
                 </b-form>
@@ -43,6 +45,7 @@
 
 import PersonCard from '@/components/cards/person/PersonCard'
 import PlayerCard from '@/components/cards/player/PlayerCard'
+import animateService from '@/services/AnimateService'
 
 
 export default {
@@ -57,24 +60,35 @@ export default {
     data() {
         return {
             selected: null,
-            showBtn: false,
-            showCard: false
+            onShow: false,
         }
     },
 
     methods: {
 
         onSelected() {
-            this.showCard = true;
-            this.showBtn = true;
+
+            this.onShow = true;
+            
         },
         submitForm() {
+            
             this.$emit("clicked", this.selected);
-            //console.log(this.selected);
+
+            animateService.animate('personCard', 'zoomOutRight', null, () => {
+                this.onShow = false;
+                this.selected = null;
+            });
+        },
+        resetForm() {
+
+            this.onShow = false;
+            this.selected = null;
+
         },
     }
-    
 }
+
 </script>
 
 <style>
@@ -90,6 +104,9 @@ export default {
 
 .customDropdownForm {
     padding-top: 20px;
+}
+
+#buttons {
     padding-bottom: 20px;
 }
 

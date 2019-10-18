@@ -4,18 +4,12 @@
       <b-col cols="8">
         <div class="flexForm" :style="{backgroundImage: 'url(' + image + ')'}">
           <b-form class="customForm" v-on:submit.prevent="submitForm">
-            <b-form-row class="justify-content-center" v-for="input in inputs" :key="input.key">
-              <b-col cols="8">
-                <b-form-group :class="color" :label="input.title" style="text-align:left;">
-                  <b-input-group>
-                    <b-input-group-prepend>
-                      <span class="input-group-text"><i :class="input.icon"></i></span>
-                    </b-input-group-prepend>
-                    <b-form-input :id="input.id" :type="input.type" v-model="input.value" :placeholder="input.placeholder" :required="input.required" :disabled="input.disabled"></b-form-input>
-                  </b-input-group>
-                  </b-form-group>
-                </b-col>
-              </b-form-row>
+
+            <flexible-inputs :inputs="inputs"/>
+            <slot name="dropdown"></slot>
+
+
+              <slot name="newForm"></slot>
 
               <b-form-row class="justify-content-center">
                 <b-col cols="8">
@@ -29,10 +23,12 @@
                 </b-col>
               </b-form-row>
 
-              <b-form-row class="justify-content-center">
-                <b-col cols="12" md="auto" style="padding:20px;">
-                  <b-btn id="subBtn" type="submit" variant="success" value="submit">Submit</b-btn>
-                  <b-btn id="resetBtn" type="reset" variant="danger" value="reset" v-on:click="resetForm">Reset</b-btn>
+              <b-form-row class="justify-content-center" align-h="between">
+                <b-col cols="3">
+                  <b-btn pill id="subBtn" type="submit" variant="outline-success" value="submit" size="lg">Submit</b-btn>
+                </b-col>
+                <b-col cols="3">
+                  <b-btn pill id="resetBtn" type="reset" variant="outline-danger" value="reset" size="lg" v-on:click="resetForm">Reset</b-btn>
                 </b-col>
                 </b-form-row>
             </b-form>
@@ -43,6 +39,9 @@
 </template>
 
 <script>
+
+import FlexibleInputs from '@/components/forms/inputs/FlexibleInputs'
+
 export default {
   methods: {
     submitForm() {
@@ -57,6 +56,11 @@ export default {
     }
   },
   props: ["inputs", "width", "color", "image"],
+
+  components: {
+    FlexibleInputs
+  },
+
   data: function() {
     return {
       info: this.inputs,
