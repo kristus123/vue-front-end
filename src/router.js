@@ -10,7 +10,6 @@ import PlayerCard  from '@/views/players/PlayerCard'
 import PlayerStats from '@/views/players/PlayerStats'
 
 import FlexibleForm from '@/components/forms/FlexibleForm';
-import AddTeam from '@/components/userPanelComponents/AddTeam';
 import UserPanel from '@/views/players/userpanel/UserPanel';
 import CreateMatch from '@/components/admin/CreateMatch';
 import CreatePerson from '@/components/admin/CreatePerson';
@@ -37,6 +36,10 @@ import UpdateAddress from '@/components/admin/address/UpdateAddress';
 import AddCoach from '@/components/admin/coach/AddCoach';
 
 import AddSeason from '@/components/season/AddSeason';
+
+import AddOwner from '@/components/admin/owner/AddOwner'
+
+import AddTeam from '@/components/userPanelComponents/AddTeam';
 
 
 Vue.use(Router)
@@ -82,10 +85,6 @@ export default new Router({
       name: "UserPanel",
       component: UserPanel,
       children : [
-        {
-          path     : "AddTeam",
-          component: AddTeam
-        },
         {
           path     : "createMatch",
           component: CreateMatch
@@ -163,11 +162,21 @@ export default new Router({
         {
           path     : "add/season",
           component: AddSeason
+        },
+
+        {
+          path     : "add/owner",
+          component: AddOwner
+        },
+
+        {
+          path     : "add/team",
+          component: AddTeam
         }
 
+        
+
       
-
-
 
         
         

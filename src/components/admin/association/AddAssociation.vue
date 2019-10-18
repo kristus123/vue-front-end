@@ -37,6 +37,7 @@ export default {
 
   methods: {
     async submitForm(value) {
+      this.$emit('getFormObject', value);
       this.response = await associationService.create(value);
 
     }

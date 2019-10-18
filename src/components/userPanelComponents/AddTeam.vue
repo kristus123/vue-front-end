@@ -4,22 +4,42 @@
       <div class="addTeam">
         <div v-if="step === 0">
           <!-- <sort-team-position /> -->
-          <hr>
+          <h1>create a new Team</h1>
+
+          <hr />
+
           <label>
             <h3>Name of team</h3>
           </label>
-          <b-form-input class="form" id="input-default" placeholder="Enter The name of the team"></b-form-input>
+          <b-input-group class="input-group">
+            <b-form-select v-model="selectedAssociation" :options="associations"></b-form-select>
+            <b-input-group-append>
+             
+                <add-association-modal @clicked="onClickChild" />
+             
+            </b-input-group-append>
+          </b-input-group>
+
+      
+
 
           <label>
             <h3>Select a coach</h3>
           </label>
-          <b-form-select class="form" v-model="selectedCoach" :options="coaches"></b-form-select>
+          <b-input-group class="input-group">
+            <b-form-select v-model="selectedCoach" :options="coaches"></b-form-select>
+            <b-input-group-append>
+              <add-coach-modal />
+              <!-- <b-button >Create new coach</b-button> -->
+            </b-input-group-append>
+          </b-input-group>
 
           <label>
             <h3>Select an owner</h3>
           </label>
-          <b-form-select class="form" v-model="selectedOwner" :options="owners"></b-form-select>
-
+          <b-input-group class="input-group">
+            <b-form-select v-model="selectedOwner" :options="owners"></b-form-select>
+          </b-input-group>
           <hr />
 
           <b-button @click="next">Add players to the team</b-button>
@@ -43,7 +63,6 @@
               >Select for your Team</b-button>
 
               <b-button
-                
                 v-on:click="() => removeFromTeam(1)"
                 v-else
                 variant="outline-warning"
@@ -76,24 +95,33 @@
 <script>
 import FlexibleForm from "@/components/forms/FlexibleForm";
 import PlayerCard from "@/components/cards/player/PlayerCard";
-import playerService from '@/services/player/PlayerService.js';
+import playerService from "@/services/player/PlayerService.js";
+import AddCoach from '@/components/admin/coach/AddCoach';
+import AddCoachModal from '@/components/userPanelComponents/AddCoachModal'
+
+import AddAssociationModal from '@/components/userPanelComponents/AddAssociationModal';
 
 // import  SortTeamPosition from '@/components/userPanelComponents/SortTeamPosition';
 
 export default {
-  components: { FlexibleForm, PlayerCard },
+  components: { FlexibleForm, PlayerCard, AddAssociationModal, AddCoach, AddCoachModal },
 
   async beforeMount() {
     this.players = await playerService.findAll();
   },
 
   methods: {
+    onClickChild(value) {
+      this.associations.push({'value': value + " eehihiehi"});
+      console.log("AAAAAAAAAA")
+      console.log(value);
+    },
     addToTeam(player) {
       this.selectedPlayers.push(player);
     },
 
     removeFromTeam(id) {
-      this.selectedPlayers.splice( this.selectedPlayers.indexOf(id), 1 );
+      this.selectedPlayers.splice(this.selectedPlayers.indexOf(id), 1);
     },
 
     next() {
@@ -104,14 +132,23 @@ export default {
   data() {
     return {
       step: 0,
-      players : [],
+      players: [],
       selectedCoach: null,
       selectedOwner: null,
+      selectedAssociation: null,
       name: "",
       coach: "",
       owner: "",
 
       selectedPlayers: [2],
+
+      associations : [
+        { value: null, text: "Select an association" },
+        { value: "a", text: "This is First option" },
+        { value: "b", text: "Default Selected Option" },
+        { value: "c", text: "This is another option" },
+        { value: "d", text: "This one is disabled", disabled: true }
+      ],
 
       coaches: [
         { value: null, text: "Select a coach" },
@@ -131,6 +168,12 @@ export default {
 </script>
 
 <style>
+.modal-input {
+  max-width: 50%;
+}
+.input-group {
+  margin: 20px;
+}
 .addTeam {
   max-width: 50%;
 }
