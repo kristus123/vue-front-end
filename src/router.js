@@ -34,6 +34,8 @@ import UpdateLocation from '@/components/admin/location/UpdateLocation';
 
 import UpdateAddress from '@/components/admin/address/UpdateAddress';
 
+import AddCoach from '@/components/admin/coach/AddCoach';
+
 
 Vue.use(Router)
 
@@ -149,7 +151,13 @@ export default new Router({
         {
           path     : "create/person",
           component: CreatePerson
+        },
+
+        {
+          path     : "add/coach",
+          component: AddCoach
         }
+        
         
 
 
