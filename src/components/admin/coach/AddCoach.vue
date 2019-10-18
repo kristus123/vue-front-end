@@ -25,8 +25,6 @@ export default {
   methods: {
     submitForm(value) {
       coachService.turnPersonIntoCoach(value);
-      console.log("____________");
-      console.log(value); // someValue
     }
   },
 

@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h1>Add a player</h1>
+    <h1>Add a season</h1>
     <flexible-form
       :inputs="inputs"
       width="100%"
@@ -13,10 +13,9 @@
 
 <script>
 import FlexibleForm from "@/components/forms/FlexibleForm";
-import playerService from '@/services/player/PlayerService.js';
+import playerService from "@/services/player/PlayerService.js";
 
 export default {
-  name: "Addplayer",
   components: {
     FlexibleForm
   },
@@ -33,44 +32,36 @@ export default {
       image: require(`@/assets/action-adult-athlete-1311619.jpg`),
       inputs: [
         {
-          title: "Player ID",
-          placeholder: "Enter a player ID",
-          type: "number",
+          title: "name",
+          placeholder: "season name",
+          type: "text",
           required: true,
           disabled: true,
           icon: "fas fa-running"
         },
         {
-          title: "Person ID",
-          placeholder: "Enter a person ID",
-          type: "number",
+          title: "description",
+          placeholder: "Enter a description",
+          type: "text",
           required: true,
           disabled: true,
           icon: "fas fa-user"
         },
         {
-          title: "Team ID",
-          placeholder: "Enter a team ID",
-          type: "number",
+          title: "startDate",
+          placeholder: "Enter startDate",
+          type: "date",
           required: true,
           disabled: false,
           icon: "fas fa-users"
         },
         {
-          title: "Normal Position",
-          placeholder: "Enter a position",
-          type: "text",
+          title: "endDate",
+          placeholder: "Enter endDate",
+          type: "date",
           required: true,
           disabled: false,
           icon: "fas fa-layer-group"
-        },
-        {
-          title: "Player Number",
-          placeholder: "Enter a player number",
-          type: "number",
-          required: "required",
-          disabled: false,
-          icon: "fas fa-hashtag"
         }
       ]
     };

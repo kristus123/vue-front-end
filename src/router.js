@@ -36,6 +36,8 @@ import UpdateAddress from '@/components/admin/address/UpdateAddress';
 
 import AddCoach from '@/components/admin/coach/AddCoach';
 
+import AddSeason from '@/components/season/AddSeason';
+
 
 Vue.use(Router)
 
@@ -156,10 +158,14 @@ export default new Router({
         {
           path     : "add/coach",
           component: AddCoach
-        }
-        
-        
+        },
 
+        {
+          path     : "add/season",
+          component: AddSeason
+        }
+
+      
 
 
 
