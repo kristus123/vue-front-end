@@ -1,10 +1,16 @@
-import instance from '@/services/AxiosService'
+import instance from '@/services/AxiosService';
+import formService from '@/services/form/FormService.js'
 
 class PersonService {
 
-    addPerson(personObject) {
-        return instance.post(`/v1/admin/post/person`, personObject)
-            .then(response => response);
+    create(formObject) {
+        const jsonObject = {
+            "firstName": formService.findValue("First name", formObject),
+            "lastName": formService.findValue("Last name", formObject),
+            "dateOfBirth": formService.findValue("Date of birth", formObject)
+        }
+        return instance.post(`/v1/admin/post/person`, jsonObject).then(response => response.data)
+
     }
 
     getPerson() {

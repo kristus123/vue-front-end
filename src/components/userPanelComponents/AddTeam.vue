@@ -3,6 +3,8 @@
     <center>
       <div class="addTeam">
         <div v-if="step === 0">
+          <!-- <sort-team-position /> -->
+          <hr>
           <label>
             <h3>Name of team</h3>
           </label>
@@ -31,7 +33,7 @@
       <b-container class="bv-example-row">
         <b-row>
           <b-col cols="9">
-            <player-card>
+            <player-card style="max-width:50%;">
               <hr />
 
               <b-button
@@ -74,8 +76,16 @@
 <script>
 import FlexibleForm from "@/components/forms/FlexibleForm";
 import PlayerCard from "@/components/cards/player/PlayerCard";
+import playerService from '@/services/player/PlayerService.js';
+
+// import  SortTeamPosition from '@/components/userPanelComponents/SortTeamPosition';
+
 export default {
   components: { FlexibleForm, PlayerCard },
+
+  async beforeMount() {
+    this.players = await playerService.findAll();
+  },
 
   methods: {
     addToTeam(player) {
@@ -94,6 +104,7 @@ export default {
   data() {
     return {
       step: 0,
+      players : [],
       selectedCoach: null,
       selectedOwner: null,
       name: "",

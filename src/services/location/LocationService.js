@@ -13,24 +13,15 @@ class LocationService {
     }
 
     update(formObject) {
-        console.log("hei")
-        console.log("____")
-        console.log(formObject);
-        console.log("____")
-        const jsonObject = {
-            "locationModel": {
-                "name": "heiaiahi", //formService.findValue("Location name", formObject), //,  //"et fint sted",
-                "description": "jhei" //formService.findValue("Desciption", formObject) //"et super dupert sted aa henge"
-            }
+        const jsonObject = 
+        {
+            "id": formService.findValue("id", formObject),
+            "name": formService.findValue("Location name", formObject),
+            "description": formService.findValue("Desciption", formObject)
         }
-             // 1
         
-        //console.log(jsonObject)
-        //console.log(formService.findValue("Address Id", formObject));
-        //if (false) {
-        //    jsonObject.addressId = formService.findValue("Address Id", formObject)
-        //}
-
+            console.log(jsonObject);
+        return instance.put("/v1/admin/update/location", jsonObject).then(response => response.data)
     }
 
     findById(id) {

@@ -1,6 +1,8 @@
 <template>
-  <b-container>
-    <h1>Add a COACH</h1>
+<div>
+  <b-container v-if="response == null">
+      
+    <h1>Add an Association</h1>
     <flexible-form
       :inputs="inputs"
       width="100%"
@@ -9,12 +11,23 @@
       @clicked="submitForm"
     />
   </b-container>
+
+    <div v-if="response === 500">
+        <h1>association-name already taken</h1>
+        <b-button @click="response = null">Try again</b-button>
+    </div>
+
+  <div v-else>
+      {{response}}
+  </div>
+
+</div>
 </template>
 
 <script>
 import FlexibleForm from "@/components/forms/FlexibleForm";
-import coachService from '@/services/coach/CoachService.js';
 import formService from '@/services/form/FormService.js';
+import associationService from '@/services/association/AssociationService.js';
 
 export default {
   name: "Addplayer",
@@ -23,28 +36,30 @@ export default {
   },
 
   methods: {
-    submitForm(value) {
-      coachService.turnPersonIntoCoach(value);
+    async submitForm(value) {
+      this.response = await associationService.create(value);
+
     }
   },
 
   data() {
     return {
       textColor: "text-black",
+      response : null,
       image: require(`@/assets/action-adult-athlete-1311619.jpg`),
       inputs: [
         {
-          title: "Person Id",
-          placeholder: "Select who you want to be a coach",
-          type: "number",
+          title: "Name",
+          placeholder: "Name of the association",
+          type: "text",
           required: true,
           disabled: false,
           icon: "fas fa-users"
         },
         {
-          title: "Which team should the person coach ? (ID) ",
+          title: "Description",
           placeholder: "Select a team",
-          type: "number",
+          type: "text",
           required: true,
           disabled: false,
           icon: "fas fa-users"
