@@ -1,5 +1,5 @@
 <template>
-  <div v-if="true">
+  <div v-if="false">
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand href="#">Foppal</b-navbar-brand>
 
