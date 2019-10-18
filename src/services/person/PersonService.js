@@ -3,7 +3,7 @@ import instance from '@/services/AxiosService'
 class PersonService {
 
     addPerson(personObject) {
-        instance.post(`/v1/admin/post/person`, personObject)
+        return instance.post(`/v1/admin/post/person`, personObject)
             .then(response => response);
     }
 

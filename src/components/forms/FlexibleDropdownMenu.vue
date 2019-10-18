@@ -8,7 +8,7 @@
                         <b-col cols="8">
                             <b-form-group>
                                 <b-input-group>
-                                    <b-form-select v-if="options.length > 0" v-model="selected" :options="options"></b-form-select>
+                                    <b-form-select v-if="options.length > 0" v-model="selected" :options="options" v-on:change="onSelected"></b-form-select>
                                 </b-input-group>
                             </b-form-group>
                         </b-col>

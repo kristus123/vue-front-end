@@ -6,19 +6,8 @@
           <b-form class="customForm" v-on:submit.prevent="submitForm">
 
             <flexible-inputs :inputs="inputs"/>
+            <slot name="dropdown"></slot>
 
-              <b-form-row class="justify-content-center">
-                  <b-col cols="8">
-                    <b-form-group :class="color" :label="slotTitle" style="text-align:left;">
-                      <b-input-group>
-                        <slot name="dropdown"></slot>
-                        <b-input-group-append>
-                          <slot name="button"></slot>
-                        </b-input-group-append>
-                      </b-input-group>
-                    </b-form-group>
-                  </b-col>
-              </b-form-row>
 
               <slot name="newForm"></slot>
 
@@ -66,7 +55,7 @@ export default {
 
     }
   },
-  props: ["inputs", "width", "color", "image", "slotTitle"],
+  props: ["inputs", "width", "color", "image"],
 
   components: {
     FlexibleInputs
