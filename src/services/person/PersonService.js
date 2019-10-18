@@ -23,6 +23,11 @@ class PersonService {
         return instance.delete(`/v1/admin/delete/person/${personId}`)
             .then(response => response);
     }
+
+    updatePerson(personId, personObject) {
+        return instance.put(`/v1/admin/update/person/${personId}`, personObject)
+            .then(response => response);
+    }
 }
 
 const personService = new PersonService();
