@@ -1,7 +1,6 @@
 <template>
     <b-container>
         <h1>Add a player</h1>
-        <flexible-form :inputs="inputs" width="100%" :image="image" :color="textColor" @clicked="submitForm"/>
     </b-container>
 </template>
 
@@ -25,14 +24,14 @@ export default {
 
     let nonPlayers = [];
 
-    for(var i = 0; i < people.length; i++) {
-      for(var j = 0; j < players.length; j++) {
-
-
+   OUTER: for(var i = 0; i < people.length; i++) {
+     INNER: for(var j = 0; j < players.length; j++) {
+        if(players[j].person.personId === people[i].personId) {
+          console.log(people[i].personId);
+          continue OUTER;
+        }
 
       }
-
-
     }
 
 
