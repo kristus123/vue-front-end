@@ -8,7 +8,7 @@
                 <b-col cols="8">
                     <b-form-group class="text-white" label="Address" style="text-align:left;">
                         <b-input-group>
-                            <form-select :options="options" v-on:DropDownValue="onSelected"/>
+                            <form-select :options="options" :preselect="null" v-on:DropDownValue="onSelected"/>
                             <b-input-group-append>
                             <b-btn variant="primary" v-on:click="newAddress">New</b-btn>
                             </b-input-group-append>

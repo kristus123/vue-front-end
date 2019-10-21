@@ -166,7 +166,6 @@ export default {
             
         },
 
-
         onSelectedPerson(value) {
             this.preselectPerson = value;
             this.personID = value.personId;
@@ -174,21 +173,16 @@ export default {
             this.formatInputs(value);
             this.onShowInputs = true;
             this.onShowAddressDropdown = true;
-            
         },
         onSelectedAddress(value) {
             
             this.address = value;
-            
-
         },
 
         editAddress() {
 
-            console.log("edit address");
             this.onShowAddressDropdown = false;
             this.onShowAddressInputs = true;
-            console.log(this.preselect);
 
             this.addressInputs = [
                 {
@@ -231,7 +225,6 @@ export default {
         },
 
         async getAddress() {
-            console.log("hei");
             let addresses = await addressService.getAll();
             let address = [];
             for(var i = 0; i < addresses.length; i++) {
