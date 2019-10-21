@@ -2,16 +2,13 @@
     <b-container class="parallax">
         <b-row>
             <b-col></b-col>
-            <b-col cols="8">
-                <ul style="list-style-type:none">
-                    <li v-for="goals in matchGoalsHome" :key="goals.goaldId">
-                        <goal-event :matchGoals="goals" :opt="floatOptLeft"/>
-                    </li>
-                    <li v-for="goals in matchGoalsAway" :key="goals.goaldId">
-                        <goal-event :matchGoals="goals" :opt="floatOptRight"/>
-                    </li>
-                </ul>
-            </b-col>
+                <b-col cols="6">
+                    <ul style="list-style-type:none">
+                        <li v-for="goals in match" :key="goals.goaldId">
+                            <goal-event :matchGoals="goals"/>
+                        </li>
+                    </ul>
+                </b-col>
             <b-col></b-col>
         </b-row>
     </b-container>
@@ -36,24 +33,8 @@ import GoalEvent from "@/components/user/match/GoalEvent";
         data() {
             return {
                 matchGoal : "",
-                floatOptLeft : "floatleft",
-                floatOptRight : "floatright",
                 match: [],
-                matchGoalsHome: [],
-                matchGoalsAway: []
             }
-        },
-        methods: {
-            sortTeams() {
-                for(var i = 0; this.match.length; i++) {
-                    if(this.match[i].player.team.teamId == this.match[i].match.homeTeam.teamId) {
-                        this.matchGoalsHome.push(this.match[i]);
-                    }
-                    else {
-                        this.matchGoalsAway.push(this.match[i]);
-                    }
-                }
-            }   
         }
     }
 </script>

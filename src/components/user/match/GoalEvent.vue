@@ -2,9 +2,9 @@
     <b-container class="bv-example-row" :class="opt" style="max-width: 370px;">
         <b-row>
             <b-col class="description" :class="eventOpt">
-                {{matchGoals.player.team.association.name}} scored a goal! <br>
-                Goal: {{matchGoals.player.playername}} ({{matchGoals.goalType.replace("_", " ").toLowerCase()}}) <br>
-                {{matchGoals.description}} <br>
+                <h5> <b> {{matchGoals.player.team.association.name}} scored a goal! </b> </h5>
+                <b> Goal: {{matchGoals.player.playername}} ({{matchGoals.goalType.replace("_", " ").toLowerCase()}}) </b> <br>
+                {{matchGoals.description}}
             </b-col>
         </b-row>
 </b-container>
@@ -12,17 +12,22 @@
 
 <script>
     export default {
-        props: ["matchGoals", "opt"],
+        props: ["matchGoals"],
         data() {
             return {
-                eventOpt : ""
+                eventOpt : "",
+                opt : ""
             }
         },
         beforeMount() {
-            if(this.opt == "floatright")
+            if(this.matchGoals.player.team.teamId == this.matchGoals.match.homeTeam.teamId) {
+                this.opt = "floatright";
                 this.eventOpt = "eventRight";
-            else
+            }
+            else {
                 this.eventOpt = "eventLeft";
+                this.opt = "floatleft";
+            }
         }
     }
 </script>
@@ -32,13 +37,15 @@
     .eventRight {
         padding: 1em;
         margin: 1em;
-        background-color: rgb(29, 93, 212);
+        background: rgba(18, 74, 255, 0.8);
+        text-align: left;
     }
 
     .eventLeft {
         padding: 1em;
         margin: 1em;
-        background-color: #AACCFF;
+        background: rgba(237, 181, 00, 0.8);
+        text-align: left;
     }
 
     .floatleft {
