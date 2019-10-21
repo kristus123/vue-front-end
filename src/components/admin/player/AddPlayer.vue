@@ -1,69 +1,77 @@
 <template>
     <b-container>
-        <h1>Add a player</h1>
+      <h1>Add a player</h1>
+        <b-row class="justify-content-center">
+          <b-col cols="8">
+            <div class="flexDropdown" :style="{backgroundImage: 'url(' + image + ')'}">
+              <b-form class="customDropdownForm" v-on:submit.prevent="submitForm">
+                <b-form-row class="justify-content-center">
+                  <b-col cols="8">
+                    <b-form-group class="text-black" label="Pick a person" style="text-align: left;">
+                      <b-input-group>
+                        <form-select :options="options" :preselect="selectedPerson" v-on:DropDownValue="onSelectedPerson"/>
+                      </b-input-group>
+                    </b-form-group>
+                    
+
+
+
+
+                  </b-col>
+                </b-form-row>
+              </b-form>
+            </div>
+          </b-col>
+        </b-row>
     </b-container>
 </template>
 
 <script>
+import FlexibleForm from "@/components/forms/FlexibleForm";
+import FormSelect from '@/components/forms/FormSelect'
 
-import FlexibleForm from '@/components/forms/FlexibleForm'
+import playerService from '@/services/player/PlayerService.js';
+import personService from '@/services/person/PersonService'
 
 export default {
-    name: 'Addplayer',
-    components: {
-        FlexibleForm
-    },
+  name: "Addplayer",
+  components: {
+    FlexibleForm,
+    FormSelect
+  },
 
   beforeMount: async function() {
     let people = await personService.getPerson();
-    
     let players = await playerService.findAll();
-
-    let playersID = [];
-    let personID = [];
+    let teams = await teamService.findAll();
 
     let nonPlayers = [];
+    let option = [];
 
-   OUTER: for(var i = 0; i < people.length; i++) {
-     INNER: for(var j = 0; j < players.length; j++) {
-        if(players[j].person.personId === people[i].personId) {
-          console.log(people[i].personId);
-          continue OUTER;
-        }
-
-      }
-    }
-
-
-    /*for(var i = 0; i < players.length; i++) {
-      playersID.push(players[i].person.personId);
-    }
-
+    //Extract the persons that dont have a player
     for(var i = 0; i < people.length; i++) {
-      personID.push(people[i].personId);
-    }
-
-    for(var i = 0; i < personID.length; i++) {
-      if(playersID.includes(personID[i])){
-        console.log("Person is allready assigned a player");
-      } else {
-          nonPlayers.push(personID[i]);
+      if(!players.some(item => item.person.personId === people[i].personId)){
+          nonPlayers.push(people[i]);
       }
     }
     
-
-
-    for(var i = 0; i < people.length; i++) {
-      for(var j = 0; j < nonPlayers.length; j++) {
-        if(people[i].personId === nonPlayers[j]) {
-          this.options.push(people[i]);
+    //Populating the options for the dropdown
+    for(var i = 0; i < nonPlayers.length; i++) {
+      if(i === 0) {
+        option[i] = {
+          value: null,
+          text: 'Please select a person',
+          disabled: true
         }
       }
+
+      option[i+1] = {
+        value: nonPlayers[i],
+        text: nonPlayers[i].firstName + " " + nonPlayers[i].lastName
+      }
     }
-
-    console.log(this.options);*/
-
-
+    this.options = option;
+    console.log(this.options);
 
   },
 
@@ -71,13 +79,19 @@ export default {
   methods: {
     submitForm(value) {
       playerService.create(value);
-    }
+    },
+
+    onSelectedPerson(value) {
+      this.selectedPerson = value;
+      console.log(this.selectedPerson);
+    },
   },
 
   data() {
     return {
       textColor: "text-black",
       image: require(`@/assets/action-adult-athlete-1311619.jpg`),
+      selectedPerson: null,
       inputs: [
         {
           title: "Normal Position",
@@ -104,5 +118,4 @@ export default {
 </script>
 
 <style>
-
 </style>

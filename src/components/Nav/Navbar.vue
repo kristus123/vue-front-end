@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="false">
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand href="#">Foppal</b-navbar-brand>
 
@@ -54,7 +54,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  
+};
 </script>
 
 <style>
