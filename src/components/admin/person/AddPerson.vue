@@ -8,7 +8,7 @@
                 <b-col cols="8">
                     <b-form-group class="text-white" label="Address" style="text-align:left;">
                         <b-input-group>
-                            <form-select :options="options" v-on:DropDownValue="onSelected"/>
+                            <form-select :options="options" :preselect="null" v-on:DropDownValue="onSelected"/>
                             <b-input-group-append>
                             <b-btn variant="primary" v-on:click="newAddress">New</b-btn>
                             </b-input-group-append>
@@ -70,7 +70,6 @@ export default {
         this.addresses = await addressService.getAll();
         
         if(this.addresses.length > 0) {
-            console.log(this.addresses.length);
             let option = [];
             for(var i = 0; i < this.addresses.length; i++) {
                 if(i === 0) {
@@ -86,7 +85,6 @@ export default {
                 }
             }
             this.options = option;
-            console.log(this.options);
         } else {
             this.onShowDropdown = false;
             this.onShowAddressForm = true;
@@ -95,37 +93,24 @@ export default {
 
     methods: {
      async submitForm (value) {
-            console.log(value);
-            let personObject = [];
+         
+            let addressObject = [];
             if(this.onShowAddressForm) {
-                for(var i = 0; i < this.addressInputs.length; i++) {
-                    value.push(this.addressInputs[i]);
+                addressObject = {
+                    addresses: [
+                        this.addressInputs[0].value,
+                    ],
+                    postalCode: this.addressInputs[1].value,
+                    city: this.addressInputs[2].value,
+                    country: this.addressInputs[3].value
                 }
 
-                personObject = {
-                    firstName: value[0].value,
-                    lastName: value[1].value,
-                    dateOfBirth: value[2].value,
-                    address: {
-                        addresses: [
-                            value[3].value
-                        ],
-                        postalCode: value[4].value,
-                        city: value[5].value,
-                        country: value[6].value
-                    }
-                }
             } else {
-                console.log(this.selectedValueDropdown);
-                personObject = {
-                    firstName: value[0].value,
-                    lastName: value[1].value,
-                    dateOfBirth: value[2].value,
-                    address: this.selectedValueDropdown
-                }
+                addressObject = this.selectedValueDropdown;
+                
             }
 
-            let response = await personService.addPerson(personObject);
+            let response = await personService.create(value, addressObject);
             if(response.status === 200) {
                 this.printMsg('showSuccessMsg');
                 this.addresses = await addressService.getAll();
@@ -140,7 +125,6 @@ export default {
         },
         onSelected(value) {
             this.selectedValueDropdown = value;
-            console.log(this.selectedValueDropdown);
         },
         printMsg(element) {
             document.getElementById(element).removeAttribute("hidden");

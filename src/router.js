@@ -17,8 +17,10 @@ import CreatePerson from '@/components/admin/CreatePerson';
 
 import AdminHome from '@/views/admin/Home';
 import AddPlayer from '@/components/admin/player/AddPlayer'
+
 import AddPerson from '@/components/admin/person/AddPerson'
 import DeletePerson from '@/components/admin/person/DeletePerson'
+import UpdatePerson from '@/components/admin/person/UpdatePerson'
 
 import AddAssociation from '@/components/admin/association/AddAssociation';
 import AllAssociations from '@/components/admin/association/AllAssociations';
@@ -109,6 +111,11 @@ export default new Router({
         {
           path: "delete/person",
           component: DeletePerson
+        },
+        {
+          path: "update/person",
+          component: UpdatePerson
+
         },
         {
           path: "add/association",

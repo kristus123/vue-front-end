@@ -28,7 +28,7 @@
                   <b-btn pill id="subBtn" type="submit" variant="outline-success" value="submit" size="lg">Submit</b-btn>
                 </b-col>
                 <b-col cols="3">
-                  <b-btn pill id="resetBtn" type="reset" variant="outline-danger" value="reset" size="lg" v-on:click="resetForm">Reset</b-btn>
+                  <b-btn pill id="resetBtn" type="reset" variant="outline-danger" size="lg" v-on:click="resetForm">Reset</b-btn>
                 </b-col>
                 </b-form-row>
             </b-form>
@@ -49,9 +49,9 @@ export default {
       console.log(this.info);
     },
     resetForm() {
-      document.querySelector('input').forEach(input => {
-        console.log(input);
-      });
+      for(var i = 0; i < this.inputs.length; i++) {
+        this.inputs.value = null;
+      }
 
     }
   },

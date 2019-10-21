@@ -80,7 +80,9 @@ export default {
                                     icon: 'fas fa-minus-circle'
                                 },
                                 {
-                                    href:"#",
+                                    href: {
+                                        path: "/admin/update/person"
+                                    },
                                     title: "Update",
                                     icon: "fas fa-wrench"
                                 }

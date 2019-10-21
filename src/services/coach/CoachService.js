@@ -1,4 +1,4 @@
-import instance from '';
+import instance from '@/services/AxiosService';
 import formService from '@/services/form/FormService.js';
 
 class CoachService {
