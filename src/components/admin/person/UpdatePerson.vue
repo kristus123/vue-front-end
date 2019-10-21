@@ -159,7 +159,6 @@ export default {
             if(response.status === 200) {
                 this.resetForm();
                 this.printMsg('showSuccessMsg');
-                console.log(this.preselect);
             } else {
                 this.printMsg('showErrorMsg');
             }

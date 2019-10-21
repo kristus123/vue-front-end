@@ -104,11 +104,9 @@ export default {
                     city: this.addressInputs[2].value,
                     country: this.addressInputs[3].value
                 }
-                console.log(addressObject);
 
             } else {
                 addressObject = this.selectedValueDropdown;
-                console.log(addressObject);
                 
             }
 
