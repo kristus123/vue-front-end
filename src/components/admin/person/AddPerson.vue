@@ -69,6 +69,7 @@ export default {
     beforeMount: async function() {
         this.addresses = await addressService.getAll();
         
+        
         if(this.addresses.length > 0) {
             let option = [];
             for(var i = 0; i < this.addresses.length; i++) {

@@ -1,8 +1,17 @@
 <template>
   <div>
     <h2>hei</h2>
+
+        <center>
+      <hr class="pretty" />
+
+      <b-input style="max-width:40%" placeholder="Search for an address" />
+      <hr class="pretty" />
+    </center>
     
-    <address-card />
+    <div v-for="address in addresses" v-bind:key="address.addressId">
+      <address-card :address="address" />
+    </div>
 
   </div>
 </template>
@@ -14,7 +23,6 @@ import addressService from '@/services/address/AddressService.js';
 
 
 export default {
-  name: "Addplayer",
   
   components: {
     AddressCard
@@ -24,17 +32,13 @@ export default {
 
   async beforeMount() {
       this.addresses = await addressService.getAll();
+      console.log(this.addresses);
   },
-
-  methods: {
-    data : function() {
+  data() {
       return {
         addresses : []
       }
     }
-  }
-
- 
 };
 </script>
 

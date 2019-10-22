@@ -6,11 +6,10 @@ import SignupPage from '@/views/SignupPage'
 import TeamsPage from '@/views/TeamsPage'
 import TeamPage from '@/views/TeamPage'
 
-import PlayerCard  from '@/views/players/PlayerCard'
+import PlayerCard from '@/views/players/PlayerCard'
 import PlayerStats from '@/views/players/PlayerStats'
 
 import FlexibleForm from '@/components/forms/FlexibleForm';
-import AddTeam from '@/components/userPanelComponents/AddTeam';
 import UserPanel from '@/views/players/userpanel/UserPanel';
 import CreateMatch from '@/components/admin/CreateMatch';
 import CreatePerson from '@/components/admin/CreatePerson';
@@ -39,6 +38,16 @@ import UpdateAddress from '@/components/admin/address/UpdateAddress';
 import AddCoach from '@/components/admin/coach/AddCoach';
 
 import AddSeason from '@/components/season/AddSeason';
+
+import AddOwner from '@/components/admin/owner/AddOwner'
+
+import AddTeam from '@/components/userPanelComponents/AddTeam';
+
+import AddContact from '@/components/admin/contact/AddContact';
+
+import ShowAllAddress from '@/components/admin/address/ShowAllAddress';
+
+import AdminLandingPage from '@/components/admin/AdminLandingPage';
 
 import Season from '@/components/admin/season/Season'
 
@@ -75,26 +84,22 @@ export default new Router({
           component: PlayerCard
         },
         {
-          path     : "playerStats",
+          path: "playerStats",
           component: PlayerStats
         },
-        
+
       ]
     },
     {
       path: "/UserPanel",
       name: "UserPanel",
       component: UserPanel,
-      children : [
+      children: [
         {
-          path     : "AddTeam",
-          component: AddTeam
-        },
-        {
-          path     : "createMatch",
+          path: "createMatch",
           component: CreateMatch
         },
-        
+
       ]
     },
     {
@@ -102,6 +107,12 @@ export default new Router({
       name: "admin",
       component: AdminHome,
       children: [
+
+        {
+          path: "/",
+          component: AdminLandingPage
+        },
+
         {
           path: "add/player",
           component: AddPlayer
@@ -127,11 +138,11 @@ export default new Router({
         {
           path: "all/association",
           component: AllAssociations
-        },   
+        },
         {
           path: "update/association/:id",
           component: UpdateAssociation
-        },   
+        },
 
         {
           path: "manage/user",
@@ -160,32 +171,54 @@ export default new Router({
         },
 
         {
-          path     : "create/person",
+          path: "create/person",
           component: CreatePerson
         },
 
         {
-          path     : "add/coach",
+          path: "add/coach",
           component: AddCoach
         },
 
         {
-          path     : "add/season",
+          path: "add/season",
           component: AddSeason
         },
 
         {
-          path : "season",
+          path: "add/owner",
+          component: AddOwner
+        },
+
+        {
+          path: "add/team",
+          component: AddTeam
+        },
+
+        {
+          path: "add/contact",
+          component: AddContact
+        },
+
+        {
+          path: "show/address",
+          component: ShowAllAddress
+        },
+        {
+          path: "season",
           component: Season
         }
 
-      
 
 
 
-        
-        
-        
+
+
+
+
+
+
+
       ]
     },
 
@@ -196,14 +229,14 @@ export default new Router({
     },
 
     {
-      path : "/teamsPage",
-      name : "teamsPage",
-      component : TeamsPage
+      path: "/teamsPage",
+      name: "teamsPage",
+      component: TeamsPage
     },
     {
-      path : "/teamPage",
-      name : "teamPage",
-      component : TeamPage,
+      path: "/teamPage",
+      name: "teamPage",
+      component: TeamPage,
       props: true
     },
     {

@@ -17,6 +17,12 @@ class PlayerService {
         return instance.post("/v1/admin/post/player", jsonObject).then(response => response.data)
 
     }
+
+    update(playerObject) {
+        return instance.put(`v1/admin/update/player`, playerObject)
+            .then(response => response.data)
+            .catch(error => error)
+    }
 }
 
 
