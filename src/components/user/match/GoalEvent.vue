@@ -3,20 +3,27 @@
         <b-row>
             <b-col class="description" :class="eventOpt">
                 <h5> <b> {{matchGoals.player.team.association.name}} scored a goal! </b> </h5>
-                <b> Goal: {{matchGoals.player.playername}} ({{matchGoals.goalType.replace("_", " ").toLowerCase()}}) </b> <br>
+                <b>  Goal:  <span v-bind:id="hooverId"> {{matchGoals.player.playername}} </span> ({{matchGoals.goalType.replace("_", " ").toLowerCase()}}) </b> <br>
                 {{matchGoals.description}}
+                
+                <b-popover v-bind:target="hooverId"  triggers="hover" placement="right" boundary-padding = 0 boundary= 'viewport'>
+                    <player-card :playerAttr="matchGoals.player"/>
+                </b-popover>
             </b-col>
         </b-row>
 </b-container>
 </template>
 
 <script>
+    import PlayerCard from '@/components/cards/player/PlayerCard';
     export default {
         props: ["matchGoals"],
+        components: {PlayerCard},
         data() {
             return {
                 eventOpt : "",
-                opt : ""
+                opt : "",
+                hooverId : "yupp"
             }
         },
         beforeMount() {
@@ -28,6 +35,7 @@
                 this.eventOpt = "eventLeft";
                 this.opt = "floatleft";
             }
+            this.hooverId = this.matchGoals.goalId.toString(10);
         }
     }
 </script>
@@ -54,6 +62,10 @@
 
     .floatright {
         float:right;
+    }
+
+    .b-popover {
+        max-width: 100%;
     }
 
 </style>

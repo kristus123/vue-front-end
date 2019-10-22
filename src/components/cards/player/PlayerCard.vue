@@ -1,7 +1,8 @@
 <template>
         
         <b-card
-            title="Ronaldo"
+            v-bind:title="playerName"
+            align = "center"
             tag="article"
             class="mb-2">
             <b-row class="justify-content-center">
@@ -76,14 +77,23 @@ import PlayerStatsPie from '@/components/charts/player/playerStatsPie';
 export default {
 
     name: 'PlayerCard',
+    props:["playerAttr"],
     
     components: {
         PlayerStatsBar,
         PlayerStatsPie
     },
+
+    beforeMount() {
+        this.playerPosition = this.playerAttr.normalPosition;
+        this.playerNumber = this.playerAttr.playerNumber;
+        this.teamName = this.playerAttr.team.association.name;
+        this.playerName = this.playerAttr.playername;
+    },
     
     data() {
         return {
+            playerName : "Ronaldo",
             teamName : "Juventus",
             playerPosition: "Attacker",
             playerNumber: "7",
@@ -196,5 +206,9 @@ export default {
     }
     .align-text-right {
         text-align: right;
+    }
+    .b-card-header-clazz {
+        text-align: center;
+        align-items: center;
     }
 </style>

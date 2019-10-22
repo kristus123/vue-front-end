@@ -26,7 +26,6 @@ import GoalEvent from "@/components/user/match/GoalEvent";
         },
         async beforeMount() {
             this.match = await matchGoalService.getMatchGoalByMatchId(1);
-            this.sortTeams();
         },
         name: 'MatchEvent',
 
