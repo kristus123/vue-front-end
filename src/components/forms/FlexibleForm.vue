@@ -4,10 +4,13 @@
       <b-col :cols="cols">
         <div class="flexForm" :style="{backgroundImage: 'url(' + image + ')'}">
           <b-form class="customForm" v-on:submit.prevent="submitForm">
+            
             <slot name="firstDropdown"></slot>
             <slot name="personDropdown"></slot>
             <slot name="teamDropdown"></slot>
+
             <flexible-inputs :inputs="inputs" :color="color"/>
+
             <slot name="dropdown"></slot>
             <slot name="newForm"></slot>
 
