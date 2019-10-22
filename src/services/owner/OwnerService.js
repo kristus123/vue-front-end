@@ -7,9 +7,7 @@ class OwnerService {
             teamId: formService.findValue("teamId", formObject),
 
         }
-
-        console.log(jsonObject);
-
+        
         return instance.post("/v1/admin/post/owner", jsonObject)
             .then(response => response.data)
             .catch(error => error);

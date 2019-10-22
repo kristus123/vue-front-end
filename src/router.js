@@ -16,8 +16,10 @@ import CreatePerson from '@/components/admin/CreatePerson';
 
 import AdminHome from '@/views/admin/Home';
 import AddPlayer from '@/components/admin/player/AddPlayer'
+
 import AddPerson from '@/components/admin/person/AddPerson'
 import DeletePerson from '@/components/admin/person/DeletePerson'
+import UpdatePerson from '@/components/admin/person/UpdatePerson'
 
 import AddAssociation from '@/components/admin/association/AddAssociation';
 import AllAssociations from '@/components/admin/association/AllAssociations';
@@ -41,6 +43,11 @@ import AddOwner from '@/components/admin/owner/AddOwner'
 
 import AddTeam from '@/components/userPanelComponents/AddTeam';
 
+import AddContact from '@/components/admin/contact/AddContact';
+
+import ShowAllAddress from '@/components/admin/address/ShowAllAddress';
+
+import AdminLandingPage from '@/components/admin/AdminLandingPage';
 
 Vue.use(Router)
 
@@ -97,6 +104,12 @@ export default new Router({
       name: "admin",
       component: AdminHome,
       children: [
+        
+        {
+          path: "/",
+          component: AdminLandingPage
+        },
+
         {
           path: "add/player",
           component: AddPlayer
@@ -108,6 +121,11 @@ export default new Router({
         {
           path: "delete/person",
           component: DeletePerson
+        },
+        {
+          path: "update/person",
+          component: UpdatePerson
+
         },
         {
           path: "add/association",
@@ -172,8 +190,21 @@ export default new Router({
         {
           path     : "add/team",
           component: AddTeam
+        },
+
+        {
+          path     : "add/contact",
+          component: AddContact
+        },
+
+        {
+          path     : "show/address",
+          component: ShowAllAddress
         }
 
+        
+
+        
         
 
       

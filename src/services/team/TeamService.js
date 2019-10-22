@@ -11,6 +11,16 @@ class TeamService {
         }
 
         return instance.post("/v1/admin/post/team", jsonObject).then(response => response.data)
+    }
 
+
+    getAllPlayersOfTeam(id) {
+        return instance.get(`/v1/admin/get/team/players/${id}`)
+            .then(response => response.data)
+            .catch(error => error)
     }
 }
+
+
+const teamService = new TeamService();
+export default teamService;
