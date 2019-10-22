@@ -3,7 +3,7 @@ import formService from '@/services/form/FormService.js';
 
 class PlayerService {
     findAll() {
-        return instance.get("v1/admin/get/player").then(response => response.data)
+        return instance.get("v1/common/get/player").then(response => response.data)
     }
 
     create(formObject) {

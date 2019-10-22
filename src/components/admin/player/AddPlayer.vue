@@ -42,6 +42,20 @@
         </template>
 
       </flexible-form>
+
+      <b-row id="showSuccessMsg" class="justify-content-center">
+        <b-col cols="7">
+            <b-alert variant="success" show>You have successfully added a player</b-alert>
+        </b-col>
+      </b-row>
+
+      <b-row id="showErrorMsg" class="justify-content-center">
+        <b-col cols="7">
+            <b-alert variant="danger" show>Something went wrong. Please try again later.</b-alert>
+        </b-col>
+      </b-row>
+
+
     </b-container>
 </template>
 
@@ -54,6 +68,8 @@ import playerService from '@/services/player/PlayerService.js';
 import personService from '@/services/person/PersonService'
 import teamService from '@/services/team/TeamService'
 
+import animateService from '@/services/AnimateService'
+
 var dateFormat = require('dateformat');
 
 export default {
@@ -64,40 +80,56 @@ export default {
     FlexibleInputs,
   },
 
+  mounted: function() {
+    document.getElementById('showSuccessMsg').setAttribute("hidden", "");
+    document.getElementById('showErrorMsg').setAttribute("hidden", "");
+  },
+
   beforeMount: async function() {
     let people = await personService.getPerson();
     let players = await playerService.findAll();
     let teams = await teamService.findAll();
+
+    console.log(teams);
 
     let nonPlayers = [];
     let personOption = [];
     let teamOption = [];
 
     //Extract the persons that dont have a player
-    for(var i = 0; i < people.length; i++) {
-      if(!players.some(item => item.person.personId === people[i].personId)){
-          nonPlayers.push(people[i]);
+    for(var i = 0; i < people._embedded.personModelList.length; i++) {
+      if(!players._embedded.playerModelList.some(item => item.person.personId === people._embedded.personModelList[i].personId)){
+          nonPlayers.push(people._embedded.personModelList[i]);
       }
     }
     
     //Populating the person options for the dropdown
-    for(var i = 0; i < nonPlayers.length; i++) {
-      if(i === 0) {
+    if(nonPlayers.length === 0) {
         personOption[i] = {
           value: null,
-          text: 'Please select a person',
+          text: 'No persons available!',
           disabled: true
         }
-      }
+    } else {
 
-      personOption[i+1] = {
-        value: nonPlayers[i],
-        text: nonPlayers[i].firstName + " " + nonPlayers[i].lastName
+      for(var i = 0; i < nonPlayers.length; i++) {
+        if(i === 0) {
+          personOption[i] = {
+            value: null,
+            text: 'Please select a person',
+            disabled: true
+          }
+        }
+
+        personOption[i+1] = {
+          value: nonPlayers[i],
+          text: nonPlayers[i].firstName + " " + nonPlayers[i].lastName
+        }
       }
     }
 
     //Populating the team options for the dropdown
-    for(var i = 0; i < teams.length; i++) {
+    for(var i = 0; i < teams._embedded.teamModelList.length; i++) {
       if(i === 0) {
         teamOption[i] = {
           value: null,
@@ -107,8 +139,8 @@ export default {
       }
 
       teamOption[i+1] = {
-        value: teams[i],
-        text: teams[i].association.name
+        value: teams._embedded.teamModelList[i],
+        text: teams._embedded.teamModelList[i].association.name
       }
     }
 
@@ -123,7 +155,7 @@ export default {
 
 
   methods: {
-    submitForm(value) {
+    async submitForm(value) {
 
       let playerObject;
 
@@ -142,7 +174,16 @@ export default {
         }
       }
 
-      playerService.add(playerObject);
+      let response = await playerService.add(playerObject);
+      if(response.status === 201) {
+        for(var i = 0; i < this.inputs.length; i++) {
+          this.inputs[i].value = '';
+        }
+        this.dateRange = '';
+        this.printMsg('showSuccessMsg');
+      } else {
+        this.printMsg('showErrorMsg');
+      }
     },
 
     onSelectedPerson(value) {
@@ -154,6 +195,15 @@ export default {
     onSelectedTeam(value) {
       this.selectedTeam = value;
       console.log(this.selectedTeam);
+    },
+
+    printMsg(element) {
+      document.getElementById(element).removeAttribute("hidden");
+          animateService.animate(element, 'fadeInDown', 'delay-1s', () => {
+              animateService.animate(element, 'fadeOutUp', 'delay-2s', () => {
+                  document.getElementById(element).setAttribute("hidden", "");
+              });
+          });
     }
   },
 
@@ -174,6 +224,7 @@ export default {
           placeholder: "Enter a position",
           type: "text",
           required: true,
+          value: '',
           disabled: false,
           icon: "fas fa-layer-group"
         },
