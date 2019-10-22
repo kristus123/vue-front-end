@@ -1,11 +1,12 @@
 <template>
   <b-container :style="{width: width}">
     <b-row class="justify-content-center">
-      <b-col cols="8">
+      <b-col :cols="cols">
         <div class="flexForm" :style="{backgroundImage: 'url(' + image + ')'}">
           <b-form class="customForm" v-on:submit.prevent="submitForm">
 
-            <flexible-inputs :inputs="inputs"/>
+            <slot name="firstDropdown"></slot>
+            <flexible-inputs :inputs="inputs" :colors="color"/>
             <slot name="dropdown"></slot>
 
 
@@ -25,10 +26,10 @@
 
               <b-form-row class="justify-content-center" align-h="between">
                 <b-col cols="3">
-                  <b-btn pill id="subBtn" type="submit" variant="outline-success" value="submit" size="lg">Submit</b-btn>
+                  <b-btn pill id="subBtn" type="submit" variant="success" value="submit" size="lg">Submit</b-btn>
                 </b-col>
                 <b-col cols="3">
-                  <b-btn pill id="resetBtn" type="reset" variant="outline-danger" size="lg" v-on:click="resetForm">Reset</b-btn>
+                  <b-btn pill id="resetBtn" type="reset" variant="danger" size="lg" v-on:click="resetForm">Reset</b-btn>
                 </b-col>
                 </b-form-row>
             </b-form>
@@ -55,7 +56,7 @@ export default {
 
     }
   },
-  props: ["inputs", "width", "color", "image"],
+  props: ["inputs", "width", "color", "image", "size"],
 
   components: {
     FlexibleInputs
@@ -67,7 +68,8 @@ export default {
       errorMsg: "Something went wrong!",
       showErrorMsg : false,
       showSuccessMsg: false,
-      successMsg: "Successful!"
+      successMsg: "Successful!",
+      cols: this.size === undefined ? 8 : this.size
     };
   }
 };

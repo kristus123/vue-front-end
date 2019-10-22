@@ -40,6 +40,8 @@ import AddCoach from '@/components/admin/coach/AddCoach';
 
 import AddSeason from '@/components/season/AddSeason';
 
+import Season from '@/components/admin/season/Season'
+
 
 Vue.use(Router)
 
@@ -170,6 +172,11 @@ export default new Router({
         {
           path     : "add/season",
           component: AddSeason
+        },
+
+        {
+          path : "season",
+          component: Season
         }
 
       

@@ -281,23 +281,9 @@ export default {
                         {
                             title: "Season",
                             icon: 'fas fa-calendar-alt',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href: {
+                                path: '/admin/season'
+                            }
                         },
                         {
                             title: "Goal Type",
