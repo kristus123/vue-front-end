@@ -17,6 +17,10 @@ class PlayerService {
         return instance.post("/v1/admin/post/player", jsonObject).then(response => response.data)
 
     }
+
+    add(playerObject) {
+        return instance.post("/v1/admin/post/player", playerObject).then(response => response);
+    }
 }
 
 
