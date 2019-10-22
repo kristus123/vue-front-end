@@ -6,7 +6,7 @@ import SignupPage from '@/views/SignupPage'
 import TeamsPage from '@/views/TeamsPage'
 import TeamPage from '@/views/TeamPage'
 
-import PlayerCard  from '@/views/players/PlayerCard'
+import PlayerCard from '@/views/players/PlayerCard'
 import PlayerStats from '@/views/players/PlayerStats'
 
 import FlexibleForm from '@/components/forms/FlexibleForm';
@@ -49,6 +49,9 @@ import ShowAllAddress from '@/components/admin/address/ShowAllAddress';
 
 import AdminLandingPage from '@/components/admin/AdminLandingPage';
 
+import Season from '@/components/admin/season/Season'
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -81,22 +84,22 @@ export default new Router({
           component: PlayerCard
         },
         {
-          path     : "playerStats",
+          path: "playerStats",
           component: PlayerStats
         },
-        
+
       ]
     },
     {
       path: "/UserPanel",
       name: "UserPanel",
       component: UserPanel,
-      children : [
+      children: [
         {
-          path     : "createMatch",
+          path: "createMatch",
           component: CreateMatch
         },
-        
+
       ]
     },
     {
@@ -104,7 +107,7 @@ export default new Router({
       name: "admin",
       component: AdminHome,
       children: [
-        
+
         {
           path: "/",
           component: AdminLandingPage
@@ -135,11 +138,11 @@ export default new Router({
         {
           path: "all/association",
           component: AllAssociations
-        },   
+        },
         {
           path: "update/association/:id",
           component: UpdateAssociation
-        },   
+        },
 
         {
           path: "manage/user",
@@ -168,50 +171,54 @@ export default new Router({
         },
 
         {
-          path     : "create/person",
+          path: "create/person",
           component: CreatePerson
         },
 
         {
-          path     : "add/coach",
+          path: "add/coach",
           component: AddCoach
         },
 
         {
-          path     : "add/season",
+          path: "add/season",
           component: AddSeason
         },
 
         {
-          path     : "add/owner",
+          path: "add/owner",
           component: AddOwner
         },
 
         {
-          path     : "add/team",
+          path: "add/team",
           component: AddTeam
         },
 
         {
-          path     : "add/contact",
+          path: "add/contact",
           component: AddContact
         },
 
         {
-          path     : "show/address",
+          path: "show/address",
           component: ShowAllAddress
+        },
+        {
+          path: "season",
+          component: Season
         }
 
-        
 
-        
-        
 
-      
 
-        
-        
-        
+
+
+
+
+
+
+
       ]
     },
 
@@ -222,14 +229,14 @@ export default new Router({
     },
 
     {
-      path : "/teamsPage",
-      name : "teamsPage",
-      component : TeamsPage
+      path: "/teamsPage",
+      name: "teamsPage",
+      component: TeamsPage
     },
     {
-      path : "/teamPage",
-      name : "teamPage",
-      component : TeamPage,
+      path: "/teamPage",
+      name: "teamPage",
+      component: TeamPage,
       props: true
     },
     {
