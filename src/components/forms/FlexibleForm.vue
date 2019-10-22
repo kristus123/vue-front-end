@@ -94,5 +94,7 @@ export default {
   padding-bottom: 20px;
 }
 
-
+div.input-group {
+  margin: 0px !important;
+}
 </style>
