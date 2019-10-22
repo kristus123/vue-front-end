@@ -29,12 +29,16 @@ class AddressService {
         return jsonObject;
     }
 
+    delete(addressId) {
+        return instance.delete(`v1/admin/delete/address/${addressId}`)
+            .then(response => response.data)
+            .catch(error => error)
+    }
 
 
-    update(formObject) {
-        const json = this.turnFormObjectIntoValidJson(formObject);
-        console.log(json);
-        return instance.put("v1/admin/update/address", json)
+    update(formObject) { 
+        return instance.put("v1/admin/update/address",
+            this.turnFormObjectIntoValidJson(formObject))
             .then(response => response.data)
             .catch(error => console.log(error));
     }
