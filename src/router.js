@@ -52,6 +52,8 @@ import ShowAllAddress from '@/components/admin/address/ShowAllAddress';
 import AdminLandingPage from '@/components/admin/AdminLandingPage';
 
 import Season from '@/components/admin/season/Season'
+import Result from '@/components/admin/result/Result'
+import Match from "@/components/admin/match/Match"
 
 
 Vue.use(Router)
@@ -213,6 +215,14 @@ export default new Router({
         {
           path: "season",
           component: Season
+        },
+        {
+          path: "result",
+          component: Result
+        },
+        {
+          path: "match",
+          component: Match
         }
 
 
