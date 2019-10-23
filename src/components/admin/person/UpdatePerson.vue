@@ -10,13 +10,13 @@
                                 <b-col cols="8">
                                     <b-form-group class="text-white" label="Person" style="text-align: left;">
                                         <b-input-group>
-                                            <form-select :options="options" :preselect="preselectPerson" v-on:DropDownValue="onSelectedPerson"/>
+                                            <form-select :options="options" :preselect="preselectPerson" v-on:DropDownValue="onSelectedPerson" />
                                         </b-input-group>
                                     </b-form-group>
                                 </b-col>
                             </b-form-row>
 
-                            <flexible-inputs v-if="onShowInputs" :inputs="inputs"/>
+                            <flexible-inputs v-if="onShowInputs" :inputs="inputs" :color="textColor"/>
 
                             <b-form-row v-if="onShowAddressDropdown" class="justify-content-center">
                                 <b-col cols="8">
@@ -31,14 +31,14 @@
                                 </b-col>
                             </b-form-row>
 
-                            <flexible-inputs v-if="onShowAddressInputs" :inputs="addressInputs" />
+                            <flexible-inputs v-if="onShowAddressInputs" :inputs="addressInputs" :color="textColor"/>
 
                             <b-form-row id="buttons" class="justify-content-center" align-h="between" v-if="onShowInputs">
                                 <b-col cols="3">
-                                    <b-btn pill variant="outline-success" size="lg" type="submit" value="submit">Update</b-btn>
+                                    <b-btn pill variant="success" size="lg" type="submit" value="submit">Update</b-btn>
                                 </b-col>
                                 <b-col cols="3">
-                                    <b-btn pill variant="outline-secondary" size="lg" v-on:click="resetForm">Cancel</b-btn>
+                                    <b-btn pill variant="secondary" size="lg" v-on:click="resetForm">Cancel</b-btn>
                                 </b-col>
                             </b-form-row>
 
@@ -91,7 +91,8 @@ export default {
             addressInputs: '',
             address: '',
             personID: '',
-            preselectPerson: null
+            preselectPerson: null,
+            textColor: 'text-white'
         }
     },
 
@@ -100,32 +101,38 @@ export default {
         document.getElementById('showErrorMsg').setAttribute("hidden", "");
     },
 
-    beforeMount: async function() {
-        let people = await personService.getPerson();
-        let option = [];
-        for(let i = 0; i < people.length; i++) {
-            if(i === 0) {
-                option[i] = {
-                    value: null,
-                    text: 'Please select a person',
-                    disabled: true
-                }                
-            }
-
-            option[i+1] = {
-                value: people[i],
-                text: people[i].firstName + " " + people[i].lastName
-            }
-        }
-
-        this.options = option;
+    beforeMount: function() {
+        this.getPeople();
     },
 
     methods: {
 
+        async getPeople() {
+            let people = await personService.getPerson();
+            let option = [];
+            for(let i = 0; i < people._embedded.personModelList.length; i++) {
+                if(i === 0) {
+                    option[i] = {
+                        value: null,
+                        text: 'Please select a person',
+                        disabled: true
+                    }                
+                }
+
+                option[i+1] = {
+                    value: people._embedded.personModelList[i],
+                    text: people._embedded.personModelList[i].firstName + " " + people._embedded.personModelList[i].lastName
+                }
+            }
+
+            this.options = option;
+        },
+
         async submitForm() {
             let personObject = [];
             let addressObject = [];
+            let updatedAddress = null;
+            let addressId = null;
 
             if(this.onShowAddressInputs) {
 
@@ -138,26 +145,25 @@ export default {
                     country: this.addressInputs[3].value
                 }
 
+                updatedAddress = await addressService.updateWithoutConvert(addressObject, this.preselect.addressId);
+                addressId = updatedAddress.addressId
+                
             } else {
-                if(this.address === '') {
-                    addressObject = this.preselect;
-                } else {
-                    addressObject = this.address;
-                }
+                addressId = this.preselect.addressId;
             }
 
             personObject = {
                 firstName: this.inputs[0].value,
                 lastName: this.inputs[1].value,
                 dateOfBirth: this.inputs[2].value,
-                address: addressObject
+                addressId: addressId
             }
 
-            console.log(personObject);
             let response = await personService.updatePerson(this.personID, personObject);
 
-            if(response.status === 200) {
+            if(response.status === 201) {
                 this.resetForm();
+                this.getPeople();
                 this.printMsg('showSuccessMsg');
             } else {
                 this.printMsg('showErrorMsg');
@@ -166,6 +172,7 @@ export default {
         },
 
         onSelectedPerson(value) {
+            this.preselect = value.address;
             this.preselectPerson = value;
             this.personID = value.personId;
             this.getAddress();
@@ -174,7 +181,7 @@ export default {
             this.onShowAddressDropdown = true;
         },
         onSelectedAddress(value) {
-            
+            this.preselect = value;
             this.address = value;
         },
 
@@ -226,17 +233,18 @@ export default {
         async getAddress() {
             let addresses = await addressService.getAll();
             let address = [];
-            for(var i = 0; i < addresses.length; i++) {
+            for(var i = 0; i < addresses._embedded.addressModelList.length; i++) {
+                delete addresses._embedded.addressModelList[i]._links;
                 address[i] = {
-                        value: addresses[i],
-                        text: addresses[i].addresses[0] + " - " + addresses[i].city + " - " + addresses[i].country
+                        value: addresses._embedded.addressModelList[i],
+                        text: addresses._embedded.addressModelList[i].addresses[0] + " - " + addresses._embedded.addressModelList[i].city + " - " + addresses._embedded.addressModelList[i].country
                     }
             }
+            
             this.addressOptions = address;
         },
 
         formatInputs(value) {
-            this.preselect = value.address;
             this.inputs = [
                 {
                     title: "First name",

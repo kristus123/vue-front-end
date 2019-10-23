@@ -55,11 +55,19 @@ class AddressService {
     }
 
     create(formObject) {
-        const constObject = turnFormObjectIntoValidJson(formObject);
+        const constObject = this.turnFormObjectIntoValidJson(formObject);
 
         instance.post('/v1/admin/createAddress', constObject)
             .then(response => console.log(response.data))
             .catch(error => console.log(error))
+    }
+
+    createWithoutConvert(addressObject) {
+        return instance.post('/v1/admin/post/address/', addressObject).then(response => response.data);
+    }
+
+    updateWithoutConvert(addressObject, addressId) {
+        return instance.put(`/v1/admin/update/address/${addressId}`, addressObject).then(response => response.data);
     }
 }
 
