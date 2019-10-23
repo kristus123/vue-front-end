@@ -1,55 +1,34 @@
 <template>
-  <b-container>
-    <h1>DELETE a COACH</h1>
-    <flexible-form
-      :inputs="inputs"
-      width="100%"
-      :image="image"
-      :color="textColor"
-      @clicked="submitForm"
-    />
-  </b-container>
+  <div v-if="show===true">
+    <li style="padding-top:30px;">
+      <b-row>
+        <b-col cols="8">
+          <h2>{{team.association.name}}</h2>
+        </b-col>
+        <b-col>
+          <b-button @click="removeAsCoach" variant="danger">Remove as coach {{show}}</b-button>
+        </b-col>
+      </b-row>
+    </li>
+  </div>
 </template>
 
 <script>
-import FlexibleForm from "@/components/forms/FlexibleForm";
-
+import coachService from "@/services/coach/CoachService.js";
 export default {
-  name: "Addplayer",
-  components: {
-    FlexibleForm
-  },
-
-  methods: {
-    submitForm(value) {
-      console.log("____________");
-      console.log(value); // someValue
-    }
-  },
-
+  props: ["team"],
   data() {
     return {
-      textColor: "text-black",
-      image: require(`@/assets/action-adult-athlete-1311619.jpg`),
-      inputs: [
-        {
-          title: "Which coach should no longer be coaching ?",
-          placeholder: "who ?",
-          type: "number",
-          required: true,
-          disabled: false,
-          icon: "fas fa-users"
-        },
-        {
-          title: "Which team should the person coach ?",
-          placeholder: "Select a team",
-          type: "number",
-          required: true,
-          disabled: false,
-          icon: "fas fa-users"
-        },
-      ]
+      show: true
     };
+  },
+  methods: {
+    async removeAsCoach() {
+      //console.log(coachService.removeCoachFromTeam(this.team.teamId))
+      if (await coachService.removeCoachFromTeam(this.team.teamId) === true) {
+        this.show = false;
+      }
+    }
   }
 };
 </script>

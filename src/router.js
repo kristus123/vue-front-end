@@ -5,15 +5,15 @@ import LoginPage from '@/views/LoginPage'
 import SignupPage from '@/views/SignupPage'
 import TeamsPage from '@/views/TeamsPage'
 import TeamPage from '@/views/TeamPage'
-
+import AddAddress from '@/components/admin/address/AddAddress';
 import PlayerCard  from '@/views/players/PlayerCard'
 import PlayerStats from '@/views/players/PlayerStats'
-
+import AllOwners from '@/components/admin/owner/AllOwners';
 import FlexibleForm from '@/components/forms/FlexibleForm';
 import AddTeam from '@/components/userPanelComponents/AddTeam';
 import UserPanel from '@/views/players/userpanel/UserPanel';
 import CreateMatch from '@/components/admin/CreateMatch';
-import CreatePerson from '@/components/admin/CreatePerson';
+// import CreatePerson from '@/components/admin/CreatePerson';
 
 import AdminHome from '@/views/admin/Home';
 import AddPlayer from '@/components/admin/player/AddPlayer'
@@ -22,13 +22,15 @@ import AddPerson from '@/components/admin/person/AddPerson'
 import DeletePerson from '@/components/admin/person/DeletePerson'
 import UpdatePerson from '@/components/admin/person/UpdatePerson'
 
+import UpdateCoach from '@/components/admin/coach/UpdateCoach';
+
 import AddAssociation from '@/components/admin/association/AddAssociation';
 import AllAssociations from '@/components/admin/association/AllAssociations';
 
 import UpdateAssociation from '@/components/admin/association/UpdateAssociation';
 
 import AllUsers from '@/components/admin/userManagement/AllUsers';
-
+import AddOwner from '@/components/admin/owner/AddOwner';
 import UpdateUser from '@/components/admin/userManagement/UpdateUser';
 import CreateUser from '@/components/admin/user/CreateUser';
 
@@ -40,7 +42,11 @@ import AddCoach from '@/components/admin/coach/AddCoach';
 
 import AddSeason from '@/components/season/AddSeason';
 
-import Season from '@/components/admin/season/Season'
+import Season from '@/components/admin/season/Season';
+
+import AllCoach from '@/components/admin/coach/AllCoach';
+
+import UpdateOwner from '@/components/admin/owner/UpdateOwner';
 
 
 Vue.use(Router)
@@ -86,10 +92,6 @@ export default new Router({
       name: "UserPanel",
       component: UserPanel,
       children : [
-        {
-          path     : "AddTeam",
-          component: AddTeam
-        },
         {
           path     : "createMatch",
           component: CreateMatch
@@ -160,14 +162,29 @@ export default new Router({
         },
 
         {
-          path     : "create/person",
-          component: CreatePerson
+          path: "all/address",
+          component: AddAddress
+        },
+
+        
+
+      
+        {
+          path     : "all/coach",
+          component: AllCoach
         },
 
         {
           path     : "add/coach",
           component: AddCoach
         },
+        {
+          path     : "update/coach/:coachId",
+          component: UpdateCoach
+        },
+
+
+        
 
         {
           path     : "add/season",
@@ -177,7 +194,29 @@ export default new Router({
         {
           path : "season",
           component: Season
+        },
+        {
+          path     : "add/team",
+          component: AddTeam
+        },
+
+        {
+          path     : "add/owner",
+          component: AddOwner
+        },
+
+        {
+          path     : "update/owner/:id",
+          component: UpdateOwner
+        },
+
+        {
+          path     : "all/owner",
+          component: AllOwners
         }
+
+        
+        
 
       
 

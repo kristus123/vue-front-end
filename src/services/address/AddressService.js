@@ -23,9 +23,9 @@ class AddressService {
             "country": formService.findValue("Country", formObject)
         }
         
-        if (formService.findValue("addressId", formObject) != null) {
-            jsonObject.addressId = formService.findValue("addressId", formObject);
-        }
+        // if (formService.findValue("addressId", formObject) != null) {
+        //     jsonObject.addressId = formService.findValue("addressId", formObject);
+        // }
         return jsonObject;
     }
 
@@ -51,9 +51,9 @@ class AddressService {
     }
 
     create(formObject) {
-        const constObject = turnFormObjectIntoValidJson(formObject);
+        const constObject = this.turnFormObjectIntoValidJson(formObject);
 
-        instance.post('/v1/admin/createAddress', constObject)
+        instance.post('/v1/admin/post/address', constObject)
             .then(response => console.log(response.data))
             .catch(error => console.log(error))
     }

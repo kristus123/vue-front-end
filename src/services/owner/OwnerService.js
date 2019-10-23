@@ -3,15 +3,29 @@ import formService from '@/services/form/FormService.js';
 class OwnerService {
     create(formObject) {
         const jsonObject = {
-            personId: formService.findValue("Player ID", formObject),
-            personId: formService.findValue("Person ID", formObject),
+            personId: formService.findValue("Owner ID", formObject),
             teamId: formService.findValue("Team ID", formObject),
-            normalPosition: formService.findValue("Normal Position", formObject),
-            playerNumber: formService.findValue("Player Number", formObject)
 
         }
 
         return instance.post("/v1/admin/post/owner", jsonObject).then(response => response.data);
+    }
+
+    findAll() {
+        return instance.get("/v1/common/get/owner").then(response => response.data._embedded.ownerModelList)
+        .catch(error => error)
+    }
+
+    findById(id) {
+        return instance.get(`/v1/common/get/owner/${id}`)
+            .then(response => response.data)
+            .catch(error => error)
+    }
+    findAllOwnedTeams(id) {
+        return instance.get(`/v1/admin/get/owner/${id}/allTeams`)
+            .then(response => response.data)
+            .catch(error => error)
+
     }
 }
 
