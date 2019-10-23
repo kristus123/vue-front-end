@@ -206,7 +206,7 @@ export default new Router({
         },
         {
           path: "season",
-          component: Seaso
+          component: Season
         }
 
 
