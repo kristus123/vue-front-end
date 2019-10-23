@@ -15,7 +15,9 @@ import CreateMatch from '@/components/admin/CreateMatch';
 import CreatePerson from '@/components/admin/CreatePerson';
 
 import AdminHome from '@/views/admin/Home';
+
 import AddPlayer from '@/components/admin/player/AddPlayer'
+import UpdatePlayer from '@/components/admin/player/UpdatePlayer'
 
 import AddPerson from '@/components/admin/person/AddPerson'
 import DeletePerson from '@/components/admin/person/DeletePerson'
@@ -116,6 +118,10 @@ export default new Router({
         {
           path: "add/player",
           component: AddPlayer
+        },
+        {
+          path: "update/player",
+          component: UpdatePlayer
         },
         {
           path: "add/person",

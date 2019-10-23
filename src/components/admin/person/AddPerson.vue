@@ -70,9 +70,9 @@ export default {
         this.addresses = await addressService.getAll();
         
         
-        if(this.addresses.length > 0) {
+        if(this.addresses._embedded.addressModelList.length > 0) {
             let option = [];
-            for(var i = 0; i < this.addresses.length; i++) {
+            for(var i = 0; i < this.addresses._embedded.addressModelList.length; i++) {
                 if(i === 0) {
                     option[i] = {
                         value: null,
@@ -81,8 +81,8 @@ export default {
                     }
                 }
                 option[i+1] = {
-                    value: this.addresses[i],
-                    text: this.addresses[i].addresses[0] + " - " + this.addresses[i].city + " - " + this.addresses[i].country
+                    value: this.addresses._embedded.addressModelList[i],
+                    text: this.addresses._embedded.addressModelList[i].addresses[0] + " - " + this.addresses._embedded.addressModelList[i].city + " - " + this.addresses._embedded.addressModelList[i].country
                 }
             }
             this.options = option;
@@ -110,6 +110,8 @@ export default {
                 addressObject = this.selectedValueDropdown;
                 
             }
+            console.log(value);
+            console.log(addressObject);
 
             let response = await personService.create(value, addressObject);
             if(response.status === 200) {
