@@ -50,12 +50,10 @@ export default {
                                     icon: 'fas fa-plus-circle'
                                 },
                                 {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
+
+                                    href: {
+                                        path: "/admin/update/player"
+                                    },
                                     title: "Update",
                                     icon: "fas fa-wrench"
                                 }

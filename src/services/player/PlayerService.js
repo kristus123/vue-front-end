@@ -22,9 +22,9 @@ class PlayerService {
         return instance.post("/v1/admin/post/player", playerObject).then(response => response);
     }
     
-    update(playerObject) {
-        return instance.put(`v1/admin/update/player`, playerObject)
-            .then(response => response.data)
+    update(playerObject, playerId) {
+        return instance.put(`v1/admin/update/player/${playerId}`, playerObject)
+            .then(response => response)
             .catch(error => error)
     }
 }

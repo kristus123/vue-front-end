@@ -50,7 +50,7 @@ class AddressService {
     }
 
     getAll() {
-        return instance.get("/v1/admin/get/address")
+        return instance.get("/v1/common/get/address")
             .then(response => response.data)
     }
 
