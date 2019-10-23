@@ -1,7 +1,11 @@
-import instance from '@/services/AxiosService.js';
+import instance from '@/services/AxiosService';
 import formService from '@/services/form/FormService.js';
 
 class TeamService {
+    findAll() {
+        return instance.get("/v1/common/get/team").then(response => response.data);
+    }
+
     create() {
         const jsonObject = {
             "owner": 1,

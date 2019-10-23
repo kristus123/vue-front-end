@@ -15,7 +15,7 @@ class PersonService {
     }
 
     getPerson() {
-        return instance.get(`/v1/admin/get/person`)
+        return instance.get(`/v1/common/get/person`)
             .then(response => response.data);
     }
 
