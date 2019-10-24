@@ -1,6 +1,7 @@
 <template>
   <b-container>
-    <h1>Add a COACH</h1>
+    <div v-if="!showSuccess">
+      <h1>Add an address</h1>
     <flexible-form
       :inputs="inputs"
       width="100%"
@@ -8,6 +9,17 @@
       :color="textColor"
       @clicked="submitForm"
     />
+    </div>
+
+    <div v-else>
+      <h1>
+        hei
+      </h1>
+        <b-button>
+          add another address
+        </b-button>
+    </div>
+
   </b-container>
 </template>
 
@@ -25,16 +37,18 @@ export default {
     submitForm(value) {
         addressService.create(value);
         console.log(value); // someValue
+        this.showSuccess = true;
     }
   },
 
   data() {
     return {
+      showSuccess : false,
       textColor: "text-black",
       image: require(`@/assets/action-adult-athlete-1311619.jpg`),
       inputs: [
         {
-          title: "address",
+          title: "Address",
           placeholder: "what is the address ?",
           type: "text",
           required: true,
@@ -42,7 +56,7 @@ export default {
           icon: "fas fa-users"
         },
         {
-          title: "postal code",
+          title: "Postal code",
           placeholder: "Eg. 5059",
           type: "number",
           required: true,

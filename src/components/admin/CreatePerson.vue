@@ -1,5 +1,6 @@
 <template>
 <div>
+  <h1>DEPRECATED</h1>
   <b-container v-if="response == null">
     <h1>Add a player</h1>
     <flexible-form

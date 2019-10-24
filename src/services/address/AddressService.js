@@ -23,39 +23,51 @@ class AddressService {
             "country": formService.findValue("Country", formObject)
         }
         
-        if (formService.findValue("addressId", formObject) != null) {
-            jsonObject.addressId = formService.findValue("addressId", formObject);
-        }
+        // if (formService.findValue("addressId", formObject) != null) {
+        //     jsonObject.addressId = formService.findValue("addressId", formObject);
+        // }
         return jsonObject;
     }
 
+    delete(addressId) {
+        return instance.delete(`v1/admin/delete/address/${addressId}`)
+            .then(response => response.data)
+            .catch(error => error)
+    }
 
 
-    update(formObject) {
-        const json = this.turnFormObjectIntoValidJson(formObject);
-        console.log(json);
-        return instance.put("v1/admin/update/address", json)
+    update(formObject) { 
+        return instance.put(`v1/admin/update/address/${formService.findValue('addressId', formObject)}`, 
+            this.turnFormObjectIntoValidJson(formObject))
             .then(response => response.data)
             .catch(error => console.log(error));
     }
 
     findById(id) {
-        return instance.get(`/v1/admin/get/address/${id}`)
+        return instance.get(`/v1/common/get/address/${id}`)
             .then(response => response.data)
             .catch(error => console.log(error))
     }
 
     getAll() {
-        return instance.get("/v1/admin/get/address")
-            .then(response => response.data)
+        return instance.get("/v1/common/get/address")
+            .then(response => response.data._embedded.addressModelList)
     }
 
     create(formObject) {
-        const constObject = turnFormObjectIntoValidJson(formObject);
+        const constObject = this.turnFormObjectIntoValidJson(formObject);
 
-        instance.post('/v1/admin/createAddress', constObject)
+        instance.post('/v1/admin/post/address', constObject)
             .then(response => console.log(response.data))
             .catch(error => console.log(error))
+    }
+
+    createWithoutConvert(addressObject) {
+        return instance.post('/v1/admin/post/address/', addressObject).then(response => response.data);
+    }
+
+    updateWithoutConvert(addressObject, addressId) {
+        return instance.put(`/v1/admin/update/address/${addressId}`, addressObject).then(response => response.data);
     }
 }
 

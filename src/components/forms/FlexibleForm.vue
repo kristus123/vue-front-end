@@ -1,39 +1,43 @@
 <template>
   <b-container :style="{width: width}">
     <b-row class="justify-content-center">
-      <b-col cols="8">
+      <b-col :cols="cols">
         <div class="flexForm" :style="{backgroundImage: 'url(' + image + ')'}">
           <b-form class="customForm" v-on:submit.prevent="submitForm">
+            
+            <slot name="firstDropdown"></slot>
+            <slot name="personDropdown"></slot>
+            <slot name="teamDropdown"></slot>
 
-            <flexible-inputs :inputs="inputs"/>
+            <flexible-inputs :inputs="inputs" :color="color"/>
+
             <slot name="dropdown"></slot>
+            <slot name="newForm"></slot>
 
+            <b-form-row class="justify-content-center">
+              <b-col cols="8">
+                <b-alert v-if="showErrorMsg" id="errMsg" show variant="danger">{{errorMsg}}</b-alert>
+              </b-col>
+            </b-form-row>
 
-              <slot name="newForm"></slot>
+            <b-form-row class="justify-content-center">
+              <b-col cols="8">
+                <b-alert v-if="showSuccessMsg" id="errMsg" show variant="success">{{successMsg}}</b-alert>
+              </b-col>
+            </b-form-row>
 
-              <b-form-row class="justify-content-center">
-                <b-col cols="8">
-                  <b-alert v-if="showErrorMsg" id="errMsg" show variant="danger">{{errorMsg}}</b-alert>
-                </b-col>
-              </b-form-row>
+            <b-form-row class="justify-content-center" align-h="between" v-if="onShowBtns">
+              <b-col cols="3">
+                <b-btn pill id="subBtn" type="submit" variant="success" value="submit" size="lg">Submit</b-btn>
+              </b-col>
+              <b-col cols="3">
+                <b-btn pill id="resetBtn" type="reset" variant="danger" size="lg" v-on:click="resetForm">Reset</b-btn>
+              </b-col>
+            </b-form-row>
 
-              <b-form-row class="justify-content-center">
-                <b-col cols="8">
-                  <b-alert v-if="showSuccessMsg" id="errMsg" show variant="success">{{successMsg}}</b-alert>
-                </b-col>
-              </b-form-row>
-
-              <b-form-row class="justify-content-center" align-h="between">
-                <b-col cols="3">
-                  <b-btn pill id="subBtn" type="submit" variant="outline-success" value="submit" size="lg">Submit</b-btn>
-                </b-col>
-                <b-col cols="3">
-                  <b-btn pill id="resetBtn" type="reset" variant="outline-danger" size="lg" v-on:click="resetForm">Reset</b-btn>
-                </b-col>
-                </b-form-row>
-            </b-form>
-          </div>
-        </b-col>
+          </b-form>
+        </div>
+      </b-col>
     </b-row>
   </b-container>
 </template>
@@ -46,19 +50,22 @@ export default {
   methods: {
     submitForm() {
       this.$emit("clicked", this.info);
-      console.log(this.info);
     },
     resetForm() {
-      for(var i = 0; i < this.inputs.length; i++) {
-        this.inputs.value = null;
-      }
+      this.$emit("reset", true);
 
     }
   },
-  props: ["inputs", "width", "color", "image"],
+  props: ["inputs", "width", "color", "image", "size", "showBtns"],
 
   components: {
     FlexibleInputs
+  },
+
+  watch: {
+    showBtns: function () {
+      this.onShowBtns = this.showBtns;
+    }
   },
 
   data: function() {
@@ -67,7 +74,9 @@ export default {
       errorMsg: "Something went wrong!",
       showErrorMsg : false,
       showSuccessMsg: false,
-      successMsg: "Successful!"
+      successMsg: "Successful!",
+      cols: this.size === undefined ? 8 : this.size,
+      onShowBtns: this.showBtns === undefined ? true : this.showBtns
     };
   }
 };
@@ -89,5 +98,7 @@ export default {
   padding-bottom: 20px;
 }
 
-
+div.input-group {
+  margin: 0px !important;
+}
 </style>

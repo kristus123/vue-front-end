@@ -40,8 +40,9 @@ export default {
 
     beforeMount: async function() {
         let people = await personService.getPerson();
+        console.log(people._embedded.personModelList[0].firstName);
         let option = [];
-        for(let i = 0; i < people.length; i++) {
+        for(let i = 0; i < people._embedded.personModelList.length; i++) {
             if(i === 0) {
                 option[i] = {
                     value: null,
@@ -51,8 +52,8 @@ export default {
             }
 
             option[i+1] = {
-                value: people[i],
-                text: people[i].firstName + " " + people[i].lastName
+                value: people._embedded.personModelList[i],
+                text: people._embedded.personModelList[i].firstName + " " + people._embedded.personModelList[i].lastName
             }
         }
 
@@ -62,7 +63,9 @@ export default {
     methods: {
 
      async submitForm (value) {
+         console.log(value.personId);
             let person = await personService.deletePerson(value.personId);
+            console.log(person);
 
             if(person.status === 200) {
                 let updatedOptions = this.updateOptions(this.options, person.data)

@@ -1,29 +1,209 @@
 <template>
-  <b-container>
-    <h1>Add a player</h1>
-    <flexible-form
-      :inputs="inputs"
-      width="100%"
-      :image="image"
-      :color="textColor"
-      @clicked="submitForm"
-    />
-  </b-container>
+    <b-container>
+      <h1>Add a player</h1>
+
+      <flexible-form :image="image" :inputs="inputs" :color="textColor" @clicked="submitForm">
+
+        <template v-slot:personDropdown>
+          <b-form-row class="justify-content-center">
+            <b-col cols="8">
+              <b-form-group class="text-black" label="Pick a person" style="text-align: left;">
+                <b-input-group>
+                  <form-select :options="personOptions" :preselect="selectedPerson" v-on:DropDownValue="onSelectedPerson"/>
+                </b-input-group>
+              </b-form-group>
+            </b-col>
+          </b-form-row>
+        </template>
+
+        <template v-slot:teamDropdown>
+          <b-form-row class="justify-content-center">
+            <b-col cols="8">
+              <b-form-group class="text-black" label="Pick a team" style="text-align: left;">
+                <b-input-group>
+                  <form-select :options="teamOptions" :preselect="selectedTeam" v-on:DropDownValue="onSelectedTeam"/>
+                </b-input-group>
+              </b-form-group>
+            </b-col>
+          </b-form-row>
+        </template>
+
+        <template v-slot:newForm>
+          <b-form-row class="justify-content-center">
+            <b-col cols="8">
+              <b-form-group class="text-black" label="Date" style="text-align: left;">
+                <v-date-picker v-model="dateRange" mode="range" :columns="2" :input-props='{
+                  placeholder: "Please enter a range",
+                  readonly: true
+                }'/>
+              </b-form-group>
+            </b-col>
+          </b-form-row>
+        </template>
+
+      </flexible-form>
+
+      <b-row id="showSuccessMsg" class="justify-content-center">
+        <b-col cols="7">
+            <b-alert variant="success" show>You have successfully added a player</b-alert>
+        </b-col>
+      </b-row>
+
+      <b-row id="showErrorMsg" class="justify-content-center">
+        <b-col cols="7">
+            <b-alert variant="danger" show>Something went wrong. Please try again later.</b-alert>
+        </b-col>
+      </b-row>
+
+
+    </b-container>
 </template>
 
 <script>
 import FlexibleForm from "@/components/forms/FlexibleForm";
+import FlexibleInputs from "@/components/forms/inputs/FlexibleInputs";
+import FormSelect from '@/components/forms/FormSelect'
+
 import playerService from '@/services/player/PlayerService.js';
+import personService from '@/services/person/PersonService'
+import teamService from '@/services/team/TeamService'
+
+import animateService from '@/services/AnimateService'
+
+var dateFormat = require('dateformat');
 
 export default {
   name: "Addplayer",
   components: {
-    FlexibleForm
+    FlexibleForm,
+    FormSelect,
+    FlexibleInputs,
   },
 
+  mounted: function() {
+    document.getElementById('showSuccessMsg').setAttribute("hidden", "");
+    document.getElementById('showErrorMsg').setAttribute("hidden", "");
+  },
+
+  beforeMount: async function() {
+    let people = await personService.getPerson();
+    let players = await playerService.findAll();
+    let teams = await teamService.findAll();
+
+    console.log(teams);
+
+    let nonPlayers = [];
+    let personOption = [];
+    let teamOption = [];
+
+    //Extract the persons that dont have a player
+    for(var i = 0; i < people._embedded.personModelList.length; i++) {
+      if(!players._embedded.playerModelList.some(item => item.person.personId === people._embedded.personModelList[i].personId)){
+          nonPlayers.push(people._embedded.personModelList[i]);
+      }
+    }
+    
+    //Populating the person options for the dropdown
+    if(nonPlayers.length === 0) {
+        personOption[i] = {
+          value: null,
+          text: 'No persons available!',
+          disabled: true
+        }
+    } else {
+
+      for(var i = 0; i < nonPlayers.length; i++) {
+        if(i === 0) {
+          personOption[i] = {
+            value: null,
+            text: 'Please select a person',
+            disabled: true
+          }
+        }
+
+        personOption[i+1] = {
+          value: nonPlayers[i],
+          text: nonPlayers[i].firstName + " " + nonPlayers[i].lastName
+        }
+      }
+    }
+
+    //Populating the team options for the dropdown
+    for(var i = 0; i < teams._embedded.teamModelList.length; i++) {
+      if(i === 0) {
+        teamOption[i] = {
+          value: null,
+          text: 'Please select a team',
+          disabled: true
+        }
+      }
+
+      teamOption[i+1] = {
+        value: teams._embedded.teamModelList[i],
+        text: teams._embedded.teamModelList[i].association.name
+      }
+    }
+
+    this.teamOptions = teamOption;
+    console.log(this.teamOptions);
+
+
+    this.personOptions = personOption;
+    console.log(this.personOptions);
+
+  },
+
+
   methods: {
-    submitForm(value) {
-      playerService.create(value);
+    async submitForm(value) {
+
+      let playerObject;
+
+      if(this.dateRange.start !== null && this.dateRange.end !== null) {
+        var start = dateFormat(this.dateRange.start, "yyyy-mm-dd");
+        var end = dateFormat(this.dateRange.end, "yyyy-mm-dd");
+
+        playerObject = {
+          teamDateFrom: start,
+          teamDateTo: end,
+          personId: this.selectedPerson.personId,
+          teamId: this.selectedTeam.teamId,
+          playername: this.selectedPerson.firstName + " " + this.selectedPerson.lastName,
+          normalPosition: value[0].value,
+          playerNumber: value[1].value
+        }
+      }
+
+      let response = await playerService.add(playerObject);
+      if(response.status === 201) {
+        for(var i = 0; i < this.inputs.length; i++) {
+          this.inputs[i].value = '';
+        }
+        this.dateRange = '';
+        this.printMsg('showSuccessMsg');
+      } else {
+        this.printMsg('showErrorMsg');
+      }
+    },
+
+    onSelectedPerson(value) {
+      this.selectedPerson = value;
+      console.log(this.selectedPerson);
+      console.log(this.dateRange);
+    },
+
+    onSelectedTeam(value) {
+      this.selectedTeam = value;
+      console.log(this.selectedTeam);
+    },
+
+    printMsg(element) {
+      document.getElementById(element).removeAttribute("hidden");
+          animateService.animate(element, 'fadeInDown', 'delay-1s', () => {
+              animateService.animate(element, 'fadeOutUp', 'delay-2s', () => {
+                  document.getElementById(element).setAttribute("hidden", "");
+              });
+          });
     }
   },
 
@@ -31,36 +211,20 @@ export default {
     return {
       textColor: "text-black",
       image: require(`@/assets/action-adult-athlete-1311619.jpg`),
+      selectedPerson: null,
+      selectedTeam: null,
+      dateRange: {
+        start: null,
+        end: null
+
+      },
       inputs: [
-        {
-          title: "Player ID",
-          placeholder: "Enter a player ID",
-          type: "number",
-          required: true,
-          disabled: true,
-          icon: "fas fa-running"
-        },
-        {
-          title: "Person ID",
-          placeholder: "Enter a person ID",
-          type: "number",
-          required: true,
-          disabled: true,
-          icon: "fas fa-user"
-        },
-        {
-          title: "Team ID",
-          placeholder: "Enter a team ID",
-          type: "number",
-          required: true,
-          disabled: false,
-          icon: "fas fa-users"
-        },
         {
           title: "Normal Position",
           placeholder: "Enter a position",
           type: "text",
           required: true,
+          value: '',
           disabled: false,
           icon: "fas fa-layer-group"
         },
@@ -72,7 +236,10 @@ export default {
           disabled: false,
           icon: "fas fa-hashtag"
         }
-      ]
+      ],
+      personOptions: [],
+      teamOptions: []
+
     };
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h1>Add a player</h1>
+    <h1>Add owner</h1>
     <flexible-form
       :inputs="inputs"
       width="100%"
@@ -13,65 +13,41 @@
 
 <script>
 import FlexibleForm from "@/components/forms/FlexibleForm";
-import playerService from '@/services/player/PlayerService.js';
+import ownerService from "@/services/owner/OwnerService.js";
 
 export default {
-  name: "Addplayer",
   components: {
     FlexibleForm
   },
 
   methods: {
-    submitForm(value) {
-      playerService.create(value);
+    async submitForm(value) {
+      this.response = await ownerService.create(value);
     }
   },
 
   data() {
     return {
+      response: null,
       textColor: "text-black",
       image: require(`@/assets/action-adult-athlete-1311619.jpg`),
       inputs: [
         {
-          title: "Player ID",
-          placeholder: "Enter a player ID",
+          title: "Person ID",
+          placeholder: "Select a person",
           type: "number",
           required: true,
-          disabled: true,
+          disabled: false,
           icon: "fas fa-running"
         },
         {
-          title: "Person ID",
-          placeholder: "Enter a person ID",
-          type: "number",
-          required: true,
-          disabled: true,
-          icon: "fas fa-user"
-        },
-        {
-          title: "Team ID",
-          placeholder: "Enter a team ID",
+          title: "teamId",
+          placeholder: "Enter team ID",
           type: "number",
           required: true,
           disabled: false,
           icon: "fas fa-users"
         },
-        {
-          title: "Normal Position",
-          placeholder: "Enter a position",
-          type: "text",
-          required: true,
-          disabled: false,
-          icon: "fas fa-layer-group"
-        },
-        {
-          title: "Player Number",
-          placeholder: "Enter a player number",
-          type: "number",
-          required: "required",
-          disabled: false,
-          icon: "fas fa-hashtag"
-        }
       ]
     };
   }

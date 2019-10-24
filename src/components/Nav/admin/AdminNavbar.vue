@@ -50,12 +50,10 @@ export default {
                                     icon: 'fas fa-plus-circle'
                                 },
                                 {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
+
+                                    href: {
+                                        path: "/admin/update/player"
+                                    },
                                     title: "Update",
                                     icon: "fas fa-wrench"
                                 }
@@ -91,86 +89,17 @@ export default {
                         {
                             title: "Association",
                             icon: 'fas fa-arrows-alt',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href : {path: '/admin/all/association'}
                         },
                         {
                             title: "Coach",
                             icon: 'fas fa-user-shield',
-                            child: [
-                                {
-                                    href: {path : "/admin/add/coach"},
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: {path : "/admin/delete/coach"},
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href: {path : "/admin/update/coach"},
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href: {path: "/admin/all/coach"}
                         },
                         {
                             title: "Owner",
                             icon: 'fas fa-user-tie',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
-                        },
-                        {
-                            title: "Contact",
-                            icon: 'fas fa-address-book',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href : {path : "/admin/all/owner"}
                         },
                         {
                             title: "Match Position",
@@ -196,23 +125,9 @@ export default {
                         {
                             title: "Result",
                             icon: 'fas fa-medal',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href: {
+                                path: "/admin/result"
+                            }
                         },
                         {
                             title: "Team",
@@ -238,66 +153,20 @@ export default {
                         {
                             title: "Address",
                             icon: 'fas fa-address-card',
-                            child: [
-                                
-                                {
-                                    href: {path: "/admin/show/address"},
-                                    title: "Show all",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href: {path: "/admin/add/address"},
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: {path: "/admin/update/address"},
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href: {path: "/admin/show/address"}
                         },
                         {
                             title: "Location",
                             icon: 'fas fa-map-marked-alt',
-                            child: [
-                                {
-                                    href: {path: '/admin/add/location'},
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href: {path: '/admin/all/location'}
+                             
                         },
                         {
                             title: "Season",
                             icon: 'fas fa-calendar-alt',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href: {
+                                path: '/admin/season'
+                            }
                         },
                         {
                             title: "Goal Type",
@@ -344,23 +213,9 @@ export default {
                         {
                             title: "Match",
                             icon: 'fas fa-fire-alt',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href: {
+                                path: "/admin/match"
+                            }
                         },
                         {
                             title: "History",
