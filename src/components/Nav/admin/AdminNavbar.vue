@@ -125,23 +125,9 @@ export default {
                         {
                             title: "Result",
                             icon: 'fas fa-medal',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href: {
+                                path: "/admin/result"
+                            }
                         },
                         {
                             title: "Team",
@@ -227,23 +213,9 @@ export default {
                         {
                             title: "Match",
                             icon: 'fas fa-fire-alt',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href: {
+                                path: "/admin/match"
+                            }
                         },
                         {
                             title: "History",

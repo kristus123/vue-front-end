@@ -6,7 +6,7 @@ import SignupPage from '@/views/SignupPage'
 import TeamsPage from '@/views/TeamsPage'
 import TeamPage from '@/views/TeamPage'
 import AddAddress from '@/components/admin/address/AddAddress';
-import PlayerCard  from '@/views/players/PlayerCard'
+import PlayerCard from '@/views/players/PlayerCard'
 import PlayerStats from '@/views/players/PlayerStats'
 import AllOwners from '@/components/admin/owner/AllOwners';
 import FlexibleForm from '@/components/forms/FlexibleForm';
@@ -59,6 +59,8 @@ import ShowAllAddress from '@/components/admin/address/ShowAllAddress';
 import AdminLandingPage from '@/components/admin/AdminLandingPage';
 
 import Season from '@/components/admin/season/Season'
+import Result from '@/components/admin/result/Result'
+import Match from "@/components/admin/match/Match"
 
 
 Vue.use(Router)
@@ -103,9 +105,9 @@ export default new Router({
       path: "/UserPanel",
       name: "UserPanel",
       component: UserPanel,
-      children : [
+      children: [
         {
-          path     : "createMatch",
+          path: "createMatch",
           component: CreateMatch
         },
 
@@ -183,7 +185,7 @@ export default new Router({
           component: ShowAllLocations
         },
 
-        
+
 
         {
           path: "update/address/:id",
@@ -194,11 +196,11 @@ export default new Router({
           path: "all/address",
           component: AddAddress
         },
-      
 
-      
+
+
         {
-          path     : "all/coach",
+          path: "all/coach",
           component: AllCoach,
         },
         {
@@ -211,12 +213,12 @@ export default new Router({
           component: AddCoach
         },
         {
-          path     : "update/coach/:coachId",
+          path: "update/coach/:coachId",
           component: UpdateCoach
         },
 
 
-        
+
 
         {
           path: "add/season",
@@ -247,29 +249,39 @@ export default new Router({
           component: Season
         },
         {
-          path     : "add/team",
+          path: "add/team",
           component: AddTeam
         },
 
         {
-          path     : "add/owner",
+          path: "add/owner",
           component: AddOwner
         },
 
         {
-          path     : "update/owner/:id",
+          path: "update/owner/:id",
           component: UpdateOwner
         },
 
         {
-          path     : "all/owner",
+          path: "all/owner",
           component: AllOwners
+
+        },
+        {
+          path: "result",
+          component: Result
+        },
+        {
+
+          path: "match",
+          component: Match
         }
 
-        
-        
 
-      
+
+
+
 
 
 

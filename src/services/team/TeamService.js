@@ -31,7 +31,7 @@ class TeamService {
 
     }
     getAllPlayersOfTeam(id) {
-        return instance.get(`/v1/admin/get/team/players/${id}`)
+        return instance.get(`/v1/common/get/team/${id}/players`)
             .then(response => response.data)
             .catch(error => error)
     }
