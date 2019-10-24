@@ -1,7 +1,11 @@
-import instance from "@/services/AxiosService.js";
-
+import instance from '@/services/AxiosService';
+import formService from '@/services/form/FormService.js';
 
 class TeamService {
+    findAll() {
+        return instance.get("/v1/common/get/team").then(response => response.data);
+    }
+
     create(teamObject) {
         const jsonObject = {
             "owner": 1,
@@ -26,9 +30,13 @@ class TeamService {
             .catch(error => error)
 
     }
-
+    getAllPlayersOfTeam(id) {
+        return instance.get(`/v1/admin/get/team/players/${id}`)
+            .then(response => response.data)
+            .catch(error => error)
+    }
 }
 
 
-const teamService = new TeamService()
+const teamService = new TeamService();
 export default teamService;

@@ -3,7 +3,7 @@ import formService from '@/services/form/FormService.js';
 
 class PlayerService {
     findAll() {
-        return instance.get("v1/admin/get/player").then(response => response.data)
+        return instance.get("v1/common/get/player").then(response => response.data)
     }
 
     create(formObject) {
@@ -16,6 +16,16 @@ class PlayerService {
 
         return instance.post("/v1/admin/post/player", jsonObject).then(response => response.data)
 
+    }
+
+    add(playerObject) {
+        return instance.post("/v1/admin/post/player", playerObject).then(response => response);
+    }
+    
+    update(playerObject, playerId) {
+        return instance.put(`v1/admin/update/player/${playerId}`, playerObject)
+            .then(response => response)
+            .catch(error => error)
     }
 }
 

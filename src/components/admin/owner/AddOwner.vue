@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h1>Add an owner</h1>
+    <h1>Add owner</h1>
     <flexible-form
       :inputs="inputs"
       width="100%"
@@ -13,7 +13,7 @@
 
 <script>
 import FlexibleForm from "@/components/forms/FlexibleForm";
-import ownerService from '@/services/owner/OwnerService.js'
+import ownerService from "@/services/owner/OwnerService.js";
 
 export default {
   components: {
@@ -21,14 +21,14 @@ export default {
   },
 
   methods: {
-    submitForm(value) {
-      ownerService.create(value);
-      //playerService.create(value);
+    async submitForm(value) {
+      this.response = await ownerService.create(value);
     }
   },
 
   data() {
     return {
+      response: null,
       textColor: "text-black",
       image: require(`@/assets/action-adult-athlete-1311619.jpg`),
       inputs: [
@@ -41,8 +41,8 @@ export default {
           icon: "fas fa-running"
         },
         {
-          title: "Team ID",
-          placeholder: "Enter a team ID",
+          title: "teamId",
+          placeholder: "Enter team ID",
           type: "number",
           required: true,
           disabled: false,

@@ -31,7 +31,6 @@ export default {
     this.inputs[2].value = this.locationResponse.description;
   },
 
-  name: "Addplayer",
   components: {
     FlexibleForm
   },

@@ -1,11 +1,6 @@
 <template>
-  <div>
-    <center>
-      <hr class="pretty" />
+  <div v-if="show">
 
-      <b-input style="max-width:40%" placeholder="Search for an address" />
-      <hr class="pretty" />
-    </center>
 
     <!-- overlay img-src="https://picsum.photos/900/250/?image=3" -->
     <b-card class="overflow-hidden" style="max-width: 300px;">
@@ -14,17 +9,17 @@
         <b-card-body>
           <!-- <h1>hei</h1> -->
           <ul>
-            <li>{{address}}</li>
-            <li>5306</li>
-            <li>erdal</li>
-            <li>Norge</li>
+            <li>{{address.addresses[0]}}</li>
+            <li>{{address.postalCode}} </li>
+            <li>{{address.city}}</li>
+            <li>{{address.country}}</li>
 
             <hr />
-            <router-link to="/admin/update/address/5">
+            <router-link :to="`/admin/update/address/${address.addressId}`">
               <b-button style="margin:10px;" variant="primary">Update</b-button>
             </router-link>
             <br />
-            <b-button variant="danger">Delete</b-button>
+            <b-button @click="() => deleteAddress(address.addressId)" variant="danger">Delete</b-button>
           </ul>
         </b-card-body>
         <!-- </b-col> -->
@@ -38,15 +33,16 @@ import addressService from "@/services/address/AddressService.js";
 
 export default {
   props: ["address"],
-  methods: {
-    data : function() {
+  data : function() {
       return {
         show: true
       }
     },
-    delete(id) {
+  methods: {
+    deleteAddress(id) {
       addressService.delete(id);
-      tis.show = false
+      console.log(id);
+      this.show = false
     }
   }
 };

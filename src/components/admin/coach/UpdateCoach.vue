@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <b-row>
-      <b-col cols="6">
+      <b-col cols="8">
         <h1>UPDATE COACH</h1>
         {{coach}}
         <flexible-form

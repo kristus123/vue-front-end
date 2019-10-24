@@ -5,12 +5,9 @@
       <hr class="pretty" />
     </div>
 
-    <div id="google_translate_element">klikka mei</div>
-
 
     <home-page-cards />
 
-    <flexible-form :inputs="inputs" width="50%" @clicked="submitForm" />
   </div>
 </template>
 
@@ -60,4 +57,15 @@ hr.pretty {
 
   border-top: 2px solid orange;
 }
+
+.footer {
+  padding-top:70px;
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:60px;   /* Height of the footer */
+}
+
+
+
 </style>

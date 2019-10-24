@@ -19,9 +19,7 @@
                   </b-form-group>
                 </b-col>
               </b-form-row>
-
-              <flexible-inputs v-if="onShowInputs" :inputs="inputs" />
-
+              <flexible-inputs v-if="onShowInputs" :inputs="inputs" :color="textColor" />
               <b-form-row v-if="onShowAddressDropdown" class="justify-content-center">
                 <b-col cols="8">
                   <b-form-group class="text-white" label="Address" style="text-align:left;">
@@ -38,9 +36,11 @@
                   </b-form-group>
                 </b-col>
               </b-form-row>
-
-              <flexible-inputs v-if="onShowAddressInputs" :inputs="addressInputs" />
-
+              <flexible-inputs
+                v-if="onShowAddressInputs"
+                :inputs="addressInputs"
+                :color="textColor"
+              />
               <b-form-row
                 id="buttons"
                 class="justify-content-center"
@@ -48,16 +48,10 @@
                 v-if="onShowInputs"
               >
                 <b-col cols="3">
-                  <b-btn
-                    pill
-                    variant="outline-success"
-                    size="lg"
-                    type="submit"
-                    value="submit"
-                  >Update</b-btn>
+                  <b-btn pill variant="success" size="lg" type="submit" value="submit">Update</b-btn>
                 </b-col>
                 <b-col cols="3">
-                  <b-btn pill variant="outline-secondary" size="lg" v-on:click="resetForm">Cancel</b-btn>
+                  <b-btn pill variant="secondary" size="lg" v-on:click="resetForm">Cancel</b-btn>
                 </b-col>
               </b-form-row>
             </b-form>
@@ -67,7 +61,6 @@
               <b-alert variant="success" show>You have successfully updated a person</b-alert>
             </b-col>
           </b-row>
-
           <b-row id="showErrorMsg" class="justify-content-center">
             <b-col cols="10">
               <b-alert variant="danger" show>Something went wrong. Please try again later.</b-alert>
@@ -76,25 +69,20 @@
         </b-col>
       </b-row>
     </b-container>
-    <div v-if=" personID === '' ">
-      <add-person-contact :personId="1" />
-    </div>
   </b-container>
 </template>
-
 <script>
-import AddPersonContact from "@/components/admin/userManagement/AddPersonContact";
 import FormSelect from "@/components/forms/FormSelect";
 import FlexibleInputs from "@/components/forms/inputs/FlexibleInputs";
-
 import personService from "@/services/person/PersonService";
 import addressService from "@/services/address/AddressService";
 import animateService from "@/services/AnimateService";
-
 export default {
   name: "UpdatePerson",
-  components: { FormSelect, FlexibleInputs, AddPersonContact },
-
+  components: {
+    FormSelect,
+    FlexibleInputs
+  },
   data() {
     return {
       options: [],
@@ -108,41 +96,44 @@ export default {
       addressInputs: "",
       address: "",
       personID: "",
-      preselectPerson: null
+      preselectPerson: null,
+      textColor: "text-white"
     };
   },
-
   mounted: function() {
     document.getElementById("showSuccessMsg").setAttribute("hidden", "");
     document.getElementById("showErrorMsg").setAttribute("hidden", "");
   },
-
-  beforeMount: async function() {
-    let people = await personService.getPerson();
-    let option = [];
-    for (let i = 0; i < people.length; i++) {
-      if (i === 0) {
-        option[i] = {
-          value: null,
-          text: "Please select a person",
-          disabled: true
+  beforeMount: function() {
+    this.getPeople();
+  },
+  methods: {
+    async getPeople() {
+      let people = await personService.getPerson();
+      let option = [];
+      for (let i = 0; i < people._embedded.personModelList.length; i++) {
+        if (i === 0) {
+          option[i] = {
+            value: null,
+            text: "Please select a person",
+            disabled: true
+          };
+        }
+        option[i + 1] = {
+          value: people._embedded.personModelList[i],
+          text:
+            people._embedded.personModelList[i].firstName +
+            " " +
+            people._embedded.personModelList[i].lastName
         };
       }
-
-      option[i + 1] = {
-        value: people[i],
-        text: people[i].firstName + " " + people[i].lastName
-      };
-    }
-
-    this.options = option;
-  },
-
-  methods: {
+      this.options = option;
+    },
     async submitForm() {
       let personObject = [];
       let addressObject = [];
-
+      let updatedAddress = null;
+      let addressId = null;
       if (this.onShowAddressInputs) {
         addressObject = {
           addresses: [this.addressInputs[0].value],
@@ -150,36 +141,34 @@ export default {
           city: this.addressInputs[2].value,
           country: this.addressInputs[3].value
         };
+        updatedAddress = await addressService.updateWithoutConvert(
+          addressObject,
+          this.preselect.addressId
+        );
+        addressId = updatedAddress.addressId;
       } else {
-        if (this.address === "") {
-          addressObject = this.preselect;
-        } else {
-          addressObject = this.address;
-        }
+        addressId = this.preselect.addressId;
       }
-
       personObject = {
         firstName: this.inputs[0].value,
         lastName: this.inputs[1].value,
         dateOfBirth: this.inputs[2].value,
-        address: addressObject
+        addressId: addressId
       };
-
-      console.log(personObject);
       let response = await personService.updatePerson(
         this.personID,
         personObject
       );
-
-      if (response.status === 200) {
+      if (response.status === 201) {
         this.resetForm();
+        this.getPeople();
         this.printMsg("showSuccessMsg");
       } else {
         this.printMsg("showErrorMsg");
       }
     },
-
     onSelectedPerson(value) {
+      this.preselect = value.address;
       this.preselectPerson = value;
       this.personID = value.personId;
       this.getAddress();
@@ -188,13 +177,12 @@ export default {
       this.onShowAddressDropdown = true;
     },
     onSelectedAddress(value) {
+      this.preselect = value;
       this.address = value;
     },
-
     editAddress() {
       this.onShowAddressDropdown = false;
       this.onShowAddressInputs = true;
-
       this.addressInputs = [
         {
           title: "Address",
@@ -234,26 +222,25 @@ export default {
         }
       ];
     },
-
     async getAddress() {
       let addresses = await addressService.getAll();
       let address = [];
-      for (var i = 0; i < addresses.length; i++) {
+      for (var i = 0; i < addresses._embedded.addressModelList.length; i++) {
+        delete addresses._embedded.addressModelList[i]._links;
         address[i] = {
-          value: addresses[i],
+          value: addresses._embedded.addressModelList[i],
           text:
-            addresses[i].addresses[0] +
+            addresses._embedded.addressModelList[i].addresses[0] +
             " - " +
-            addresses[i].city +
+            addresses._embedded.addressModelList[i].city +
             " - " +
-            addresses[i].country
+            addresses._embedded.addressModelList[i].country
         };
       }
+
       this.addressOptions = address;
     },
-
     formatInputs(value) {
-      this.preselect = value.address;
       this.inputs = [
         {
           title: "First name",
@@ -291,7 +278,6 @@ export default {
       this.preselect = null;
       this.preselectPerson = null;
     },
-
     printMsg(element) {
       document.getElementById(element).removeAttribute("hidden");
       animateService.animate(element, "fadeInDown", null, () => {
@@ -303,6 +289,5 @@ export default {
   }
 };
 </script>
-
 <style>
 </style>
