@@ -37,7 +37,7 @@ export default {
     };
   },
   name: "home",
-  components: { HomePageCards, FlexibleForm, MatchEvent }
+  components: { HomePageCards, FlexibleForm }
 };
 </script>
 
