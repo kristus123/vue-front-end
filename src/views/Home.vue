@@ -1,24 +1,14 @@
 <template>
   <div class="home">
-
-    <div>
-    <h1>Welcome to the football-arena</h1>
-    <hr class="pretty" /> 
-
-    </div>
-    
-
-<home-page-cards />
-
-
-<flexible-form :inputs="inputs" width="50%"  @clicked="submitForm" />
-
+    <MatchEvent/>
   </div>
+  
 </template>
 
 <script>
 import HomePageCards from "@/components/cards/HomePageCards";
 import FlexibleForm from '@/components/forms/FlexibleForm';
+import MatchEvent from '@/components/user/match/MatchEvent';
 // @ is an alias to /src
 export default {
   methods : {
@@ -36,7 +26,7 @@ export default {
     ]
   }},
   name: "home",
-  components: { HomePageCards, FlexibleForm }
+  components: { HomePageCards, FlexibleForm, MatchEvent }
 };
 </script>
 
