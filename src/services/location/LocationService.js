@@ -8,7 +8,7 @@ class LocationService {
 
 
     findAll() {
-        return instance.get("/v1/admin/get/location").then(respone => Response.data)
+        return instance.get("/v1/common/get/location").then(response => response.data)
 
     }
 
