@@ -23,9 +23,22 @@ class OwnerService {
     }
     findAllOwnedTeams(id) {
         return instance.get(`/v1/admin/get/owner/${id}/allTeams`)
+            .then(response => {
+                console.log(response.data)
+                return response.data;
+            })
+            .catch(error => error)
+    }
+
+    makeOwnerOwnerOf(ownerId, teamId) {
+        const jsonObject = {
+            ownerId: ownerId,
+            teamId : teamId
+        }
+        return instance.put(`/v1/admin/post/owner/assign-as-Owner-of-Team`, jsonObject)
             .then(response => response.data)
             .catch(error => error)
-
+        
     }
 }
 

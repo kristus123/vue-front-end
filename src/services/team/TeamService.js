@@ -30,6 +30,13 @@ class TeamService {
             .catch(error => error)
 
     }
+
+    async findTeamsWithNoOwner() {
+        return instance.get(`/v1/admin/get/team/with-no-owner`)
+        .then(response => response.data)
+        .catch(error => error)
+    }
+
     getAllPlayersOfTeam(id) {
         return instance.get(`/v1/common/get/team/${id}/players`)
             .then(response => response.data)

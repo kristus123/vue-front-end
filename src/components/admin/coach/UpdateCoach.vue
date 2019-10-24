@@ -1,88 +1,42 @@
 <template>
-  <b-container>
+  <div>
+    <hr class="pretty" />
+    <p style="color:grey;">the best coach to ever walk on this planet</p>
+    <!-- <p>owner:</p> -->
+    <h3 v-if="coach !== null">{{coach + " " + coach}}</h3>
+    <p>🏅🏅🏅</p>
+    <hr class="pretty" />
+    <hr />
+
     <b-row>
-      <b-col cols="8">
-        <h1>UPDATE COACH</h1>
-        {{coach}}
-        <flexible-form
-          :inputs="inputs"
-          width="100%"
-          :image="image"
-          :color="textColor"
-          @clicked="submitForm"
-        />
-      </b-col>
+      <b-col>Teams with no coaches</b-col>
       <b-col>
         <b-card>
-          <h3>This coach is also coaching</h3>
-          <hr class="pretty">
-          <ul>
-            <div v-for="team in teamsThatHeCoaches" v-bind:key="team.teamId">
-              <delete-coach :team="team" />
-            </div>
-          </ul>
+          <h1>hi</h1>
         </b-card>
       </b-col>
     </b-row>
-  </b-container>
+  </div>
 </template>
 
 <script>
-import FlexibleForm from "@/components/forms/FlexibleForm";
-import coachService from "@/services/coach/CoachService.js";
-import DeleteCoach from '@/components/admin/coach/DeleteCoach'
+// import GenericCard from '@/components/cards/reusables/GenericCard'
+import teamService from '@/services/team/TeamService';
 export default {
-  components: {
-    FlexibleForm, DeleteCoach
-  },
+  beforeMount() {
 
-  async beforeMount() {
-    this.coach = await coachService.findById(this.$route.params.coachId);
-    this.teamsThatHeCoaches = await coachService.findAllTeamsThatHasCoach(
-      this.$route.params.coachId
-    );
-
-    this.inputs[0].value = this.coach.coachId;
-  },
-
-  methods: {
-    submitForm(value) {
-      console.log("____________");
-      coachService.update(value);
-      console.log(value); // someValue
-    }
   },
 
   data() {
     return {
-      teamsThatHeCoaches: [],
-      textColor: "text-black",
-      image: require(`@/assets/action-adult-athlete-1311619.jpg`),
-
-      inputs: [
-        {
-          title: "coachId",
-          value: 0,
-          placeholder: "Select a team",
-          type: "number",
-          required: true,
-          disabled: true,
-          icon: "fas fa-users"
-        },
-        {
-          title: "Which team should the person coach ?",
-          placeholder: "Select a team",
-          type: "number",
-          required: true,
-          disabled: false,
-          icon: "fas fa-users"
-        }
-      ],
-      coach: null
-    };
+      coach : {},
+      teamsWithNoCoach: [],
+      coachTeams : []
+    }
   }
+  // components: {GenericCard}
 };
 </script>
 
-<style scoped>
+<style>
 </style>
