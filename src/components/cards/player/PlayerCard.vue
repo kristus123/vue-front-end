@@ -149,8 +149,11 @@ export default {
             this.imageUrl = this.playerAttr.imageUrl;
 
             this.chartdataBar.datasets[0].data[0] = this.stats.data.averageGoal;
+            
+            //this.playerName;
             this.playerTotalGoals = this.stats.data.totalGoals;
             this.playerSeasonGoals = this.stats.data.seasonGoals;
+
         },
     },
     
@@ -167,7 +170,7 @@ export default {
             playerTotalGoals:"300",
             chartdataBar: {
                 //Data to be represented on x-axis
-                labels: ['Ronaldo', 'Other'],
+                labels: ['Player', 'Others'],
                 datasets: [
                     {
                         label: 'Goals',
