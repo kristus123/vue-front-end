@@ -63,7 +63,7 @@ This is grande importante, as e.g. playerDTO would not work. -->
                     <font color="#f87979">Goal per match</font>
                 </b-col>
                 <b-col>
-                    <player-stats-pie :width="100" :height="100" :chartdata="chartData" :options="pieOptions"/>
+                    <player-stats-pie :width="100" :height="100" :chart-data="chartData" :options="pieOptions"/>
                     <font color="33ff4">Goal types</font>
                 </b-col>
             </b-row>
@@ -92,18 +92,24 @@ export default {
     async beforeMount() {
         this.goals = await playerService.getPlayerGoals(this.playerAttr.playerId);
         this.stats = await playerService.getPlayerStats(this.playerAttr.playerId);
-
-        this.setPieChart();
         this.setPlayerData();
-        
-            
     },
     
+    mounted() {
+        var self = this;
+        var myVar;
+        /** Some pie charts would create to early, meaning the animation would not show
+         * By forcing it to wait a bit, the user is guaranteed to get the animation
+         */
+        myVar = setTimeout(function(){
+            self.setPieChart();
+            
+        },100);
+        
+    },
 
     methods: {
         setPieChart() {
-            
-
             var new_label = new Array();
             var new_nums = new Array();
             for(let key in this.stats.data.goalTypes) {
@@ -113,8 +119,27 @@ export default {
                     
                 }
             }
-            this.chartData.datasets[0].data = new_nums;
-            this.chartData.labels = new_label;
+
+            var newChartData = {
+                //Data to be represented on x-axis
+                labels: [],
+                datasets: [
+                    {
+                        label: 'Goal types',
+                        backgroundColor: ['#33ff41', '#39af41', '#b9af41'] ,
+                        pointBackgroundColor: 'white',
+                        borderWidth: 1,
+                        pointBorderColor: '#249EBF',
+                        //Data to be represented on y-axis
+                        data: []
+                    },
+                ],
+                
+            };
+            newChartData.labels = new_label;
+            newChartData.datasets[0].data = new_nums;
+            this.chartData = newChartData;
+            
         },
         setPlayerData() {
             this.playerPosition = this.playerAttr.normalPosition;
@@ -126,7 +151,7 @@ export default {
             this.chartdataBar.datasets[0].data[0] = this.stats.data.averageGoal;
             this.playerTotalGoals = this.stats.data.totalGoals;
             this.playerSeasonGoals = this.stats.data.seasonGoals;
-        }
+        },
     },
     
     data() {
@@ -185,7 +210,7 @@ export default {
             // --------------- PIE DATA AND OPTIONS ---------------
             chartData: {
                 //Data to be represented on x-axis
-                labels: ["pip", "dick"],
+                labels: [],
                 datasets: [
                     {
                         label: 'Goal types',
@@ -194,7 +219,7 @@ export default {
                         borderWidth: 1,
                         pointBorderColor: '#249EBF',
                         //Data to be represented on y-axis
-                        data: [2]
+                        data: []
                     },
                 ],
                 
