@@ -9,6 +9,7 @@
     <home-page-cards />
 
   </div>
+  
 </template>
 
 <script>
