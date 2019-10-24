@@ -25,7 +25,7 @@ import GoalEvent from "@/components/user/match/GoalEvent";
             GoalEvent
         },
         async beforeMount() {
-            this.match = await matchGoalService.getMatchGoalByMatchId(1);
+            this.match = await matchGoalService.getMatchGoalByMatchId(this.matchId);
         },
         name: 'MatchEvent',
 
@@ -46,7 +46,7 @@ import GoalEvent from "@/components/user/match/GoalEvent";
 
     .parallax {
         /* The image used */
-        background-image: url('https://previews.123rf.com/images/moovstock/moovstock1701/moovstock170100864/70598792-close-up-of-waving-flag-with-real-madrid-c-f-football-club-logo.jpg');
+        background-image: url('https://i.pinimg.com/originals/79/76/39/797639828aa52b27402f15566736c0ee.jpg');
 
         /* Full height */
         height: 100%; 
