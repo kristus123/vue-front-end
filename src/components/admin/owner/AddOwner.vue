@@ -16,7 +16,6 @@ import FlexibleForm from "@/components/forms/FlexibleForm";
 import ownerService from "@/services/owner/OwnerService.js";
 
 export default {
-  name: "Addplayer",
   components: {
     FlexibleForm
   },
@@ -34,12 +33,12 @@ export default {
       image: require(`@/assets/action-adult-athlete-1311619.jpg`),
       inputs: [
         {
-          title: "personId",
-          placeholder: "Enter a person ID",
+          title: "Person ID",
+          placeholder: "Select a person",
           type: "number",
           required: true,
           disabled: false,
-          icon: "fas fa-user"
+          icon: "fas fa-running"
         },
         {
           title: "teamId",
@@ -47,8 +46,8 @@ export default {
           type: "number",
           required: true,
           disabled: false,
-          icon: "fas fa-running"
-        }
+          icon: "fas fa-users"
+        },
       ]
     };
   }

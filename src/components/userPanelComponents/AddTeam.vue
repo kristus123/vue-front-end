@@ -93,6 +93,9 @@
 </template>
 
 <script>
+import teamService   from '@/services/team/TeamService.js';
+import coachService  from '@/services/coach/CoachService.js'
+import ownerService  from '@/services/owner/OwnerService.js'
 import FlexibleForm from "@/components/forms/FlexibleForm";
 import PlayerCard from "@/components/cards/player/PlayerCard";
 import playerService from "@/services/player/PlayerService.js";
@@ -108,6 +111,8 @@ export default {
 
   async beforeMount() {
     this.players = await playerService.findAll();
+    this.coaches = await coachService.findAll();
+    this.owners = await ownerService.findAll();
   },
 
   methods: {

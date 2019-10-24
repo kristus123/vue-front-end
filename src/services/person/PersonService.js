@@ -20,8 +20,8 @@ class PersonService {
     }
 
     deletePerson(personId) {
-        return instance.delete(`/v1/admin/delete/person/${personId}`)
-            .then(response => response);
+        // return instance.delete(`/v1/admin/delete/person/${personId}`)
+        //     .then(response => response);
     }
 
     updatePerson(personId, personObject) {

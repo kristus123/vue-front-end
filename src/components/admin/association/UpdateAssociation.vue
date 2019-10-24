@@ -1,6 +1,10 @@
 <template>
   <b-container>
     <h1>update an Association</h1>
+    <router-link to="/admin/all/association">
+      <b-button>go back</b-button>
+    </router-link>
+    <hr />
     {{association}}
     <flexible-form
       :inputs="inputs"
@@ -21,9 +25,9 @@ export default {
     console.log("hei");
     this.association = await associationService.findById(this.$route.params.id);
     console.log(await this.association);
-    this.inputs[0].value = await this.association.associationId
-    this.inputs[1].value = await this.association.name
-    this.inputs[2].value = await this.association.description
+    this.inputs[0].value = await this.association.associationId;
+    this.inputs[1].value = await this.association.name;
+    this.inputs[2].value = await this.association.description;
   },
   components: {
     FlexibleForm
@@ -31,9 +35,10 @@ export default {
 
   methods: {
     async submitForm(value) {
-      associationService.update(value);
-      console.log("____________");
-      this.association = await associationService.findById(this.$route.params.id);
+      associationService.update(value, this.$route.params.id);
+      // console.log("____________");
+      location.reload();
+      //this.association = await associationService.findById(this.$route.params.id);
       //   console.log(value); // someValue
     }
   },
@@ -45,8 +50,8 @@ export default {
       image: require(`@/assets/action-adult-athlete-1311619.jpg`),
 
       inputs: [
-          {
-            id: "id",
+        {
+          id: "id",
           title: "id",
           placeholder: "temp",
           type: "number",
@@ -56,7 +61,7 @@ export default {
           icon: "fas fa-users"
         },
         {
-            id: "name",
+          id: "name",
           title: "Name",
           placeholder: "Name of the association",
           type: "text",
@@ -66,7 +71,7 @@ export default {
           icon: "fas fa-users"
         },
         {
-            id : "Description",
+          id: "Description",
           title: "Description",
           value: "temp",
           placeholder: "Descriptipnnnon",

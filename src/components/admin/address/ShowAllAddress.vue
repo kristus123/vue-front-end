@@ -9,15 +9,19 @@
       <hr class="pretty" />
     </center>
     
-    <div v-for="address in addresses" v-bind:key="address.addressId">
-      <address-card :address="address" />
-    </div>
+    <center>
+      <div v-for="address in addresses" v-bind:key="address.addressId">
+        <address-card :address="address" />
+      </div>
 
+    </center>
+     
+   
   </div>
 </template>
 
 <script>
-// import FlexibleForm from "@/components/forms/FlexibleForm";
+import FlexibleForm from "@/components/forms/FlexibleForm";
 import AddressCard from '@/components/cards/AddressCard';
 import addressService from '@/services/address/AddressService.js';
 
@@ -28,11 +32,9 @@ export default {
     AddressCard
   },
 
-
-
   async beforeMount() {
       this.addresses = await addressService.getAll();
-      console.log(this.addresses);
+      // console.log(this.addresses);
   },
   data() {
       return {

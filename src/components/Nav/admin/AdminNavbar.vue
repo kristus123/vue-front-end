@@ -89,86 +89,17 @@ export default {
                         {
                             title: "Association",
                             icon: 'fas fa-arrows-alt',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href : {path: '/admin/all/association'}
                         },
                         {
                             title: "Coach",
                             icon: 'fas fa-user-shield',
-                            child: [
-                                {
-                                    href: {path : "/admin/add/coach"},
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: {path : "/admin/delete/coach"},
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href: {path : "/admin/update/coach"},
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href: {path: "/admin/all/coach"}
                         },
                         {
                             title: "Owner",
                             icon: 'fas fa-user-tie',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
-                        },
-                        {
-                            title: "Contact",
-                            icon: 'fas fa-address-book',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href : {path : "/admin/all/owner"}
                         },
                         {
                             title: "Match Position",
@@ -222,45 +153,13 @@ export default {
                         {
                             title: "Address",
                             icon: 'fas fa-address-card',
-                            child: [
-                                
-                                {
-                                    href: {path: "/admin/show/address"},
-                                    title: "Show all",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href: {path: "/admin/add/address"},
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: {path: "/admin/update/address"},
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href: {path: "/admin/show/address"}
                         },
                         {
                             title: "Location",
                             icon: 'fas fa-map-marked-alt',
-                            child: [
-                                {
-                                    href: {path: '/admin/add/location'},
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href: {path: '/admin/all/location'}
+                             
                         },
                         {
                             title: "Season",

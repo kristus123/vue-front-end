@@ -23,9 +23,9 @@ class AddressService {
             "country": formService.findValue("Country", formObject)
         }
         
-        if (formService.findValue("addressId", formObject) != null) {
-            jsonObject.addressId = formService.findValue("addressId", formObject);
-        }
+        // if (formService.findValue("addressId", formObject) != null) {
+        //     jsonObject.addressId = formService.findValue("addressId", formObject);
+        // }
         return jsonObject;
     }
 
@@ -37,27 +37,27 @@ class AddressService {
 
 
     update(formObject) { 
-        return instance.put("v1/admin/update/address",
+        return instance.put(`v1/admin/update/address/${formService.findValue('addressId', formObject)}`, 
             this.turnFormObjectIntoValidJson(formObject))
             .then(response => response.data)
             .catch(error => console.log(error));
     }
 
     findById(id) {
-        return instance.get(`/v1/admin/get/address/${id}`)
+        return instance.get(`/v1/common/get/address/${id}`)
             .then(response => response.data)
             .catch(error => console.log(error))
     }
 
     getAll() {
         return instance.get("/v1/common/get/address")
-            .then(response => response.data)
+            .then(response => response.data._embedded.addressModelList)
     }
 
     create(formObject) {
         const constObject = this.turnFormObjectIntoValidJson(formObject);
 
-        instance.post('/v1/admin/createAddress', constObject)
+        instance.post('/v1/admin/post/address', constObject)
             .then(response => console.log(response.data))
             .catch(error => console.log(error))
     }

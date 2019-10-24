@@ -1,4 +1,4 @@
-<template>
+|<template>
     <b-container id="container">
         <b-row>
             <b-col id="cards" cols="3" v-for="team in teams" :key="team.id">
