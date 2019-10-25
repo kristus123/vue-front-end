@@ -23,6 +23,12 @@ class UserManagementService {
     findAll() {
         return instance.get("/api/public/allUsers").then(response => response.data)
     }
+
+    deleteUser(id) {
+        return instance.delete(`/v1/admin/delete/user/${id}`)
+            .then(response => response.data)
+            .catch(error => error)
+    }
 }
 
 

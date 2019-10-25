@@ -14,13 +14,13 @@ class AssociationService {
     }
 
     findAll() {
-        return instance.get("/v1/admin/get/association").then(response => {
+        return instance.get("/v1/common/get/association").then(response => {
             console.log(response.data);
-            return response.data;
+            return response.data._embedded.associationModelList;
         })
     }
 
-    update(formObject) {
+    update(formObject, associationId) {
         console.log("______")
         console.log(formObject)
         console.log()
@@ -31,14 +31,24 @@ class AssociationService {
             name : formService.findValue("Name", formObject),
             description: formService.findValue("Description", formObject)
         }
-        return instance.put("/v1/admin/update/association", jsonObject)
+        return instance.put(`/v1/admin/update/association/${associationId}`, jsonObject)
             .then(response => response.data)
             .catch(error => error)
     }
 
+    deleteAssociation(id) {
+        return instance.delete(`/v1/admin/delete/association/${id}`)
+            .then(response => {
+                console.log(response.data)
+                return response.data;
+            })
+            .catch(errror => errror.response.status)
+
+    }
+
     findById(id) {
         console.log("hallo " + id)
-        return instance.get(`/v1/admin/get/association/${id}`)
+        return instance.get(`/v1/common/get/association/${id}`)
             .then(response => {
                 console.log(response.data)
                 return response.data;

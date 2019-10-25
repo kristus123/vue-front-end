@@ -18,13 +18,22 @@ class PlayerService {
 
     }
 
+    getPlayerGoals(playerId) {
+        return instance.get(`v1/common/get/matchgoal/${playerId}/byPlayerId`)
+    }
+
+    getPlayerStats(playerId) {
+        return instance.get(`v1/common/get/player/${playerId}/stats`)
+    
+    }
+
     add(playerObject) {
         return instance.post("/v1/admin/post/player", playerObject).then(response => response);
     }
     
-    update(playerObject) {
-        return instance.put(`v1/admin/update/player`, playerObject)
-            .then(response => response.data)
+    update(playerObject, playerId) {
+        return instance.put(`v1/admin/update/player/${playerId}`, playerObject)
+            .then(response => response)
             .catch(error => error)
     }
 }

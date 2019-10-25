@@ -26,7 +26,7 @@
               </b-col>
             </b-form-row>
 
-            <b-form-row class="justify-content-center" align-h="between">
+            <b-form-row class="justify-content-center" align-h="between" v-if="onShowBtns">
               <b-col cols="3">
                 <b-btn pill id="subBtn" type="submit" variant="success" value="submit" size="lg">Submit</b-btn>
               </b-col>
@@ -50,19 +50,22 @@ export default {
   methods: {
     submitForm() {
       this.$emit("clicked", this.info);
-      console.log(this.info);
     },
     resetForm() {
-      for(var i = 0; i < this.inputs.length; i++) {
-        this.inputs.value = null;
-      }
+      this.$emit("reset", true);
 
     }
   },
-  props: ["inputs", "width", "color", "image", "size"],
+  props: ["inputs", "width", "color", "image", "size", "showBtns"],
 
   components: {
     FlexibleInputs
+  },
+
+  watch: {
+    showBtns: function () {
+      this.onShowBtns = this.showBtns;
+    }
   },
 
   data: function() {
@@ -72,7 +75,8 @@ export default {
       showErrorMsg : false,
       showSuccessMsg: false,
       successMsg: "Successful!",
-      cols: this.size === undefined ? 8 : this.size
+      cols: this.size === undefined ? 8 : this.size,
+      onShowBtns: this.showBtns === undefined ? true : this.showBtns
     };
   }
 };

@@ -8,7 +8,7 @@
                 <b-col cols="8">
                     <b-form-group class="text-white" label="Address" style="text-align:left;">
                         <b-input-group>
-                            <form-select :options="options" :preselect="null" v-on:DropDownValue="onSelected"/>
+                            <form-select :options="options" :preselect="addressPreselect" v-on:DropDownValue="onSelected"/>
                             <b-input-group-append>
                             <b-btn variant="primary" v-on:click="newAddress">New</b-btn>
                             </b-input-group-append>
@@ -19,7 +19,7 @@
         </template>
 
         <template v-slot:newForm v-if="onShowAddressForm">
-            <flexible-inputs :inputs="addressInputs" />
+            <flexible-inputs :inputs="addressInputs" :color="textColor"/>
         </template>
 
     </flexible-form>
@@ -36,10 +36,8 @@
         </b-col>
     </b-row>
     
-    
 </b-container>
 
-    
 </template>
 
 <script>
@@ -69,10 +67,9 @@ export default {
     beforeMount: async function() {
         this.addresses = await addressService.getAll();
         
-        
-        if(this.addresses.length > 0) {
+        if(this.addresses._embedded.addressModelList.length > 0) {
             let option = [];
-            for(var i = 0; i < this.addresses.length; i++) {
+            for(var i = 0; i < this.addresses._embedded.addressModelList.length; i++) {
                 if(i === 0) {
                     option[i] = {
                         value: null,
@@ -81,8 +78,8 @@ export default {
                     }
                 }
                 option[i+1] = {
-                    value: this.addresses[i],
-                    text: this.addresses[i].addresses[0] + " - " + this.addresses[i].city + " - " + this.addresses[i].country
+                    value: this.addresses._embedded.addressModelList[i],
+                    text: this.addresses._embedded.addressModelList[i].addresses[0] + " - " + this.addresses._embedded.addressModelList[i].city + " - " + this.addresses._embedded.addressModelList[i].country
                 }
             }
             this.options = option;
@@ -96,6 +93,7 @@ export default {
      async submitForm (value) {
          
             let addressObject = [];
+            let addressId = null;
             if(this.onShowAddressForm) {
                 addressObject = {
                     addresses: [
@@ -105,31 +103,51 @@ export default {
                     city: this.addressInputs[2].value,
                     country: this.addressInputs[3].value
                 }
+                
+                let newAddress = await addressService.createWithoutConvert(addressObject);
+                addressId = newAddress.addressId;
 
             } else {
                 addressObject = this.selectedValueDropdown;
+                addressId = addressObject.addressId;
                 
             }
 
-            let response = await personService.create(value, addressObject);
-            if(response.status === 200) {
+            let response = await personService.create(value, addressId);
+            if(response.status === 201) {
                 this.printMsg('showSuccessMsg');
+                this.resetForm();
                 this.addresses = await addressService.getAll();
             } else {
                 this.printMsg('showErrorMsg')
             }
         },
 
+        resetForm() {
+            for(var i = 0; i < this.inputs.length; i++) {
+                this.inputs[i].value = '';
+            }
+            
+            for(var i = 0; i < this.addressInputs.length; i++) {
+                this.addressInputs[i].value = '';
+            }
+
+            this.addressPreselect = null;
+            this.onShowAddressForm = false;
+
+        },
+        
         newAddress() {
             this.onShowDropdown = false;
             this.onShowAddressForm = true;
         },
         onSelected(value) {
+            this.addressPreselect = value;
             this.selectedValueDropdown = value;
         },
         printMsg(element) {
             document.getElementById(element).removeAttribute("hidden");
-                animateService.animate(element, 'fadeInDown', 'delay-1s', () => {
+                animateService.animate(element, 'fadeInDown', null, () => {
                     animateService.animate(element, 'fadeOutUp', 'delay-2s', () => {
                         document.getElementById(element).setAttribute("hidden", "");
                     });
@@ -146,12 +164,14 @@ export default {
             onShowAddressForm: false,
             onShowMsg: false,
             onShowDropdown: true,
+            addressPreselect: null,
             selectedValueDropdown: null,
             addressInputs: [
                 {
                     title: "Address",
                     placeholder: "what is the address ?",
                     type: "text",
+                    value: '',
                     required: true,
                     disabled: false,
                     icon: "fas fa-users"

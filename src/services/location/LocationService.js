@@ -8,7 +8,7 @@ class LocationService {
 
 
     findAll() {
-        return instance.get("/v1/admin/get/location").then(respone => Response.data)
+        return instance.get("/v1/common/get/location").then(Response => Response.data._embedded.locationModelList)
 
     }
 
@@ -25,7 +25,7 @@ class LocationService {
     }
 
     findById(id) {
-        return instance.get(`/v1/admin/get/location/${id}`)
+        return instance.get(`/v1/common/get/location/${id}`)
             .then(respone => respone.data)
             .catch(error => console.log(error))
     }

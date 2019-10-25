@@ -8,9 +8,15 @@ export default {
 
     props: ["options", "preselect"],
 
+    watch: {
+        preselect: function () {
+            this.selected = this.preselect;
+        }
+    },
+
     data() {
         return {
-            selected: this.preselect === null ? null : this.preselect,
+            selected: this.preselect === undefined ? null : this.preselect,
         }
     },
 

@@ -59,7 +59,7 @@ export default {
         {
           title: "Desciption",
           placeholder: "Tell us a little about this place",
-          type: "number",
+          type: "text",
           required: true,
           disabled: false,
           icon: "fas fa-users"
