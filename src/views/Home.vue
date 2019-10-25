@@ -116,7 +116,7 @@ export default {
 
 <style>
 
-@import url('https://fonts.googleapis.com/css?family=Catamaran:700&display=swap');
+/* @import url('https://fonts.googleapis.com/css?family=Catamaran:700&display=swap'); */
 
 .home {
   margin-top: 60px;
