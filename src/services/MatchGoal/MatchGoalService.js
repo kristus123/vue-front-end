@@ -1,4 +1,4 @@
-import instance from '@/services/AxiosService'
+import instance from './node_modules/@/services/AxiosService'
 
 class MatchGoalService {
 
