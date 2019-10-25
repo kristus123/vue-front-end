@@ -22,7 +22,8 @@ class CoachService {
     }
 
     removeCoachFromTeam(teamId) {
-        return instance.put(`v1/admin/modify/team/${teamId}/removeCoach`).then(response => response.data)
+        return instance.put(`v1/admin/put/team/${teamId}/removeCoach`)
+            .then(response => response.data)
             .catch(error => error)
 
     }
@@ -33,10 +34,10 @@ class CoachService {
 
     }
 
-    update(formObject) {
+    update(coachId, newTeamId) {
         const jsonObject = {
-            coachId: formService.findValue('coachId', formObject),
-            newTeamId: formService.findValue('Which team should the person coach ?', formObject)
+            coachId: coachId,
+            newTeamId: newTeamId
         }
         return instance.put(`/v1/admin/update/coach`, jsonObject)
             .then(response => response.data)
