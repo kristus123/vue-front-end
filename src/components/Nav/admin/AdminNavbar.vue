@@ -192,23 +192,9 @@ export default {
                         {
                             title: "Match Goal",
                             icon: 'fas fa-futbol',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href: {
+                                path: "/admin/matchGoal"
+                            }
                         },
                         {
                             title: "Match",
