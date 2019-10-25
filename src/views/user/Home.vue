@@ -2,18 +2,31 @@
   <b-container>
     <user-navbar />
     <user-landing-page />
+    <router-link to="/">
+      <b-button variant="outline-primary">go to landingpage</b-button>
+    </router-link>
+    <h1>{{$store.state.userObject.username}}</h1>
   </b-container>
 </template>
 
 <script>
-import UserNavbar from '@/components/Nav/user/UserNavbar';
-import UserLandingPage from '@/components/user/UserLandingPage';
+import UserNavbar from "@/components/Nav/user/UserNavbar";
+import UserLandingPage from "@/components/user/UserLandingPage";
+import authenticationService from "@/services/AuthenticationService";
 
 export default {
   name: "UserHome",
   components: {
     UserNavbar,
     UserLandingPage
+  },
+  async beforeMount() {
+    this.me = await authenticationService.getUserInfo();
+  },
+  data() {
+    return {
+      me: null
+    };
   }
 };
 </script>

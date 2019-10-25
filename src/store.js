@@ -11,7 +11,7 @@ export default new Vuex.Store({
       owner       : null,
       location    : null
     },
-    userObject : {}
+    userObject : null
   },
   mutations: {
 
