@@ -80,7 +80,7 @@ export default {
 
     onSubmitForm() {
       if (this.login()) {
-
+        this.$router.push("/user")
       } else { 
         this.showErrorMsg = true;
       }

@@ -2,17 +2,13 @@
 import instance from '@/services/AxiosService.js';
 
 class AuthenticationService {
-    async hello() {
-        return instance.post("/users/signup", {
-                "username": "admaasdiadsdaasn",
-                "password": "heasdasdsasddai",
-                "email": "admin@easdmaaasasdddsil.com",
-                "roles": [
-                  "ROLE_ADMIN"
-                ]
+    async signup(username, password) {
+        return instance.post("v1/users/signup", {
+            username : username,
+            password : password
         }).then(response => {
             console.log(response.data)
-            return response.data
+            return (response);
         });
     }
 
@@ -27,24 +23,24 @@ class AuthenticationService {
                 localStorage.setItem('user-token', response.data.token);
                 console.log("authenticated")
                 console.log(response.data)
-                
-                
+
+
                 //instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('user-token')}`;
                 instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('user-token')}`;
-                
-                
-                return response.data ;
-                
+
+
+                return response.data;
+
 
             })
-            .catch(error => {console.log(error); return false;});
-        }
+            .catch(error => { console.log(error); return false; });
+    }
 
 
-        async getUserInfo() {
-            return instance.get("v1/users/me")
-                .then(response => response.data);
-        }
+    async getUserInfo() {
+        return instance.get("/v1/users/me")
+            .then(response => response.data);
+    }
 
 
 }

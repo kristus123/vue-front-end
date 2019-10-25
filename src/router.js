@@ -13,9 +13,12 @@ import FlexibleForm from '@/components/forms/FlexibleForm';
 import UserPanel from '@/views/players/userpanel/UserPanel';
 import CreateMatch from '@/components/admin/CreateMatch';
 import CreatePerson from '@/components/admin/CreatePerson';
-
+import AddLocation from '@/components/admin/location/AddLocation';
 import AdminHome from '@/views/admin/Home';
 
+import UserHome from '@/views/user/Home';
+import WatchTeamsPage from '@/views/user/WatchTeamsPage';
+import WatchPlayersPage from '@/views/user/WatchPlayersPage';
 import AddPlayer from '@/components/admin/player/AddPlayer'
 import UpdatePlayer from '@/components/admin/player/UpdatePlayer'
 
@@ -27,7 +30,7 @@ import UpdateCoach from '@/components/admin/coach/UpdateCoach';
 
 import AddAssociation from '@/components/admin/association/AddAssociation';
 import AllAssociations from '@/components/admin/association/AllAssociations';
-
+import AllTeams from '@/components/userPanelComponents/AllTeams';
 import UpdateAssociation from '@/components/admin/association/UpdateAssociation';
 
 import AllUsers from '@/components/admin/userManagement/AllUsers';
@@ -44,7 +47,7 @@ import AddCoach from '@/components/admin/coach/AddCoach';
 
 import AddSeason from '@/components/season/AddSeason';
 
-
+import UpdateTeam from '@/components/userPanelComponents/UpdateTeam';
 
 import AllCoach from '@/components/admin/coach/AllCoach';
 
@@ -57,6 +60,7 @@ import AddContact from '@/components/admin/contact/AddContact';
 import ShowAllAddress from '@/components/admin/address/ShowAllAddress';
 
 import AdminLandingPage from '@/components/admin/AdminLandingPage';
+import UserLandingPage from '@/components/user/UserLandingPage';
 
 import Season from '@/components/admin/season/Season'
 import Result from '@/components/admin/result/Result'
@@ -122,10 +126,12 @@ export default new Router({
       component: AdminHome,
       children: [
 
+        /*
         {
           path: "/",
           component: AdminLandingPage
         },
+*/
         {
           path: "add/player",
           component: AddPlayer
@@ -274,10 +280,42 @@ export default new Router({
         {
           path: "matchPosition",
           component: MatchPosition
+        },
+        {
+          path: "all/team",
+          component: AllTeams
+        },
+
+        {
+          path: "update/team/:teamId",
+          component: UpdateTeam
+        },
+
+        {
+          path: "add/location",
+          component: AddLocation
+        },
+      ]
+    },
+    {
+      path: "/user",
+      name: "user",
+      component: UserHome,
+      children: [
+        // {
+        //   path: "",
+        //   component: UserLandingPage
+        // },
+        {
+          path: "watchteam",
+          component: WatchTeamsPage
+        },
+        {
+          path: "watchplayer",
+          component: WatchPlayersPage
         }
       ]
     },
-
     {
       path: "/testForm",
       name: "testForm",
