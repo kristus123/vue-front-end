@@ -171,23 +171,9 @@ export default {
                         {
                             title: "Goal Type",
                             icon: 'fas fa-crosshairs',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href: {
+                                path: "/admin/goalType"
+                            }
                         },
                         {
                             title: "Match Goal",
