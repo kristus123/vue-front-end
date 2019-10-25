@@ -18,6 +18,15 @@ class TeamService {
             .catch(error => error)
     }
 
+    findTeamsWithNoCoach() {
+        return instance.get("/v1/common/get/team/with-no-coach")
+            .then (response => {
+                console.log(response)
+                return response.data
+            })
+            .catch(error => error)
+    }
+
     removeOwner(teamId) {
         return instance.put(`/v1/admin/put/team/${teamId}/removeOwner`)
             .then(response => response.data)

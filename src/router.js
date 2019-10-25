@@ -62,6 +62,7 @@ import Season from '@/components/admin/season/Season'
 import Result from '@/components/admin/result/Result'
 import Match from "@/components/admin/match/Match"
 import MatchGoal from "@/components/admin/matchGoal/MatchGoal"
+import GoalType from "@/components/admin/goalType/GoalType"
 
 
 Vue.use(Router)
@@ -264,6 +265,10 @@ export default new Router({
         {
           path: "matchGoal",
           component: MatchGoal
+        },
+        {
+          path: "goalType",
+          component: GoalType
         }
       ]
     },

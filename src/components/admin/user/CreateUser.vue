@@ -13,6 +13,10 @@
 
   <div v-else>
       <h1> User : {{response.username}} has been successfully created </h1>
+
+      <router-link to="/admin/manage/user">
+      <b-button>head back</b-button>
+      </router-link>
   </div>
 
 

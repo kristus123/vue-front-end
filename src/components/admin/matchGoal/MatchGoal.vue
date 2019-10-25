@@ -278,7 +278,7 @@ export default {
                         Match: items._embedded.matchGoalModelList[i].match.homeTeam.association.name
                                  + " vs. " + items._embedded.matchGoalModelList[i].match.awayTeam.association.name
                                  + " # " + items._embedded.matchGoalModelList[i].match.matchDate,
-                        Description: items._embedded.matchGoalModelList[i].description,
+                        Description: items._embedded.matchGoalModelList[i].description.substring(0, 25),
                         Id: items._embedded.matchGoalModelList[i].goalId
                     }
             }
