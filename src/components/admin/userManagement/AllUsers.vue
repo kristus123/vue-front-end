@@ -2,44 +2,69 @@
   <div>
     <h1>list of all users</h1>
 
-    <router-link to="/admin/create/user">
-      <b-button>create new user</b-button>
+    <router-link v-if="users.length !== 0" to="/admin/create/user">
+      <b-button variant="primary">create new user</b-button>
     </router-link>
     <br />
     <br />
     <br />
-    <table class="table">
+    <table class="table" v-if="users.length !== 0" >
       <thead>
         <tr>
           <th scope="col">#</th>
           <th scope="col">username</th>
           <th scope="col">access-rights</th>
-          <th scope="col">Handle</th>
+          <th scope="col">Manage</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in users">
+        <tr v-for="user in users" v-bind:key="user.id">
           <th scope="row">
-            <b-button>+</b-button>
+            <!-- <b-button>delete</b-button> -->
+            <b-button variant="danger" v-b-modal="`delete-user-${user.id}`">Delete</b-button>
+
+            <b-modal
+              centered
+              :hide-footer="true"
+              :hide-header="true"
+              size="lg"
+              :id="`delete-user-${user.id}`"
+              title="Delete user"
+            >
+              <center>
+                <hr class="pretty" />
+                <h3>Are you sure you want to delete {{user.username}}</h3>
+                <b-button variant="danger" @click="() => deleteUser(user.id)">DELETE !!!!</b-button>
+                <hr class="pretty" />
+              </center>
+            </b-modal>
           </th>
           <td>{{user.username}}</td>
-          <td>hei</td>
+          <td>{{user.roles[0]}}</td>
           <td>
             <b-button
               v-if="user.roles[0] === 'STANDARD' "
               :id="'user-' + user.id"
-              @click="() => elevateUserToAdmin(user)"
+              @click="() => {elevateUserToAdmin(user); user.roles[0] = 'ADMINISTRATOR'}"
             >elevate To administrator</b-button>
 
             <b-button
               v-else-if="user.roles[0] === 'ADMINISTRATOR'"
               :id="'user-' + user.id"
-              @click="() => elevateUserToStandard(user)"
+              @click="() => {elevateUserToStandard(user); user.roles[0] = 'STANDARD'}"
             >Turn into normal user</b-button>
           </td>
         </tr>
       </tbody>
     </table>
+    <div v-else>
+      <hr class="pretty">
+      <h1>No users created</h1>
+      <hr class="pretty">
+      <router-link v-if="users.length === 0" to="/admin/create/user">
+      <b-button variant="primary">create your first user!</b-button>
+    </router-link>
+    </div>
   </div>
 </template>
 
@@ -47,21 +72,37 @@
 import userManagementService from "@/services/userManagement/UserManagementService.js";
 export default {
   async beforeMount() {
-    this.users = await userManagementService.findAll();
+    //this.users = await userManagementService.findAll();
+    this.updateSite();
+    console.log(this.users);
   },
 
   methods: {
+    async deleteUser(id) {
+      await userManagementService.deleteUser(id);
+      await this.updateSite();
+      // location.reload();
+    },
+
+    async updateSite() {
+      this.users = await userManagementService.findAll();
+    },
+
     async elevateUserToAdmin(user) {
-      //user.roles[0] = "ADMINISTRATOR";
+      user.roles[0] = "ADMINISTRATOR";
       this.response = await userManagementService.elevateUserToAdmin(user.id);
-      location.reload();
+      this.updateSite();
+      //location.reload();
     },
 
     async elevateUserToStandard(user) {
       user.roles[0] = "STANDARD";
       console.log(user.roles[0]);
-      this.response = await userManagementService.elevateUserToStandard(user.id);
-      location.reload();
+      this.response = await userManagementService.elevateUserToStandard(
+        user.id
+      );
+      this.updateSite();
+      //location.reload();
     }
   },
   data() {
