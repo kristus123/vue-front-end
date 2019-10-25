@@ -20,7 +20,7 @@ class TeamService {
 
     findTeamsWithNoCoach() {
         return instance.get("/v1/common/get/team/with-no-coach")
-            .then (response => {
+            .then(response => {
                 console.log(response)
                 return response.data
             })
@@ -29,6 +29,12 @@ class TeamService {
 
     removeOwner(teamId) {
         return instance.put(`/v1/admin/put/team/${teamId}/removeOwner`)
+            .then(response => response.data)
+            .catch(error => error)
+    }
+
+    deleteTeam(teamId) {
+        return instance.delete(`/v1/admin/delete/team/${teamId}`)
             .then(response => response.data)
             .catch(error => error)
     }
@@ -42,8 +48,8 @@ class TeamService {
 
     async findTeamsWithNoOwner() {
         return instance.get(`/v1/admin/get/team/with-no-owner`)
-        .then(response => response.data)
-        .catch(error => error)
+            .then(response => response.data)
+            .catch(error => error)
     }
 
     getAllPlayersOfTeam(id) {

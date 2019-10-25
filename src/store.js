@@ -5,6 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    team : {
+      association : null,
+      coach       : null,
+      owner       : null,
+      location    : null
+    },
     userObject : {}
   },
   mutations: {

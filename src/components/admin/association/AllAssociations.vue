@@ -1,20 +1,18 @@
 <template>
   <div>
     <center>
+      <h1>show all associations</h1>
+      <router-link to="/admin/add/association">
+        <b-button variant="outline-primary">create new!</b-button>
+      </router-link>
 
-    <h1>show all associations</h1>
-    <div v-for="association in associations">
-      <generic-card>
-        <h1>{{association.name}}</h1>
-        <h3>{{association.description}}</h3>
-
-        <router-link :to="`/admin/update/association/${association.associationId}`">
-          <b-button>update</b-button>
-        </router-link>
-
-        <!-- <b-button @click="() => deleteAssociation(association.associationId)">delete</b-button> -->
-      </generic-card>
-    </div>
+      <div v-for="association in associations" v-bind:key="association.associationId">
+        <list-of-all-associations :association="association">
+          <router-link :to="`/admin/update/association/${association.associationId}`">
+            <b-button variant="outline-primary">update</b-button>
+          </router-link>
+        </list-of-all-associations>
+      </div>
     </center>
   </div>
 </template>
@@ -22,16 +20,17 @@
 <script>
 import associationService from "@/services/association/AssociationService.js";
 import GenericCard from "@/components/cards/reusables/GenericCard";
+import ListOfAllAssociations from "@/components/admin/association/ListOfAllAssociations";
 
 export default {
-  components: { GenericCard },
-  
-  methods : {
+  components: { GenericCard, ListOfAllAssociations },
+
+  methods: {
     deleteAssociation(id) {
       associationService.deleteAssociation(id);
     }
   },
-  
+
   async beforeMount() {
     this.associations = await associationService.findAll();
   },

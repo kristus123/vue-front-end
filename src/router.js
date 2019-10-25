@@ -13,7 +13,7 @@ import FlexibleForm from '@/components/forms/FlexibleForm';
 import UserPanel from '@/views/players/userpanel/UserPanel';
 import CreateMatch from '@/components/admin/CreateMatch';
 import CreatePerson from '@/components/admin/CreatePerson';
-
+import AddLocation from '@/components/admin/location/AddLocation';
 import AdminHome from '@/views/admin/Home';
 
 import AddPlayer from '@/components/admin/player/AddPlayer'
@@ -27,7 +27,7 @@ import UpdateCoach from '@/components/admin/coach/UpdateCoach';
 
 import AddAssociation from '@/components/admin/association/AddAssociation';
 import AllAssociations from '@/components/admin/association/AllAssociations';
-
+import AllTeams from '@/components/userPanelComponents/AllTeams';
 import UpdateAssociation from '@/components/admin/association/UpdateAssociation';
 
 import AllUsers from '@/components/admin/userManagement/AllUsers';
@@ -44,7 +44,7 @@ import AddCoach from '@/components/admin/coach/AddCoach';
 
 import AddSeason from '@/components/season/AddSeason';
 
-
+import UpdateTeam from '@/components/userPanelComponents/UpdateTeam';
 
 import AllCoach from '@/components/admin/coach/AllCoach';
 
@@ -269,7 +269,29 @@ export default new Router({
         {
           path: "goalType",
           component: GoalType
-        }
+        },
+
+        {
+          path: "all/team",
+          component: AllTeams
+        },
+
+        {
+          path: "update/team/:teamId",
+          component: UpdateTeam
+        },
+
+        {
+          path: "add/location",
+          component: AddLocation
+        },
+
+        
+
+
+        
+
+        
       ]
     },
 

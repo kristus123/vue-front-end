@@ -14,7 +14,7 @@
       <b-col>
         <h3>Teams that are looking for a coach</h3>
           <!-- {{teamsWithNoCoach}} -->
-          <div v-for="team in teamsWithNoCoach" >
+          <div v-for="team in teamsWithNoCoach" v-bind:key="team.teamId">
             
             <b-card style="margin-top:20px;">
             <h3>{{team.association.name}}</h3>
@@ -73,7 +73,6 @@ export default {
           this.teamsWithNoCoach.splice(i, 1);
         }
       }
-
       const teamObject = await coachService.update(this.$route.params.coachId, teamId);
       this.coachTeams.push(teamObject)
       

@@ -1,6 +1,7 @@
 <template>
     <b-container>
         <h1>Season</h1>
+        <hr class="pretty">
         <b-row class="justify-content-center">
             <b-col cols="6">
                 <add-season/>
