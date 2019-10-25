@@ -1,5 +1,5 @@
 <template>
-  <b-container class="home">
+  <div class="home" style="max-width:100%; overflow:hidden;">
     <div>
       <h1>Welcome to ProFotball!</h1>
       <hr class="pretty" />
@@ -30,51 +30,65 @@
         <b-col></b-col>
         <b-col></b-col>
         <b-col cols="6" style="margin-top:20px; margin-bottom:60px;">
-          <b-button style="float:left;">See our features</b-button>
+          <b-button style="float:left;" >See our features</b-button>
+          
         </b-col>
       </b-row>
     </div>
 
     <div class="section-split">
-      We have over 100 new features and 10 super unique. <br>
-      More text and transitions
-    </div>
-    <div class="section-split-2">
-      We have over 100 new features and 10 super unique. <br>
-      More text and transitions
-    </div>
-    <div class="section-split-3">
-      We have over 100 new features and 10 super unique. <br>
-      More text and transitions
+      
     </div>
 
     <div class="parallax secondSection">
-      <ul>
-        <li>Coffee</li>
-        <li>Tea</li>
-        <li>Milk</li> 
-        <li>Coffee</li>
-        <li>Tea</li>
-        <li>Milk</li> 
-        <li>Coffee</li>
-        <li>Tea</li>
-        <li>Milk</li> 
-        <li>Coffee</li>
-        <li>Tea</li>
-        <li>Milk</li> 
-      </ul>
+      <div style="margin-bottom: 60px;">  <p style="visibility: hidden;"> dadsa </p> </div>
+      
+      <div class="features-box">Features</div>
+       
+      <h3 style="color:#FFDC00">The website app</h3>
+
+      <p style="color:#FFDC00">View players, teams and more via your browser</p>
+      
+
+      <b-row style="margin-bottom: 30px;">
+        <b-col></b-col>
+        <b-col md="auto"> 
+          <div class="black-overlay-img"></div>
+          <img src="@/assets/loginCardExample.png" width="200" height="200" >
+         </b-col>
+        
+        <b-col md="auto"> 
+          <div class="black-overlay-img"></div>
+          <img src="@/assets/matchEventExample.png" width="200" height="200" > </b-col>
+        <b-col></b-col>
+      </b-row>
+      <b-row>
+        <b-col></b-col>
+        <b-col md="auto">
+          <div class="black-overlay-img"></div>
+          <img src="@/assets/playerCardExample.png" width="200" height="200" > </b-col>
+        <b-col md="auto"> 
+          <div class="black-overlay-img"></div>
+          <img src="@/assets/teamCardExample.png" width="200" height="200" > </b-col>
+        <b-col ></b-col>
+      </b-row>
+      <div style="margin-top: 60px;">  <p style="visibility: hidden;"> dadsa </p> </div>
     </div>
+    
 
     <div class="section-split">
-      Take a look at these awesome testimonials <br>
-      More text and transitions
+      
     </div>
 
-    <div class="thirdSection">
-      <h1>dkjasldjakljdaskldjklasdjkl <br> dkjasldjakljdaskldjklasdjkl <br>dkjasldjakljdaskldjklasdjkl <br>dkjasldjakljdaskldjklasdjkl <br></h1>
+    <div class="parallax thirdSection">
+      <div style="margin-bottom: 300px;">  <p style="visibility: hidden;"> dadsa </p> </div>
+      <div>
+        <h1 class="header-text-two" style="font-size:100px;">Join us today!</h1>
+      </div>
+      <div style="margin-top: 300px;">  <p style="visibility: hidden;"> dadsa </p> </div>
     </div>
 
-  </b-container>
+  </div>
   
 </template>
 
@@ -83,24 +97,16 @@ import HomePageCards from "@/components/cards/HomePageCards";
 import FlexibleForm from "@/components/forms/FlexibleForm";
 // @ is an alias to /src
 export default {
-  methods: {
-    submitForm(value) {
-      console.log("____________");
-      console.log(value); // someValue
-    }
+  async beforeMount() {
   },
   data: function() {
     return {
-      inputs: [
-        { title: "name", placeholder: "Search for a player", type: "email" },
-        { title: "age", placeholder: "age of player ", type: "email" },
-        {
-          title: "team",
-          placeholder: "What team is the player on",
-          type: "number"
-        }
-      ]
     };
+  },
+  methods: {
+    moveToSection() {
+
+    }
   },
   name: "home",
   components: { HomePageCards, FlexibleForm }
@@ -154,17 +160,17 @@ hr.pretty {
 }
 
 .secondSection {
-
-  background-color: white;
-
+  
+  background-image: url('  https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iDt6V.rPqgC0/v1/1000x-1.jpg');
+  /*background-color : rgb(220, 220, 220);*/
+  /*background-image: url("../assets/concrete-background.jpg");*/
   height: 100%;
 }
 
 .thirdSection {
-  background-image: url('https://s.yimg.com/uu/api/res/1.2/.FBmPxSNQ1aKzAKunQHMZg--~B/aD0yMDI1O3c9MzQyNjtzbT0xO2FwcGlkPXl0YWNoeW9u/http://media.zenfs.com/en/homerun/feed_manager_auto_publish_494/cc720def13cd7bb685733e6874d0abed');
+  background-image: url('https://media.wired.com/photos/5aa0886c948df34b85e1004a/master/pass/turkish-football-fans.jpg');
 
   height: 100%;
-  
 }
 
 .header-text-one {
@@ -172,15 +178,57 @@ hr.pretty {
   float: left;
 }
 
+.header-text-two {
+  color: yellow;
+}
+
 .section-split {
   height:100px;
-  background-color: hsl(120, 100%, 50%);
   /*background-color:red;*/
   font-size:36px;
 }
 
 h1, h3 {
   font-family: 'Catamaran', sans-serif;
+}
+
+p {
+  font-family: 'Catamaran', sans-serif;
+  color:black;
+}
+
+.row-space {
+  margin-top:20px;
+}
+
+.features-box {
+  background-color:black;
+  color:white;
+  width: 7%;
+  margin: 0 auto;
+  font-size:20px;
+}
+
+.black-overlay-img{
+  position:absolute;
+  width: 200px;
+  height:100%;
+  background:rgba(0,0,0,0.3); 
+}
+
+.black-overlay-img:after {
+    color:#fff;
+    position:absolute;
+    width:100%; height:100%;
+    top:0; left:0;
+    background:rgba(255, 255, 255, 0.3);
+    opacity:0;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+}
+
+.black-overlay-img:hover:after {
+    opacity:1;
 }
 
 </style>
