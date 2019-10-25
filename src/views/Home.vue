@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div v-if="$store.state.userObject === null" style="float:right; padding-top:20px; padding-right:20px;">
+    <!-- {{$store.state.userObject}} -->
+    <div style="float:right; padding-top:20px; padding-right:20px;">
+
+    <div v-if="$store.state.userObject === null">
       <router-link to="/signup">
         <b-button variant="outline-secondary" style="margin-right:20px;">Register now</b-button>
       </router-link>
@@ -10,16 +13,17 @@
       </router-link>
     </div>
 
-    <div v-else-if="$store.state.user.roles[0] === 'ADMINISTRATOR' ">
+    <div v-else-if="$store.state.userObject.roles[0] === 'ADMINISTRATOR' ">
       <router-link to="/admin">
         <b-button variant="outline-primary">go to admin-area</b-button>
       </router-link>
     </div>
 
-    <div v-else-if="$store.state.user.roles[0] === 'STANDARD' ">
+    <div v-else-if="$store.state.userObject.roles[0] === 'STANDARD' ">
       <router-link to="/user">
         <b-button variant="outline-primary">go to client-area</b-button>
       </router-link>
+    </div>
     </div>
 
     <br />
@@ -37,7 +41,7 @@
         <center>
           <div class="transparent-grey">
             <br />
-            <h1>Monoitor your favorite players and teams!</h1>
+            <h1 style="color:white;">Monoitor your favorite players and teams!</h1>
             <h3>Over 10 unique features</h3>
             <br />
           </div>
@@ -237,9 +241,6 @@ h3 {
   -webkit-transition: all 0.5s;
 }
 
-h1 {
-  color: white;
-}
 
 h1.black {
   color: black;

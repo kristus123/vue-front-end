@@ -8,8 +8,7 @@ class AuthenticationService {
             password : password
         }).then(response => {
             console.log(response.data)
-            this.login(username, password);
-            return (response.data);
+            return (response);
         });
     }
 
@@ -39,7 +38,7 @@ class AuthenticationService {
 
 
     async getUserInfo() {
-        return instance.get("v1/users/me")
+        return instance.get("/v1/users/me")
             .then(response => response.data);
     }
 
