@@ -16,8 +16,8 @@
 
 <script>
 
-import matchGoalService from '@/services/MatchGoal/MatchGoalService.js';
-import matchService from '@/services/Match/MatchService.js';
+import matchGoalService from '@/services/matchGoal/MatchGoalService.js';
+import matchService from '@/services/match/MatchService.js';
 import GoalEvent from "@/components/user/match/GoalEvent";
     export default {
         props: ['matchId'],
