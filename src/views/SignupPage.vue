@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import authenticationService from '@/services/AuthenticationService';
 export default {
     data() {
         return {
@@ -76,9 +77,9 @@ export default {
             email: '',
             password: '',
             rePassword: '',
-            emailState: '-',
-            rePasswordState: '-',
-            passwordState: '-',
+            emailState: null,
+            rePasswordState: null,
+            passwordState: null,
             emailReg : /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
         };
@@ -99,6 +100,16 @@ export default {
     },
 
     methods: {
+      async onSubmitForm() {
+        console.log("hei");
+        await authenticationService.signup(this.email, this.password);
+
+        console.log(authenticationService.isAuthenticated());
+        console.log(this.email)
+        this.$router.push('/user')
+
+      },
+
         validateEmail() {
             return (this.email == "") ? "" : (this.emailReg.test(this.email)) ? this.emailState = true : this.emailState = false;
         },
