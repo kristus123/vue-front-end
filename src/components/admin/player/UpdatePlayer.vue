@@ -222,7 +222,7 @@ export default {
 
             
 
-            for(var i = 0; i < teams._embedded.teamModelList.length; i++) {
+            for(var i = 0; i < teams.length; i++) {
                 if(i === 0) {
                     teamOption[i] = {
                         value: null,
@@ -230,11 +230,10 @@ export default {
                         disabled: true
                     }
                 }
-                delete teams._embedded.teamModelList[i]._links;
 
                 teamOption[i+1] = {
-                value: teams._embedded.teamModelList[i],
-                text: teams._embedded.teamModelList[i].association.name
+                value: teams[i],
+                text: teams[i].association.name
                 }
             }
             this.teamOptions = teamOption;
