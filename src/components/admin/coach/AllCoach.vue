@@ -1,13 +1,16 @@
 <template>
   <div>
-    <div v-for="coach in coaches" v-bind:key="coach.coachId">
-      {{coach}}
-      <generic-card :updateUrl="`/admin/update/coach/${coach.coachId}`">
-        <h1>{{coach.person.firstName + " " + coach.person.lastName}}</h1>
+    <center>
+    <h1>all owners</h1>
 
-        <h1>hei</h1>
+    <div v-for="coach in coaches" v-bind:key="coach.coachId">
+      <!-- {{coach}} -->
+      <generic-card :updateUrl="`/admin/update/coach/${coach.coachId}`">
+        <h3>{{coach.person.firstName + " " + coach.person.lastName}}</h3>
+
       </generic-card>
     </div>
+    </center>
   </div>
 </template>
 

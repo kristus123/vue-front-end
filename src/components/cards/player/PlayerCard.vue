@@ -1,12 +1,16 @@
+<!-- This component requires that the parents passes a PLAYERMODEL object. 
+This is grande importante, as e.g. playerDTO would not work. -->
+
 <template>
         
         <b-card
-            title="Ronaldo"
+            v-bind:title="playerName"
+            align = "center"
             tag="article"
             class="mb-2">
             <b-row class="justify-content-center">
                 <div class="b-card-image">
-                    <img src="https://img.etimg.com/thumb/msid-67641060,width-1200,height-900,resizemode-4,imgsize-18028/cristiano-ronaldo.jpg" alt="avatar" class="player-image">
+                    <img v-bind:src="imageUrl" alt="avatar" class="player-image">
                 </div>
             </b-row>
 
@@ -55,11 +59,11 @@
             </b-row>
             <b-row class= "row-margin">
                 <b-col>
-                    <player-stats-bar :width="100" :height="100" :chartdata="chartdata" :options="barOptions" />
+                    <player-stats-bar :width="100" :height="100" :chartdata="chartdataBar" :options="barOptions" />
                     <font color="#f87979">Goal per match</font>
                 </b-col>
                 <b-col>
-                    <player-stats-pie :width="100" :height="100" :chartdata="pieDataCollection" :options="pieOptions"/>
+                    <player-stats-pie :width="100" :height="100" :chart-data="chartData" :options="pieOptions"/>
                     <font color="33ff4">Goal types</font>
                 </b-col>
             </b-row>
@@ -72,37 +76,112 @@
 <script>
 import PlayerStatsBar from '@/components/charts/player/playerStatsBar';
 import PlayerStatsPie from '@/components/charts/player/playerStatsPie';
+import playerService from '@/services/player/PlayerService.js'
 
 export default {
 
     name: 'PlayerCard',
+    props:["playerAttr"],
     
     components: {
         PlayerStatsBar,
-        PlayerStatsPie
+        PlayerStatsPie,
+        playerService
+    },
+
+    async beforeMount() {
+        this.goals = await playerService.getPlayerGoals(this.playerAttr.playerId);
+        this.stats = await playerService.getPlayerStats(this.playerAttr.playerId);
+        this.setPlayerData();
+    },
+    
+    mounted() {
+        var self = this;
+        var myVar;
+        /** Some pie charts would create to early, meaning the animation would not show
+         * By forcing it to wait a bit, the user is guaranteed to get the animation
+         */
+        myVar = setTimeout(function(){
+            self.setPieChart();
+            
+        },100);
+        
+    },
+
+    methods: {
+        setPieChart() {
+            var new_label = new Array();
+            var new_nums = new Array();
+            for(let key in this.stats.data.goalTypes) {
+                if(this.stats.data.goalTypes.hasOwnProperty(key)) {
+                    new_label.push(key.toLowerCase().replace("_", " "));
+                    new_nums.push(this.stats.data.goalTypes[key]);
+                    
+                }
+            }
+
+            var newChartData = {
+                //Data to be represented on x-axis
+                labels: [],
+                datasets: [
+                    {
+                        label: 'Goal types',
+                        backgroundColor: ['#33ff41', '#39af41', '#b9af41'] ,
+                        pointBackgroundColor: 'white',
+                        borderWidth: 1,
+                        pointBorderColor: '#249EBF',
+                        //Data to be represented on y-axis
+                        data: []
+                    },
+                ],
+                
+            };
+            newChartData.labels = new_label;
+            newChartData.datasets[0].data = new_nums;
+            this.chartData = newChartData;
+            
+        },
+        setPlayerData() {
+            this.playerPosition = this.playerAttr.normalPosition;
+            this.playerNumber = this.playerAttr.playerNumber;
+            this.teamName = this.playerAttr.team.association.name;
+            this.playerName = this.playerAttr.playername;
+            this.imageUrl = this.playerAttr.imageUrl;
+
+            this.chartdataBar.datasets[0].data[0] = this.stats.data.averageGoal;
+            
+            //this.playerName;
+            this.playerTotalGoals = this.stats.data.totalGoals;
+            this.playerSeasonGoals = this.stats.data.seasonGoals;
+
+        },
     },
     
     data() {
         return {
+            playerName : "Ronaldo",
             teamName : "Juventus",
             playerPosition: "Attacker",
             playerNumber: "7",
+            imageUrl: "",
+            goals: "",
+            stats: "",
             playerSeasonGoals:"40",
             playerTotalGoals:"300",
-            chartdata: {
-            //Data to be represented on x-axis
-            labels: ['Ronaldo', 'Other'],
-            datasets: [
-                {
-                    label: 'Goals',
-                    backgroundColor: ['#f87979' , '#a87979'],
-                    pointBackgroundColor: 'white',
-                    borderWidth: 1,
-                    pointBorderColor: '#249EBF',
-                    //Data to be represented on y-axis
-                    data: [1.3,0.8]
-                }
-            ]
+            chartdataBar: {
+                //Data to be represented on x-axis
+                labels: ['Player', 'Others'],
+                datasets: [
+                    {
+                        label: 'Goals',
+                        backgroundColor: ['#f87979' , '#a87979'],
+                        pointBackgroundColor: 'white',
+                        borderWidth: 1,
+                        pointBorderColor: '#249EBF',
+                        //Data to be represented on y-axis
+                        data: [1.3,0.8]
+                    }
+                ]
             },
             //Chart.js options that controls the appearance of the chart
             barOptions: {
@@ -132,9 +211,9 @@ export default {
                 maintainAspectRatio: false
             },
             // --------------- PIE DATA AND OPTIONS ---------------
-            pieDataCollection: {
+            chartData: {
                 //Data to be represented on x-axis
-                labels: ['Penalty', 'Header', 'Free-kick'],
+                labels: [],
                 datasets: [
                     {
                         label: 'Goal types',
@@ -143,7 +222,7 @@ export default {
                         borderWidth: 1,
                         pointBorderColor: '#249EBF',
                         //Data to be represented on y-axis
-                        data: [10, 20, 30]
+                        data: []
                     },
                 ],
                 
@@ -196,5 +275,9 @@ export default {
     }
     .align-text-right {
         text-align: right;
+    }
+    .b-card-header-clazz {
+        text-align: center;
+        align-items: center;
     }
 </style>

@@ -18,6 +18,15 @@ class PlayerService {
 
     }
 
+    getPlayerGoals(playerId) {
+        return instance.get(`v1/common/get/matchgoal/${playerId}/byPlayerId`)
+    }
+
+    getPlayerStats(playerId) {
+        return instance.get(`v1/common/get/player/${playerId}/stats`)
+    
+    }
+
     add(playerObject) {
         return instance.post("/v1/admin/post/player", playerObject).then(response => response);
     }
