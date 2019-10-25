@@ -53,22 +53,22 @@
       <b-row style="margin-bottom: 30px;">
         <b-col></b-col>
         <b-col md="auto"> 
-          <div class="black-overlay-img"></div>
+          <div image-overlay-data="Save your teams" class="black-overlay-img"></div>
           <img src="@/assets/loginCardExample.png" width="200" height="200" >
          </b-col>
         
         <b-col md="auto"> 
-          <div class="black-overlay-img"></div>
+          <div image-overlay-data="Match details" class="black-overlay-img"></div>
           <img src="@/assets/matchEventExample.png" width="200" height="200" > </b-col>
         <b-col></b-col>
       </b-row>
       <b-row>
         <b-col></b-col>
         <b-col md="auto">
-          <div class="black-overlay-img"></div>
+          <div image-overlay-data="Save stats" class="black-overlay-img"></div>
           <img src="@/assets/playerCardExample.png" width="200" height="200" > </b-col>
         <b-col md="auto"> 
-          <div class="black-overlay-img"></div>
+          <div image-overlay-data="Team stats" class="black-overlay-img"></div>
           <img src="@/assets/teamCardExample.png" width="200" height="200" > </b-col>
         <b-col ></b-col>
       </b-row>
@@ -101,6 +101,7 @@ export default {
   },
   data: function() {
     return {
+      
     };
   },
   methods: {
@@ -211,17 +212,22 @@ p {
 
 .black-overlay-img{
   position:absolute;
+  text-align: center;
+  vertical-align: middle;
   width: 200px;
   height:100%;
   background:rgba(0,0,0,0.3); 
 }
 
 .black-overlay-img:after {
-    color:#fff;
+    
+    text-align: center;
+    vertical-align: middle;
+    content:attr(image-overlay-data);
     position:absolute;
     width:100%; height:100%;
     top:0; left:0;
-    background:rgba(255, 255, 255, 0.3);
+    background:rgba(0,0,0,0.0);
     opacity:0;
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
