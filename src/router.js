@@ -61,6 +61,8 @@ import AdminLandingPage from '@/components/admin/AdminLandingPage';
 import Season from '@/components/admin/season/Season'
 import Result from '@/components/admin/result/Result'
 import Match from "@/components/admin/match/Match"
+import MatchGoal from "@/components/admin/matchGoal/MatchGoal"
+import GoalType from "@/components/admin/goalType/GoalType"
 
 
 Vue.use(Router)
@@ -123,7 +125,6 @@ export default new Router({
           path: "/",
           component: AdminLandingPage
         },
-
         {
           path: "add/player",
           component: AddPlayer
@@ -143,13 +144,11 @@ export default new Router({
         {
           path: "update/person",
           component: UpdatePerson
-
         },
         {
           path: "add/association",
           component: AddAssociation
         },
-
         {
           path: "all/association",
           component: AllAssociations
@@ -158,18 +157,14 @@ export default new Router({
           path: "update/association/:id",
           component: UpdateAssociation
         },
-
         {
           path: "manage/user",
           component: AllUsers
         },
-
-
         {
           path: "manage/user/:id",
           component: UpdateUser
         },
-
         {
           path: "create/user",
           component: CreateUser
@@ -184,9 +179,6 @@ export default new Router({
           path: "all/location",
           component: ShowAllLocations
         },
-
-
-
         {
           path: "update/address/:id",
           component: UpdateAddress
@@ -196,9 +188,6 @@ export default new Router({
           path: "all/address",
           component: AddAddress
         },
-
-
-
         {
           path: "all/coach",
           component: AllCoach,
@@ -216,10 +205,6 @@ export default new Router({
           path: "update/coach/:coachId",
           component: UpdateCoach
         },
-
-
-
-
         {
           path: "add/season",
           component: AddSeason
@@ -276,22 +261,15 @@ export default new Router({
 
           path: "match",
           component: Match
+        },
+        {
+          path: "matchGoal",
+          component: MatchGoal
+        },
+        {
+          path: "goalType",
+          component: GoalType
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       ]
     },
 

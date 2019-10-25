@@ -331,7 +331,7 @@ export default {
 
                 matchOption[i+1] = {
                     value: matches._embedded.matchModelList[i],
-                    text: matches._embedded.matchModelList[i].homeTeam.association.name + " vs. " + matches._embedded.matchModelList[i].awayTeam.association.name
+                    text: matches._embedded.matchModelList[i].homeTeam.association.name + " vs. " + matches._embedded.matchModelList[i].awayTeam.association.name + " - " + matches._embedded.matchModelList[i].matchDate
                 }
             }
             this.matchOptions = matchOption;
