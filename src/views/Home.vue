@@ -8,10 +8,8 @@
     </div>
     
 
-<home-page-cards />
+    <home-page-cards />
 
-
-<flexible-form :inputs="inputs" width="50%"  @clicked="submitForm" />
 
   </div>
 </template>

@@ -15,6 +15,9 @@ import CreateMatch from '@/components/admin/CreateMatch';
 import CreatePerson from '@/components/admin/CreatePerson';
 
 import AdminHome from '@/views/admin/Home';
+import UserHome from '@/views/user/Home';
+import WatchTeamsPage from '@/views/user/WatchTeamsPage';
+import WatchPlayersPage from '@/views/user/WatchPlayersPage';
 import AddPlayer from '@/components/admin/player/AddPlayer'
 
 import AddPerson from '@/components/admin/person/AddPerson'
@@ -48,6 +51,7 @@ import AddContact from '@/components/admin/contact/AddContact';
 import ShowAllAddress from '@/components/admin/address/ShowAllAddress';
 
 import AdminLandingPage from '@/components/admin/AdminLandingPage';
+import UserLandingPage from '@/components/user/UserLandingPage';
 
 import Season from '@/components/admin/season/Season'
 
@@ -108,11 +112,12 @@ export default new Router({
       component: AdminHome,
       children: [
 
+        /*
         {
           path: "/",
           component: AdminLandingPage
         },
-
+*/
         {
           path: "add/player",
           component: AddPlayer
@@ -221,7 +226,25 @@ export default new Router({
 
       ]
     },
-
+    {
+      path: "/user",
+      name: "user",
+      component: UserHome,
+      children: [
+        // {
+        //   path: "",
+        //   component: UserLandingPage
+        // },
+        {
+          path: "watchteam",
+          component: WatchTeamsPage
+        },
+        {
+          path: "watchplayer",
+          component: WatchPlayersPage
+        }
+      ]
+    },
     {
       path: "/testForm",
       name: "testForm",
