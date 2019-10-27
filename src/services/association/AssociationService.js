@@ -7,15 +7,11 @@ class AssociationService {
             name: formService.findValue('Name', formObject),
             description: formService.findValue('Description', formObject)
         }
-        return instance.post("/v1/admin/post/association", jsonObject).then(Response => {
-            console.log(Response.data)
-            return Response.data;
-        }).catch(error => error.response.status)
+        return instance.post("/v1/admin/post/association", jsonObject).then(response => response).catch(error => error.response.status)
     }
 
     findAll() {
         return instance.get("/v1/common/get/association").then(response => {
-            console.log(response.data);
             return response.data._embedded.associationModelList;
         })
     }
