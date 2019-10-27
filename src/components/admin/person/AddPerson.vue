@@ -2,13 +2,14 @@
 <b-container>
     <h1>Add a person</h1>
     <div>
-    <flexible-form :inputs="inputs" width="100%" :image="image" :color="textColor" @clicked="submitForm">
+    <flexible-form :inputs="inputs" width="100%" :image="image" :color="textColor" @clicked="submitForm" @reset="resetForm">
+
         <template v-if="onShowDropdown" v-slot:dropdown>
             <b-form-row class="justify-content-center">
                 <b-col cols="8">
                     <b-form-group class="text-white" label="Address" style="text-align:left;">
                         <b-input-group>
-                            <form-select :options="options" :preselect="addressPreselect" v-on:DropDownValue="onSelected"/>
+                            <form-select :options="addressOptions" :preselect="addressPreselect" v-on:DropDownValue="onSelected"/>
                             <b-input-group-append>
                             <b-btn variant="primary" v-on:click="newAddress">New</b-btn>
                             </b-input-group-append>
@@ -65,31 +66,11 @@ export default {
     },
 
     beforeMount: async function() {
-        this.addresses = await addressService.getAll();
-        
-        if(this.addresses._embedded.addressModelList.length > 0) {
-            let option = [];
-            for(var i = 0; i < this.addresses._embedded.addressModelList.length; i++) {
-                if(i === 0) {
-                    option[i] = {
-                        value: null,
-                        text: "Please pick an address",
-                        disabled: true
-                    }
-                }
-                option[i+1] = {
-                    value: this.addresses._embedded.addressModelList[i],
-                    text: this.addresses._embedded.addressModelList[i].addresses[0] + " - " + this.addresses._embedded.addressModelList[i].city + " - " + this.addresses._embedded.addressModelList[i].country
-                }
-            }
-            this.options = option;
-        } else {
-            this.onShowDropdown = false;
-            this.onShowAddressForm = true;
-        }
+        this.getAddresses();
     },
 
     methods: {
+
      async submitForm (value) {
          
             let addressObject = [];
@@ -105,19 +86,21 @@ export default {
                 }
                 
                 let newAddress = await addressService.createWithoutConvert(addressObject);
+                
                 addressId = newAddress.addressId;
 
             } else {
-                addressObject = this.selectedValueDropdown;
+                addressObject = this.addressPreselect;
+                console.log(addressObject);
                 addressId = addressObject.addressId;
                 
             }
 
             let response = await personService.create(value, addressId);
             if(response.status === 201) {
-                this.printMsg('showSuccessMsg');
                 this.resetForm();
-                this.addresses = await addressService.getAll();
+                this.printMsg('showSuccessMsg');
+                this.getAddresses();
             } else {
                 this.printMsg('showErrorMsg')
             }
@@ -131,9 +114,11 @@ export default {
             for(var i = 0; i < this.addressInputs.length; i++) {
                 this.addressInputs[i].value = '';
             }
-
-            this.addressPreselect = null;
+            
+            this.onShowDropdown = true;
             this.onShowAddressForm = false;
+            this.addressPreselect = null;
+            
 
         },
         
@@ -143,8 +128,35 @@ export default {
         },
         onSelected(value) {
             this.addressPreselect = value;
-            this.selectedValueDropdown = value;
+            console.log(this.addressPreselect);
         },
+
+        async getAddresses() {
+
+            let addresses = await addressService.getAll();
+            let options = [];
+
+            for(var i = 0; i < addresses.length; i++) {
+                delete addresses[i]._links;
+                if(i === 0) {
+                    options[i] = {
+                        value: null,
+                        text: 'Please pick an address',
+                        disabled: true
+                    }
+                }
+
+                options[i+1] = {
+                    value: addresses[i],
+                    text: addresses[i].addresses[0] + " - " + addresses[i].city + " - " + addresses[i].country,
+                    disabled: false
+                }
+            }
+
+            this.addressOptions = options;
+
+        },
+
         printMsg(element) {
             document.getElementById(element).removeAttribute("hidden");
                 animateService.animate(element, 'fadeInDown', null, () => {
@@ -159,13 +171,12 @@ export default {
         return {
             textColor: "text-white",
             image: require(`@/assets/adult-dark-fashion-53754.jpg`),
-            addresses: [],
-            options: [],
+            addressOptions: [],
             onShowAddressForm: false,
             onShowMsg: false,
             onShowDropdown: true,
             addressPreselect: null,
-            selectedValueDropdown: null,
+
             addressInputs: [
                 {
                     title: "Address",
