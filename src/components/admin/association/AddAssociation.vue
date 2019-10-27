@@ -55,7 +55,6 @@ export default {
   methods: {
     async submitForm(value) {
       let response = await associationService.create(value);
-      console.log(response);
 
       if(response.status === 201) {
         this.printMsg('showSuccessMsg', true);

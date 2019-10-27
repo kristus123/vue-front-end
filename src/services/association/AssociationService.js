@@ -16,20 +16,14 @@ class AssociationService {
         })
     }
 
-    update(formObject, associationId) {
-        console.log("______")
-        console.log(formObject)
-        console.log()
-        console.log("______")
-        
+    update(formObject, associationId) {  
         const jsonObject = {
-            associationId : formService.findValue("id", formObject),
             name : formService.findValue("Name", formObject),
             description: formService.findValue("Description", formObject)
         }
         return instance.put(`/v1/admin/update/association/${associationId}`, jsonObject)
-            .then(response => response.data)
-            .catch(error => error)
+            .then(response => response)
+            .catch(error => error.response.status)
     }
 
     deleteAssociation(id) {
@@ -43,10 +37,8 @@ class AssociationService {
     }
 
     findById(id) {
-        console.log("hallo " + id)
         return instance.get(`/v1/common/get/association/${id}`)
             .then(response => {
-                console.log(response.data)
                 return response.data;
             })
             .catch(errror => errror.response.status)
