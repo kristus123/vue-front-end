@@ -4,6 +4,20 @@
     <div>
     <flexible-form :inputs="inputs" width="100%" :image="image" :color="textColor" @clicked="submitForm" @reset="resetForm">
 
+
+        <template v-slot:date>
+            <b-form-row class="justify-content-center">
+            <b-col cols="8">
+              <b-form-group class="text-white" label="Date of birth" style="text-align: left;">
+                <v-date-picker v-model="date" mode="single" :input-props='{
+                  placeholder: "Please enter a date",
+                  readonly: true
+                }'/>
+              </b-form-group>
+            </b-col>
+          </b-form-row>
+        </template>
+
         <template v-if="onShowDropdown" v-slot:dropdown>
             <b-form-row class="justify-content-center">
                 <b-col cols="8">
@@ -52,6 +66,8 @@ import addressService from '@/services/address/AddressService'
 
 import animateService from '@/services/AnimateService'
 
+var dateFormat = require('dateformat');
+
 export default {
     name: 'AddPerson',
     components: {
@@ -95,8 +111,8 @@ export default {
                 addressId = addressObject.addressId;
                 
             }
-
-            let response = await personService.create(value, addressId);
+            let date = dateFormat(this.date, "yyyy-mm-dd");
+            let response = await personService.create(value, date, addressId);
             if(response.status === 201) {
                 this.resetForm();
                 this.printMsg('showSuccessMsg');
@@ -114,7 +130,7 @@ export default {
             for(var i = 0; i < this.addressInputs.length; i++) {
                 this.addressInputs[i].value = '';
             }
-            
+            this.date = null;
             this.onShowDropdown = true;
             this.onShowAddressForm = false;
             this.addressPreselect = null;
@@ -128,7 +144,6 @@ export default {
         },
         onSelected(value) {
             this.addressPreselect = value;
-            console.log(this.addressPreselect);
         },
 
         async getAddresses() {
@@ -176,6 +191,7 @@ export default {
             onShowMsg: false,
             onShowDropdown: true,
             addressPreselect: null,
+            date: null,
 
             addressInputs: [
                 {
@@ -217,6 +233,7 @@ export default {
                     title: "First name",
                     placeholder: "Enter first name",
                     type: "text",
+                    value:'',
                     required: true,
                     disabled: false,
                     icon: "fas fa-file-signature"
@@ -229,14 +246,6 @@ export default {
                     disabled: false,
                     icon: "fas fa-file-signature"
                 },
-                {
-                    title: "Date of birth",
-                    placeholder: "Enter a date",
-                    type: "date",
-                    required: "required",
-                    disabled: false,
-                    icon: "fas fa-calendar-alt"
-                }
             ]
         }
     }      

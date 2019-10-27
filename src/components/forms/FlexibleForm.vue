@@ -11,6 +11,7 @@
 
             <flexible-inputs :inputs="inputs" :color="color"/>
 
+            <slot name="date"></slot>
             <slot name="dropdown"></slot>
             <slot name="newForm"></slot>
 
