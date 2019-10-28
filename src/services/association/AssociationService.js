@@ -26,6 +26,12 @@ class AssociationService {
             .catch(error => error.response.status)
     }
 
+    _update(associationObject, associationId) {
+
+        return instance.put(`/v1/admin/update/association/${associationId}`, associationObject).then(response => response);
+
+    }
+
     deleteAssociation(id) {
         return instance.delete(`/v1/admin/delete/association/${id}`)
             .then(response => {
