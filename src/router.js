@@ -45,7 +45,8 @@ import UpdateAddress from '@/components/admin/address/UpdateAddress';
 
 import AddCoach from '@/components/admin/coach/AddCoach';
 
-import AddSeason from '@/components/season/AddSeason';
+import AddSeason from '@/components/admin/season/AddSeason';
+import UpdateSeason from '@/components/admin/season/UpdateSeason';
 
 import UpdateTeam from '@/components/userPanelComponents/UpdateTeam';
 
@@ -213,8 +214,16 @@ export default new Router({
           component: UpdateCoach
         },
         {
+          path: "season",
+          component: Season
+        },
+        {
           path: "add/season",
           component: AddSeason
+        },
+        {
+          path: "update/season/:seasonId",
+          component: UpdateSeason
         },
 
         {
@@ -235,10 +244,6 @@ export default new Router({
         {
           path: "show/address",
           component: ShowAllAddress
-        },
-        {
-          path: "season",
-          component: Season
         },
         {
           path: "add/team",
