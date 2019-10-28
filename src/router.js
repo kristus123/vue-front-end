@@ -21,7 +21,7 @@ import WatchTeamsPage from '@/views/user/WatchTeamsPage';
 import WatchPlayersPage from '@/views/user/WatchPlayersPage';
 import AddPlayer from '@/components/admin/player/AddPlayer'
 import UpdatePlayer from '@/components/admin/player/UpdatePlayer'
-
+import MatchEvent from '@/components/user/match/MatchEvent';
 import AddPerson from '@/components/admin/person/AddPerson'
 import DeletePerson from '@/components/admin/person/DeletePerson'
 import UpdatePerson from '@/components/admin/person/UpdatePerson'
@@ -305,6 +305,11 @@ export default new Router({
         {
           path: "all/player",
           component: AllPlayers
+        },
+
+        {
+          path: "match/:matchId",
+          component: MatchEvent
         },
 
         {
