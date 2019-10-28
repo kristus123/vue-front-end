@@ -30,7 +30,7 @@ import UpdateCoach from '@/components/admin/coach/UpdateCoach';
 
 import AddAssociation from '@/components/admin/association/AddAssociation';
 import AllAssociations from '@/components/admin/association/AllAssociations';
-import AllTeams from '@/components/userPanelComponents/AllTeams';
+
 import UpdateAssociation from '@/components/admin/association/UpdateAssociation';
 
 import AllUsers from '@/components/admin/userManagement/AllUsers';
@@ -48,13 +48,13 @@ import AddCoach from '@/components/admin/coach/AddCoach';
 import AddSeason from '@/components/admin/season/AddSeason';
 import UpdateSeason from '@/components/admin/season/UpdateSeason';
 
-import UpdateTeam from '@/components/userPanelComponents/UpdateTeam';
+import AllTeams from '@/components/admin/team/AllTeams';
+import AddTeam from '@/components/admin/team/AddTeam';
+import UpdateTeam from '@/components/admin/team/UpdateTeam';
 
 import AllCoach from '@/components/admin/coach/AllCoach';
 
 import UpdateOwner from '@/components/admin/owner/UpdateOwner';
-
-import AddTeam from '@/components/userPanelComponents/AddTeam';
 
 import AddContact from '@/components/admin/contact/AddContact';
 
@@ -246,11 +246,6 @@ export default new Router({
           component: ShowAllAddress
         },
         {
-          path: "add/team",
-          component: AddTeam
-        },
-
-        {
           path: "add/owner",
           component: AddOwner
         },
@@ -290,7 +285,10 @@ export default new Router({
           path: "all/team",
           component: AllTeams
         },
-
+        {
+          path: "add/team",
+          component: AddTeam
+        },
         {
           path: "update/team/:teamId",
           component: UpdateTeam
