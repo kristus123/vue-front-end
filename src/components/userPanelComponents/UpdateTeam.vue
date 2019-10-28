@@ -24,13 +24,19 @@
                             </b-input-group>
                         </b-form-group>
 
+                        <b-form-group class="text-black" label="Pick owner" style="text-align: left;">
+                            <b-input-group> 
+                                <b-input-group-prepend>
+                                    <span class="input-group-text"><i class="fas fa-users"></i></span>
+                                </b-input-group-prepend>
+                            <form-select :options="coachOptions" :preselect="coachPreselect" v-on:DropDownValue="onSelectCoach"/>
+                            </b-input-group>
+                        </b-form-group>
+
                     </b-col>
                 </b-form-row>
             </template>
         </flexible-form>
-
-
-      {{team}}
   </div>
 </template>
 
@@ -39,6 +45,7 @@ import teamService from '@/services/team/TeamService'
 import LocationService from "@/services/location/LocationService"
 import CoachService from "@/services/coach/CoachService"
 import OwnerService from "@/services/owner/OwnerService"
+import AssociationService from "@/services/association/AssociationService"
 
 import FlexibleForm from '@/components/forms/FlexibleForm'
 import FormSelect from '@/components/forms/FormSelect'
@@ -48,7 +55,8 @@ export default {
         FormSelect,
         OwnerService,
         CoachService,
-        LocationService
+        LocationService,
+        AssociationService
     },
     
     async beforeMount() {
@@ -60,10 +68,47 @@ export default {
     },
     methods: {
         async submitForm(value) {
-            
-        },
-        getCoaches() {
 
+            let associationObject = {
+                name: this.inputs[0].value,
+                description: this.inputs[1].value
+            }
+            
+            let assocStatus = await AssociationService._update(associationObject, this.team.association.associationId);
+            
+            let teamObject = {
+                associationId: this.team.association.associationId,
+                coachId: this.coachPreselect.coachId,
+                ownerId: this.ownerPreselect.ownerId,
+                locationId: this.locationPreselect.locationId
+            };
+            console.log(teamObject);
+            console.log(this.team.teamId);
+
+            let teamStatus = await teamService.update(teamObject, this.team.teamId);
+
+            console.log(this.inputs[0].value);
+        },
+        async getCoaches() {
+            let coaches = await CoachService.findAll();
+            let coachOptions = [];
+            for(var i = 0; i < coaches.length; i++) {
+                delete coaches[i]._links;
+
+                if(i === 0) {
+                    coachOptions[i] = {
+                        value: null,
+                        text: 'Please pick a owner',
+                        disabled: true
+                    }
+                }
+
+                coachOptions[i+1] = {
+                    value: coaches[i],
+                    text: coaches[i].person.firstName + " " + coaches[i].person.firstName
+                }
+            }
+            this.coachOptions = coachOptions;
         },
         async getOwners() {
             let owners = await OwnerService.findAll();
@@ -116,10 +161,14 @@ export default {
         onSelectOwner(value) {
             this.ownerPreselect = value;
         },
+        onSelectCoach(value) {
+            this.coachPreselect = value;
+        },
         /* Set initial values into the input forms */
         setOnLoadValues() {
             this.locationPreselect = this.team.location;
             this.ownerPreselect = this.team.owner;
+            this.coachPreselect = this.team.coach;
             this.inputs[0].value = this.team.association.name;
             this.inputs[1].value = this.team.association.description;
         }
@@ -132,7 +181,7 @@ export default {
             ownerOptions: [],
             ownerPreselect: null,
             coachOptions: [],
-            coachOptions: null,
+            coachPreselect: null,
 
             team : null,
             
