@@ -108,13 +108,13 @@ export default {
                                 path: "/admin/matchPosition"
                             }
                         },
-                        {
+                       /* {
                             title: "Result",
                             icon: 'fas fa-medal',
                             href: {
                                 path: "/admin/result"
                             }
-                        },
+                        },*/
                         {
                             title: "Team",
                             icon: 'fas fa-users',

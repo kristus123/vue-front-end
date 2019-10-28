@@ -145,7 +145,7 @@ export default {
 
     async filterPeople(people) {
 
-      let players = await playerService.findAll();
+      let players = await playerService.getAll();
       let nonPlayers = [];
 
       for(var i = 0; i < people._embedded.personModelList.length; i++) {
