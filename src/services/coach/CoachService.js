@@ -34,13 +34,12 @@ class CoachService {
 
     }
 
-    update(coachId, newTeamId) {
+    update(id, personId) {
         const jsonObject = {
-            coachId: coachId,
-            newTeamId: newTeamId
+            personId: personId,
         }
-        return instance.put(`/v1/admin/update/coach`, jsonObject)
-            .then(response => response.data)
+        return instance.put(`/v1/admin/update/coach/${id}`, jsonObject)
+            .then(response => response)
             .catch(error => error)
     }
 
