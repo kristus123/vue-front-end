@@ -1,14 +1,12 @@
 import instance from '@/services/AxiosService.js';
 import formService from '@/services/form/FormService.js';
 class OwnerService {
-    create(formObject) {
+    create(id) {
         const jsonObject = {
-            personId: formService.findValue("Owner ID", formObject),
-            teamId: formService.findValue("Team ID", formObject),
-
+            personId: id
         }
 
-        return instance.post("/v1/admin/post/owner", jsonObject).then(response => response.data);
+        return instance.post("/v1/admin/post/owner", jsonObject).then(response => response);
     }
 
     findAll() {
@@ -39,6 +37,13 @@ class OwnerService {
             .then(response => response.data)
             .catch(error => error)
         
+    }
+
+    update(ownerId, id) {
+        const jsonObject = {
+            personId: ownerId
+        }
+        return instance.put(`/v1/admin/update/owner/${id}`, jsonObject).then(response => response);
     }
 }
 

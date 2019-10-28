@@ -1,173 +1,144 @@
 <template>
-  <div>
-    
+  <b-container>
+    <b-row class="justify-content-center">
+      <b-col cols="12">
+         <flexible-form
+          :image="image"
+          :color="textColor"
+          :showBtns="onShowBtns"
+          @clicked="submitForm"
+        >
 
-        <hr class="pretty" />
-      <p style="color:grey;">the best owner who ever lived</p>
-        <!-- <p>owner:</p> -->
-        <h3 v-if="owner !== null">{{owner.person.firstName + " " + owner.person.lastName }}</h3>
-        <p>🏅🏅🏅</p>
-        <!-- <router-link to = "/admin/update/person" >
-          <b-button variant="outline" >update</b-button>
-        </router-link> -->
-        <hr class="pretty" />
-  <hr>
-        <!-- <hr style="margin:40px;"> -->
+        <template v-slot:dropdown>
+          <b-form-row class="justify-content-center">
+            <b-col cols="8">
+              <b-form-group class="text-white" label="Pick a person" style="text-align: left;">
+                <b-input-group>
+                  <form-select :options="personOptions" :preslecet="preselectPerson" v-on:DropDownValue="onSelectPerson"/>
+                </b-input-group>
+              </b-form-group>
+            </b-col>
+          </b-form-row>
+        </template>
 
+        </flexible-form>
 
-    <b-row>
-      <b-col cols="8">
-        <b-container>
-          <!-- <h3>Teams that has no owner </h3> -->
-          <!-- {{teamOptions}} -->
-         <h3 style="padding-bottom:20px;" > teams for sale </h3>
-          <div v-for="team in teamOptions" v-bind:key="team.teamId">
-            <b-card style="margin-bottom:20px;" v-if="!team.sold">
-              <h3>{{team.name}}</h3>
-              <p style="color:grey;">$500.000</p>
-              <hr class="pretty" />
-              <b-button
-                @click="() => sellTeamTo(team, owner.ownerId)"
-                variant="primary"
-              >Assign team
-                <i class="fas fa-shopping-cart"></i>
-              </b-button>
-            </b-card>
-            <!-- <hr class="pretty" > -->
-          </div>
+        <b-row id="showSuccessMsg" class="justify-content-center">
+          <b-col cols="7">
+              <b-alert variant="success" show>You have successfully updated a coach</b-alert>
+          </b-col>
+        </b-row>
 
-          <!-- <flexible-form
-            :inputs="inputs"
-            width="100%"
-            :image="image"
-            :color="textColor"
-            @clicked="submitForm"
-          >
-            <template v-slot:personDropdown>
-              <b-form-row class="justify-content-center">
-                <b-col cols="8">
-                  <b-form-group class="text-black" label="Pick a team" style="text-align: left;">
-                    <b-input-group>
-                      <form-select
-                        :options="teamOptions"
-                        :preselect="selectedTeam"
-                        v-on:DropDownValue="onSelectedTeam"
-                      />
-                    </b-input-group>
-                  </b-form-group>
-                </b-col>
-              </b-form-row>
-            </template>
-          </flexible-form>-->
-        </b-container>
+        <b-row id="showErrorMsg" class="justify-content-center">
+          <b-col cols="7">
+              <b-alert variant="danger" show>Something went wrong. Please try again later.</b-alert>
+          </b-col>
+        </b-row>
+
       </b-col>
-      <b-col cols="4">
-          <hr style="padding-bottom:30px;">
-        <b-card>
-          <h3>Owned teams</h3>
-          <hr class="pretty" />
-          <!-- {{ownerOf}} -->
-          <ul v-for="team in ownerOf" v-bind:key="team.teamId">
-            <DeleteOwner :team="team" @update="updateLists" />
-          </ul>
-        </b-card>
-
-        <!-- <b-card v-if="owner !== null">
-          <h3>Updating {{owner.person.firstName}}</h3>
-          <ul>
-            <li>{{owner.person.address.addresses[0]}}</li>
-            <li>{{owner.person.address.postalCode}}</li>
-            <li>{{owner.person.address.city}}</li>
-            <li>{{owner.person.address.country}}</li>
-          </ul>
-        </b-card>-->
-      </b-col>
-    </b-row>
-    <!-- <hr style="margin-top:60px;" class="pretty" > -->
-    <!-- <b-button @click="updateLists" variant="danger">Something messy happened ?</b-button> -->
-  </div>
+     </b-row>
+  </b-container>
 </template>
 
 <script>
 import FlexibleForm from "@/components/forms/FlexibleForm";
 import ownerService from "@/services/owner/OwnerService.js";
-import DeleteOwner from "@/components/admin/owner/DeleteOwner";
-import teamService from "@/services/team/TeamService";
+import personService from "@/services/person/PersonService";
 import FormSelect from "@/components/forms/FormSelect";
 
+import animateService from '@/services/AnimateService'
+
 export default {
-  components: { FlexibleForm, DeleteOwner, FormSelect },
+  components: { FlexibleForm, FormSelect },
 
   async beforeMount() {
-    this.owner = await ownerService.findById(this.$route.params.id);
-    this.ownerOf = await ownerService.findAllOwnedTeams(this.$route.params.id);
-    Array.from(await teamService.findTeamsWithNoOwner()).forEach(team => {
-      console.log(team);
-      this.teamOptions.push({
-        id: team.teamId,
-        name: team.association.name,
-        sold: false
-      });
-    });
+    this.getPeople();
+  },
+
+  mounted: function() {
+    document.getElementById('showSuccessMsg').setAttribute("hidden", "");
+    document.getElementById('showErrorMsg').setAttribute("hidden", "");
   },
 
   methods: {
 
-    async updateLists() {
-      // setInterval( () => {
-      //   console.log("hello")
-      // }, 1000 )
-      this.ownerOf = await ownerService.findAllOwnedTeams(this.$route.params.id);
+    async submitForm() {
+      let response = await ownerService.update(this.preselectPerson, this.$route.params.id);
+      if(response.status === 201) {
+        this.printMsg('showSuccessMsg', true);
+      } else {
+        this.printMsg('showErrorMsg');
+      }
 
-      this.teamOptions = [];
-
-      Array.from(await teamService.findTeamsWithNoOwner()).forEach(team => {
-        console.log(team);
-        this.teamOptions.push({
-          id: team.teamId,
-          name: team.association.name,
-          sold: false
-        });
-      })
+    },
+    onSelectPerson(value) {
+      this.preselectPerson = value;
+      this.onShowBtns = true;
     },
 
+    async getPeople() {
+      let people = await personService.getPerson();
+      this.filterPeople(people);
 
-
-    async sellTeamTo(team, ownerId) {
-      team.sold = true;
-      await ownerService.makeOwnerOwnerOf(ownerId, team.id);
-      this.updateLists();
     },
-    async submitForm(value) {
-      //ownerService.create(value);
-      console.log(this.selectedTeam);
-      console.log(this.$route.params.id);
 
-      console.log(
-        await ownerService.makeOwnerOwnerOf(
-          this.$route.params.id,
-          this.selectedTeam
-        )
-      );
+    async filterPeople(people) {
+      let owners = await ownerService.findAll();
+      let filteredPeople = [];
+      let options = [];
 
-      // ownerService.create(this.$route.params.id, this.selectedTeam);
-      // location.reload();
+      for(var i = 0; i < people._embedded.personModelList.length; i++) {
+        if(!owners.some(item => item.person.personId === people._embedded.personModelList[i].personId)) {
+          filteredPeople.push(people._embedded.personModelList[i]);
+        }
+      }
+
+      for(var i = 0; i < filteredPeople.length; i++) {
+        if(i === 0) {
+          options[i] = {
+            value: null,
+            text: await this.getOwner(),
+            disabled: true
+          }
+        }
+
+        options[i+1] = {
+          value: filteredPeople[i].personId,
+          text: filteredPeople[i].firstName + " " + filteredPeople[i].lastName,
+          disabled: false
+        }
+      }
+
+      this.personOptions = options;
     },
-    onSelectedTeam(value) {
-      console.log(value);
-      this.selectedTeam = value;
+    async getOwner() {
+      let coach = await ownerService.findById(this.$route.params.id);
+      return coach.person.firstName + " " + coach.person.lastName;
+
+    },
+
+    printMsg(element, success) {
+      document.getElementById(element).removeAttribute("hidden");
+          animateService.animate(element, 'fadeInDown', null, () => {
+              animateService.animate(element, 'fadeOutUp', 'delay-2s', () => {
+                if(success) {
+                  document.getElementById(element).setAttribute("hidden", "");
+                  this.$router.go(-1);
+                } else {
+                  document.getElementById(element).setAttribute("hidden", "");
+                }
+              });
+          });
     }
   },
 
   data() {
     return {
-      teamOptions: [],
-      owner: null,
-      ownerOf: [],
-      selectedTeam: null,
       textColor: "text-black",
-      image: require(`@/assets/action-adult-athlete-1311619.jpg`),
-      inputs: []
+      onShowBtns: false,
+      image: require(`@/assets/adult-blur-businessman-288477.jpg`),
+      preselectPerson: null,
+      personOptions: [],
     };
   }
 };

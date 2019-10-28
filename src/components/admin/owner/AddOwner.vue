@@ -1,28 +1,138 @@
 <template>
   <b-container>
-    <h1>Add owner</h1>
-    <flexible-form
-      :inputs="inputs"
-      width="100%"
-      :image="image"
-      :color="textColor"
-      @clicked="submitForm"
-    />
+    <h1>Add an owner</h1>
+    <b-row class="justify-content-center">
+      <b-col cols="12">
+        <flexible-form
+          :image="image"
+          :color="textColor"
+          :showBtns="onShowBtns"
+          @clicked="submitForm"
+        >
+        <template v-slot:firstDropdown>
+            <b-form-row class="justify-content-center">
+              <b-col cols="8">
+                <b-form-group class="text-white" label="Pick a person" style="text-align: left;">
+                  <b-input-group>
+                    <form-select :options="personOptions" :preslecet="preselectPerson" v-on:DropDownValue="onSelectPerson"/>
+                  </b-input-group>
+                </b-form-group>
+              </b-col>
+            </b-form-row>
+          </template>
+        </flexible-form>
+
+        <b-row id="showSuccessMsg" class="justify-content-center">
+          <b-col cols="7">
+              <b-alert variant="success" show>You have successfully added an owner</b-alert>
+          </b-col>
+        </b-row>
+
+        <b-row id="showErrorMsg" class="justify-content-center">
+          <b-col cols="7">
+              <b-alert variant="danger" show>Something went wrong. Please try again later.</b-alert>
+          </b-col>
+        </b-row>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
 <script>
 import FlexibleForm from "@/components/forms/FlexibleForm";
 import ownerService from "@/services/owner/OwnerService.js";
+import personService from "@/services/person/PersonService";
+import FormSelect from "@/components/forms/FormSelect"
+
+import animateService from '@/services/AnimateService'
 
 export default {
   components: {
-    FlexibleForm
+    FlexibleForm,
+    FormSelect
+  },
+
+  async beforeMount() {
+    await this.getPeople();
+  },
+
+  mounted: function() {
+    document.getElementById('showSuccessMsg').setAttribute("hidden", "");
+    document.getElementById('showErrorMsg').setAttribute("hidden", "");
   },
 
   methods: {
     async submitForm(value) {
-      this.response = await ownerService.create(value);
+      let response = await ownerService.create(this.preselectPerson);
+      if(response.status === 200) {
+        this.printMsg('showSuccessMsg', true);
+      } else {
+        this.printMsg('showErrorMsg');
+
+      }
+    },
+
+    onSelectPerson(value) {
+      this.preselectPerson = value;
+      this.onShowBtns = true;
+    },
+
+    async getPeople() {
+      let allPeople = await personService.getPerson();
+      let people = [];
+
+      for(var i = 0; i < allPeople._embedded.personModelList.length; i++) {
+          people[i] = {
+            personId: allPeople._embedded.personModelList[i].personId,
+            firstName: allPeople._embedded.personModelList[i].firstName,
+            lastName: allPeople._embedded.personModelList[i].lastName
+          }
+      }
+      this.filterPeople(people);
+    },
+
+    async filterPeople(people) {
+      let owners = await ownerService.findAll();
+      let filteredPeople = [];
+      let options = [];
+
+      for(var i = 0; i < people.length; i++) {
+        if(!owners.some(item => item.person.personId === people[i].personId)) {
+          filteredPeople.push(people[i]);
+        }
+      }
+
+      for(var i = 0; i < filteredPeople.length; i++) {
+        if(i === 0) {
+          options[i] = {
+            value: null,
+            text: 'Please pick a person',
+            disabled: true
+          }
+        }
+
+        options[i+1] = {
+          value: filteredPeople[i].personId,
+          text: filteredPeople[i].firstName + " " + filteredPeople[i].lastName,
+          disabled: false
+        }
+      }
+
+      this.personOptions = options;
+    },
+
+    printMsg(element, success) {
+      document.getElementById(element).removeAttribute("hidden");
+          animateService.animate(element, 'fadeInDown', null, () => {
+              animateService.animate(element, 'fadeOutUp', 'delay-2s', () => {
+                if(success) {
+                  document.getElementById(element).setAttribute("hidden", "");
+                  this.$router.go(-1);
+                } else {
+                  document.getElementById(element).setAttribute("hidden", "");
+                }
+              });
+          });
     }
   },
 
@@ -30,28 +140,13 @@ export default {
     return {
       response: null,
       textColor: "text-black",
-      image: require(`@/assets/action-adult-athlete-1311619.jpg`),
-      inputs: [
-        {
-          title: "Person ID",
-          placeholder: "Select a person",
-          type: "number",
-          required: true,
-          disabled: false,
-          icon: "fas fa-running"
-        },
-        {
-          title: "teamId",
-          placeholder: "Enter team ID",
-          type: "number",
-          required: true,
-          disabled: false,
-          icon: "fas fa-users"
-        },
-      ]
+      onShowBtns: false,
+      personOptions: [],
+      preselectPerson: null,
+      image: require(`@/assets/adult-blur-businessman-288477.jpg`),
     };
   }
-};
+}
 </script>
 
 <style>
