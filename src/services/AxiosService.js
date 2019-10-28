@@ -8,7 +8,7 @@ const headers = {
 }
 
 const instance = axios.create({
-    baseURL: process.env.API_URL || 'http://localhost:8090', 
+    baseURL: process.env.API_URL, 
     headers: headers
 }
 ); // http://localhost:8090 // https://young-everglades-84944.herokuapp.com/
