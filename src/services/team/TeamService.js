@@ -52,8 +52,14 @@ class TeamService {
             .catch(error => error)
     }
 
-    getAllPlayersOfTeam(id) {
-        return instance.get(`/v1/common/get/team/${id}/players`)
+    getAllPlayersOfTeam(teamId) {
+        return instance.get(`/v1/common/get/team/${teamId}/players`)
+            .then(response => response.data)
+            .catch(error => error)
+    }
+
+    getTeamStats(teamId) {
+        return instance.get(`/v1/common/get/team/${teamId}/stats`)
             .then(response => response.data)
             .catch(error => error)
     }
