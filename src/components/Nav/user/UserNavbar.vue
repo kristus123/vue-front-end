@@ -1,7 +1,7 @@
 <template>
     <div>
     <b-navbar :sticky="true" toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand>Foppal</b-navbar-brand>
+      <b-navbar-brand href="/">Foppal</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -26,20 +26,6 @@
               <b-button size="sm" variant="outline-light">Login</b-button>
             </router-link>
           </b-nav-form>
-
-          <b-nav-item-dropdown text="Lang" right>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">NO</b-dropdown-item>
-          </b-nav-item-dropdown>
-
-          <b-nav-item-dropdown right>
-            <!-- Using 'button-content' slot -->
-            <template v-slot:button-content>
-              <em>User</em>
-            </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-          </b-nav-item-dropdown>
 
         </b-navbar-nav>
       </b-collapse>

@@ -10,8 +10,8 @@
 <script>
 
 import TeamsPageCard from '@/components/cards/TeamsPageCard'
-import userTeamService from '@/services/user/UserTeamService';
-// import teamService from '@/services/team/TeamService';
+// import userTeamService from '@/services/user/UserTeamService';
+import teamService from '@/services/team/TeamService';
 
 export default {
     name : "WatchTeamsPage",
@@ -27,41 +27,41 @@ export default {
     
     created: async function () {
         try {
-            let resp = await userTeamService.findAll();
-                this.infoTeams = resp;
-            console.log(resp);
-
-            for(var i = 0; i < this.infoTeams._embedded.teamModelList.length; i++) {
-                const team = {
-                    id: this.infoTeams._embedded.teamModelList[i].teamId,
-                    name: this.infoTeams._embedded.teamModelList[i].association.name,
-                    coach: this.infoTeams._embedded.teamModelList[i].coach.person.firstName,
-                    img: '',
-                    stadium: this.infoTeams._embedded.teamModelList[i].location.name,
-                    formed: '',
-                    description: this.infoTeams._embedded.teamModelList[i].association.description
-
-                };
-                this.teams.push(team);
-            }
-
-            // console.log('TEST ' + localStorage.getItem('username'))
-            // let resp = await teamService.findAll();
+            // let resp = await userTeamService.findAll();
             //     this.infoTeams = resp;
+            // console.log(resp);
 
-            // for(var i = 0; i < this.infoTeams.length; i++) {
+            // for(var i = 0; i < this.infoTeams._embedded.teamModelList.length; i++) {
             //     const team = {
-            //         id: this.infoTeams[i].teamId,
-            //         name: this.infoTeams[i].association.name,
-            //         coach: this.infoTeams[i].coach.person.firstName,
+            //         id: this.infoTeams._embedded.teamModelList[i].teamId,
+            //         name: this.infoTeams._embedded.teamModelList[i].association.name,
+            //         coach: this.infoTeams._embedded.teamModelList[i].coach.person.firstName,
             //         img: '',
-            //         stadium: this.infoTeams[i].location.name,
+            //         stadium: this.infoTeams._embedded.teamModelList[i].location.name,
             //         formed: '',
-            //         description: this.infoTeams[i].association.description
+            //         description: this.infoTeams._embedded.teamModelList[i].association.description
 
             //     };
             //     this.teams.push(team);
             // }
+
+            console.log('TEST ' + localStorage.getItem('username'))
+            let resp = await teamService.findAll();
+                this.infoTeams = resp;
+
+            for(var i = 0; i < this.infoTeams.length; i++) {
+                const team = {
+                    id: this.infoTeams[i].teamId,
+                    name: this.infoTeams[i].association.name,
+                    coach: this.infoTeams[i].coach.person.firstName,
+                    img: '',
+                    stadium: this.infoTeams[i].location.name,
+                    formed: '',
+                    description: this.infoTeams[i].association.description
+
+                };
+                this.teams.push(team);
+            }
         } catch (error) {
             console.error(error);
         }

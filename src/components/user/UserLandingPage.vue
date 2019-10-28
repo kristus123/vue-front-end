@@ -1,9 +1,9 @@
 <template>
-<div>
+  <div>
     <div class="welcome-txt">
         <h1>USER LANDING PAGE </h1>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>

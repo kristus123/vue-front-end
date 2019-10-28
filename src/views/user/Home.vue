@@ -2,10 +2,6 @@
   <b-container>
     <user-navbar />
     <user-landing-page />
-    <router-link to="/">
-      <b-button variant="outline-primary">go to landingpage</b-button>
-    </router-link>
-    <h1>{{$store.state.userObject.username}}</h1>
   </b-container>
 </template>
 
