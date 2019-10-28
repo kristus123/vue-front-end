@@ -11,7 +11,7 @@
             <router-link class="router" to="/teamsPage">Teams</router-link>
           </b-nav-item>
           <b-nav-item>
-            <router-link class="router" to="/user/watchplayer">Players</router-link>
+            <router-link class="router" to="/user/all/player">Players</router-link>
           </b-nav-item>
         </b-navbar-nav>
 
