@@ -67,6 +67,7 @@ import Result from '@/components/admin/result/Result'
 import Match from "@/components/admin/match/Match"
 import MatchGoal from "@/components/admin/matchGoal/MatchGoal"
 import GoalType from "@/components/admin/goalType/GoalType"
+import MatchPosition from "@/components/admin/matchPosition/MatchPosition"
 
 
 Vue.use(Router)
@@ -276,7 +277,10 @@ export default new Router({
           path: "goalType",
           component: GoalType
         },
-
+        {
+          path: "matchPosition",
+          component: MatchPosition
+        },
         {
           path: "all/team",
           component: AllTeams
@@ -291,13 +295,6 @@ export default new Router({
           path: "add/location",
           component: AddLocation
         },
-
-        
-
-
-        
-
-        
       ]
     },
     {

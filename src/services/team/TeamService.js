@@ -57,6 +57,10 @@ class TeamService {
             .then(response => response.data)
             .catch(error => error)
     }
+
+    update(teamObject, teamId) {
+        return instance.put(`/v1/admin/update/team/${teamId}`, teamObject).then(response => response); 
+    }
 }
 
 

@@ -1,6 +1,6 @@
 <template>
 <b-container>
-    <sidebar-menu  style="text-align: left;" :menu="menu"/>
+    <sidebar-menu  style="text-align: left;" :menu="menu" :collapsed="true"/>
     <router-view style="margin: 20px;"/>
 </b-container>
 
@@ -104,23 +104,9 @@ export default {
                         {
                             title: "Match Position",
                             icon: 'fas fa-list-ol',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href: {
+                                path: "/admin/matchPosition"
+                            }
                         },
                         {
                             title: "Result",
