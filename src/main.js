@@ -6,9 +6,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VCalendar from 'v-calendar'
+import AuthenticationService from '@/services/AuthenticationService';
 
-Vue.config.productionTip = false
-Vue.use(VCalendar);
+
+
+
 
 new Vue({
   router,

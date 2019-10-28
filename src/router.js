@@ -71,7 +71,13 @@ import GoalType from "@/components/admin/goalType/GoalType"
 import MatchPosition from "@/components/admin/matchPosition/MatchPosition"
 
 
-Vue.use(Router)
+
+
+
+
+
+
+
 
 export default new Router({
   mode: 'history',
