@@ -2,7 +2,7 @@
     
     <b-container id="teamContainer" v-if="team !== null">
         <b-row class="justify-content-center">
-           <!-- <h1><img id="logo" v-bind:src="team.img">{{team.name}}</h1>      -->      
+           <h1><img id="logo" v-bind:src="team.img">{{team.name}}</h1>     
         </b-row>
         <b-card no-body>
             <b-tabs card justified>
@@ -33,9 +33,9 @@
                 <b-tab title="Stats" v-if="teamStats !== null">
                     <ul>
                         <li>Players: {{teamStats.numberOfPlayers}}</li>
-                       <!-- <li>Current season: {{teamStats.activeSeason.name}}</li> -->
+                       <li>Current season: {{teamStats.activeSeason.name}}</li>
                         <li>Total goals: {{teamStats.totalGoals}}</li>
-                       <!-- <li>Player with most goals: {{teamStats.playerWithMostGoals.player.playername}} ({{teamStats.playerWithMostGoals.goals}})</li> -->
+                       <li>Player with most goals: {{teamStats.playerWithMostGoals.player.playername}} ({{teamStats.playerWithMostGoals.goals}})</li>
                     </ul>
                     
                 </b-tab>
