@@ -57,7 +57,7 @@
                                     <b-col cols="8">
                                         <b-form-group class="text-white" label="Description" style="text-align: left;">
                                             <b-input-group>
-                                               <textarea v-model="description" cols="100"></textarea>
+                                               <b-form-textarea v-model="description" rows="3" ymax-rows="8"></b-form-textarea>
                                             </b-input-group>
                                         </b-form-group>
                                     </b-col>

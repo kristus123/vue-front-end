@@ -2,7 +2,7 @@
     <b-container>
       <h1>Add a player</h1>
 
-      <flexible-form :image="image" :inputs="inputs" :color="textColor" @clicked="submitForm">
+      <flexible-form :image="image" :inputs="inputs" :color="textColor" @clicked="submitForm" @reset="resetForm">
 
         <template v-slot:personDropdown>
           <b-form-row class="justify-content-center">
@@ -86,75 +86,88 @@ export default {
   },
 
   beforeMount: async function() {
-    let people = await personService.getPerson();
-    let players = await playerService.findAll();
-    let teams = await teamService.findAll();
-
-    console.log(teams);
-
-    let nonPlayers = [];
-    let personOption = [];
-    let teamOption = [];
-
-    //Extract the persons that dont have a player
-    for(var i = 0; i < people._embedded.personModelList.length; i++) {
-      if(!players._embedded.playerModelList.some(item => item.person.personId === people._embedded.personModelList[i].personId)){
-          nonPlayers.push(people._embedded.personModelList[i]);
-      }
-    }
-    
-    //Populating the person options for the dropdown
-    if(nonPlayers.length === 0) {
-        personOption[i] = {
-          value: null,
-          text: 'No persons available!',
-          disabled: true
-        }
-    } else {
-
-      for(var i = 0; i < nonPlayers.length; i++) {
-        if(i === 0) {
-          personOption[i] = {
-            value: null,
-            text: 'Please select a person',
-            disabled: true
-          }
-        }
-
-        personOption[i+1] = {
-          value: nonPlayers[i],
-          text: nonPlayers[i].firstName + " " + nonPlayers[i].lastName
-        }
-      }
-    }
-
-    //Populating the team options for the dropdown
-    for(var i = 0; i < teams._embedded.teamModelList.length; i++) {
-      if(i === 0) {
-        teamOption[i] = {
-          value: null,
-          text: 'Please select a team',
-          disabled: true
-        }
-      }
-
-      teamOption[i+1] = {
-        value: teams._embedded.teamModelList[i],
-        text: teams._embedded.teamModelList[i].association.name
-      }
-    }
-
-    this.teamOptions = teamOption;
-    console.log(this.teamOptions);
-
-
-    this.personOptions = personOption;
-    console.log(this.personOptions);
-
+    await this.getPeople();
+    await this.getTeams();
   },
 
 
   methods: {
+
+    async getTeams() {
+
+      let teams = await teamService.findAll();
+      let teamOptions = [];
+
+      for(var i = 0; i < teams.length; i++) {
+        if(i === 0) {
+          teamOptions[i] = {
+            value: null,
+            text: 'Please pick a team',
+            disabled: true
+          }
+        }
+
+        teamOptions[i+1] = {
+          value: teams[i],
+          text: teams[i].association.name,
+          disabled: false
+        }
+      }
+
+      this.teamOptions = teamOptions;
+
+    },
+
+    async getPeople() {
+      let people = await personService.getPerson();
+      let filteredPeople = await this.filterPeople(people);
+
+      let personOptions = [];
+
+      for(var i = 0; i < filteredPeople.length; i++) {
+        if(i === 0) {
+          personOptions[i] = {
+            value: null,
+            text: 'Please pick a person',
+            disabled: true
+          }
+        }
+
+        personOptions[i+1] = {
+          value: filteredPeople[i],
+          text: filteredPeople[i].firstName + " " + filteredPeople[i].lastName,
+          disabled: false
+        }
+      }
+
+      this.personOptions = personOptions;
+    },
+
+    async filterPeople(people) {
+
+      let players = await playerService.findAll();
+      let nonPlayers = [];
+
+      for(var i = 0; i < people._embedded.personModelList.length; i++) {
+        delete people._embedded.personModelList[i]._links;
+        if(!players._embedded.playerModelList.some(item => item.person.personId === people._embedded.personModelList[i].personId)){
+          nonPlayers.push(people._embedded.personModelList[i]);
+        }
+      }
+      return nonPlayers;
+    },
+
+    resetForm() {
+      for(var i = 0; i < this.inputs.length; i++) {
+        this.inputs[i].value = '';
+      }
+
+      this.dateRange = '';
+      this.selectedPerson = null;
+      this.selectedTeam = null;
+
+    },
+
     async submitForm(value) {
 
       let playerObject;
@@ -176,11 +189,9 @@ export default {
 
       let response = await playerService.add(playerObject);
       if(response.status === 201) {
-        for(var i = 0; i < this.inputs.length; i++) {
-          this.inputs[i].value = '';
-        }
-        this.dateRange = '';
+        this.resetForm();
         this.printMsg('showSuccessMsg');
+        this.getPeople();
       } else {
         this.printMsg('showErrorMsg');
       }
@@ -188,18 +199,15 @@ export default {
 
     onSelectedPerson(value) {
       this.selectedPerson = value;
-      console.log(this.selectedPerson);
-      console.log(this.dateRange);
     },
 
     onSelectedTeam(value) {
       this.selectedTeam = value;
-      console.log(this.selectedTeam);
     },
 
     printMsg(element) {
       document.getElementById(element).removeAttribute("hidden");
-          animateService.animate(element, 'fadeInDown', 'delay-1s', () => {
+          animateService.animate(element, 'fadeInDown', null, () => {
               animateService.animate(element, 'fadeOutUp', 'delay-2s', () => {
                   document.getElementById(element).setAttribute("hidden", "");
               });

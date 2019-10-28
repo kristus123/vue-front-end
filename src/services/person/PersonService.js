@@ -3,11 +3,11 @@ import formService from '@/services/form/FormService.js'
 
 class PersonService {
 
-    create(formObject, id) {
+    create(formObject, date, id) {
         const jsonObject = {
             firstName: formService.findValue("First name", formObject),
             lastName: formService.findValue("Last name", formObject),
-            dateOfBirth: formService.findValue("Date of birth", formObject),
+            dateOfBirth: date,
             addressId: id
         }
         return instance.post(`/v1/admin/post/person`, jsonObject).then(response => response)

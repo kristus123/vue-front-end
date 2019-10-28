@@ -164,24 +164,21 @@ export default {
                 this.printMsg('showErrorMsg');
             }
         }
-
-  
-
     },
 
     makePlayerArray() {
         let array = [
-            { playerId: this.leftStriker.playerId, position: 'Left striker' },
-            { playerId: this.rightStriker.playerId, position: 'Right striker' },
-            { playerId: this.leftMid.playerId, position: 'Left midfilder' },
-            { playerId: this.leftCenterMid.playerId, position: 'Left center midfilder' },
-            { playerId: this.rightCenterMid.playerId, position: 'Right center midfilder' },
-            { playerId: this.rightMid.playerId, position: 'Right midfilder' },
-            { playerId: this.leftDefense.playerId, position: 'Left defense' },
-            { playerId: this.leftCenterDefense.playerId, position: 'Left center defense' },
-            { playerId: this.rightCenterDefense.playerId, position: 'Right center defense' },
-            { playerId: this.rightDefense.playerId, position: 'Right defense' },
-            { playerId: this.keeper.playerId, position: 'Keeper'}
+            { playerId: this.leftStriker, position: 'Left striker' },
+            { playerId: this.rightStriker, position: 'Right striker' },
+            { playerId: this.leftMid, position: 'Left midfilder' },
+            { playerId: this.leftCenterMid, position: 'Left center midfilder' },
+            { playerId: this.rightCenterMid, position: 'Right center midfilder' },
+            { playerId: this.rightMid, position: 'Right midfilder' },
+            { playerId: this.leftDefense, position: 'Left defense' },
+            { playerId: this.leftCenterDefense, position: 'Left center defense' },
+            { playerId: this.rightCenterDefense, position: 'Right center defense' },
+            { playerId: this.rightDefense, position: 'Right defense' },
+            { playerId: this.keeper, position: 'Keeper'}
         ]
 
         return array;
@@ -190,13 +187,20 @@ export default {
     onSelectMatch(value) {
         this.matchSelected = true;
         this.matchPreselect = value;
+        this.teamPreselect = null;
+        this.resetPositions();
         this.getTeams(value.homeTeam, value.awayTeam);
     },
 
     async onSelectTeam(value) {
+        this.resetPositions();
         this.teamPreselect = value;
-        let positions =  await this.getMatchPositions();
-        this.getPlayers(value.teamId, positions)
+        this.playerOptions = [];
+        let players = await this.getPlayers(value.teamId);
+        let positions = await this.getMatchPositions(this.matchPreselect.matchId, players);
+        if(positions.length > 0) {
+            this.placePlayers(positions);
+        }
     },
 
     onSelectLeftStriker(value) {
@@ -316,73 +320,6 @@ export default {
 
     },
 
-    async getPlayers(team, pos) {
-
-        let players = await playerService.findAll();
-        let options = [];
-
-        for(var i = 0; i < players._embedded.playerModelList.length; i++) {
-            delete players._embedded.playerModelList[i]._links;
-
-            if(i === 0) {
-                options[i] = {
-                    value: null,
-                    text: 'Please pick a player',
-                    disabled: true
-                }
-            }
-
-            if(players._embedded.playerModelList[i].team.teamId === team) {
-               for(var j = 0; j < pos.length; j++) {
-                    if(players._embedded.playerModelList[i].playerId === pos[j].playerId) {
-                    
-                        switch(pos[j].position) {
-                            case 'Left striker':
-                                this.leftStriker = players._embedded.playerModelList[i];
-                                break;
-                            case 'Right striker':
-                                this.rightStriker = players._embedded.playerModelList[i];
-                                break;
-                            case 'Left midfilder':
-                                this.leftMid = players._embedded.playerModelList[i];
-                                break;
-                            case 'Left center midfilder':
-                                this.leftCenterMid = players._embedded.playerModelList[i];
-                                break;
-                            case 'Right center midfilder':
-                                this.rightCenterMid = players._embedded.playerModelList[i];
-                                break;
-                            case 'Right midfilder':
-                                this.rightMid = players._embedded.playerModelList[i];
-                                break;
-                            case 'Left defense':
-                                this.leftDefense = players._embedded.playerModelList[i];
-                                break;
-                            case 'Left center defense':
-                                this.leftCenterDefense = players._embedded.playerModelList[i];
-                                break;
-                            case 'Right center defense':
-                                this.rightCenterDefense = players._embedded.playerModelList[i];
-                                break;
-                            case 'Right defense':
-                                this.rightDefense = players._embedded.playerModelList[i];
-                                break;
-                            case 'Keeper':
-                                break;
-                        }
-                    }
-                }
-
-                options[i+1] = {
-                    value: players._embedded.playerModelList[i],
-                    text: players._embedded.playerModelList[i].playername,
-                    disabled: false
-                }
-            }
-        }
-        this.playerOptions = options;
-    },
-    
     async getTeams(homeTeam, awayTeam) {
 
         let options = [
@@ -434,18 +371,99 @@ export default {
         this.matchOptions = options;
     },
 
-    async getMatchPositions() {
-        let positions = await MatchPositionService.findAll();
+    async getMatchPositions(matchId, players) {
         let pos = [];
-        if(positions.status !== 404) {
-            for(var i = 0; i < positions._embedded.matchPositionModelList.length; i++) {
+        let count = 0;
+        LOOP: for(var i = 0; i < players.length; i++) {
+            let positions = await MatchPositionService.findById(matchId, players[i].playerId);
+            if(positions.status !== 404) {
                 pos[i] = {
-                    playerId: positions._embedded.matchPositionModelList[i].id.playerId,
-                    position: positions._embedded.matchPositionModelList[i].position
+                    playerId: positions.id.playerId,
+                    position: positions.position
+                }
+
+                count++;
+                if(count === 11) {
+                    break LOOP;
                 }
             }
         }
         return pos;
+    },
+
+    async getPlayers(teamId) {
+        let players = await playerService.findAll();
+        let options = [];
+        let allPlayers = [];
+
+        for(var i = 0; i < players._embedded.playerModelList.length; i++) {
+            delete players._embedded.playerModelList[i]._links;
+                
+            if(i === 0) {
+                options[i] = {
+                    value: null,
+                    text: 'Player',
+                    disabled: true
+                }
+            }
+
+            if(players._embedded.playerModelList[i].team.teamId === teamId) {
+
+                options[i+1] = {
+                    value: players._embedded.playerModelList[i].playerId,
+                    text: players._embedded.playerModelList[i].playername,
+                    disabled: false
+                }
+
+                allPlayers[i] = {
+                    playerId: players._embedded.playerModelList[i].playerId
+                }
+            }
+        }
+        this.playerOptions = options;
+        return allPlayers;
+    },
+
+    placePlayers(positions) {
+
+        for(var i = 0; i < positions.length; i++) {
+
+            switch(positions[i].position) {
+                case 'Left striker':
+                    this.leftStriker = positions[i].playerId;
+                    break;
+                case 'Right striker':
+                    this.rightStriker = positions[i].playerId;
+                    break;
+                case 'Left midfilder':
+                    this.leftMid = positions[i].playerId;
+                    break;
+                case 'Left center midfilder':
+                    this.leftCenterMid = positions[i].playerId;
+                    break;
+                case 'Right center midfilder':
+                    this.rightCenterMid = positions[i].playerId;
+                    break;
+                case 'Right midfilder':
+                    this.rightMid = positions[i].playerId;
+                    break;
+                case 'Left defense':
+                    this.leftDefense = positions[i].playerId;
+                    break;
+                case 'Left center defense':
+                    this.leftCenterDefense = positions[i].playerId;
+                    break;
+                case 'Right center defense':
+                    this.rightCenterDefense = positions[i].playerId;
+                    break;
+                case 'Right defense':
+                    this.rightDefense = positions[i].playerId;
+                    break;
+                case 'Keeper':
+                    this.keeper = positions[i].playerId;
+                    break;
+            }
+        }
     },
 
     printMsg(element) {
@@ -462,6 +480,7 @@ export default {
       teamOptions: [],
       matchOptions: [],
       playerOptions:[],
+      positionOptions: [],
 
       allPositionsSet: false,
       matchSelected: false,

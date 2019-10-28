@@ -23,9 +23,6 @@ class AddressService {
             "country": formService.findValue("Country", formObject)
         }
         
-        // if (formService.findValue("addressId", formObject) != null) {
-        //     jsonObject.addressId = formService.findValue("addressId", formObject);
-        // }
         return jsonObject;
     }
 
@@ -36,11 +33,12 @@ class AddressService {
     }
 
 
-    update(formObject) { 
-        return instance.put(`v1/admin/update/address/${formService.findValue('addressId', formObject)}`, 
+    update(formObject, id) { 
+        console.log(formObject);
+        return instance.put(`v1/admin/update/address/${id}`, 
             this.turnFormObjectIntoValidJson(formObject))
-            .then(response => response.data)
-            .catch(error => console.log(error));
+            .then(response => response)
+            .catch(error => error);
     }
 
     findById(id) {
@@ -57,9 +55,9 @@ class AddressService {
     create(formObject) {
         const constObject = this.turnFormObjectIntoValidJson(formObject);
 
-        instance.post('/v1/admin/post/address', constObject)
-            .then(response => console.log(response.data))
-            .catch(error => console.log(error))
+        return instance.post('/v1/admin/post/address', constObject)
+            .then(response => response)
+            .catch(error => error);
     }
 
     createWithoutConvert(addressObject) {
@@ -67,7 +65,7 @@ class AddressService {
     }
 
     updateWithoutConvert(addressObject, addressId) {
-        return instance.put(`/v1/admin/update/address/${addressId}`, addressObject).then(response => response.data);
+        return instance.put(`/v1/admin/update/address/${addressId}`, addressObject).then(response => response);
     }
 }
 

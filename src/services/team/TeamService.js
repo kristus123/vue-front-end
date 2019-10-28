@@ -7,14 +7,9 @@ class TeamService {
     }
 
     create(teamObject) {
-        const jsonObject = {
-            "owner": 1,
-            "location": 1,
-            "association": 1,
-            "coach": 1
-        }
+        console.log(teamObject);
         return instance.post("/v1/admin/post/team", teamObject)
-            .then(response => response.data)
+            .then(response => response)
             .catch(error => error)
     }
 

@@ -118,23 +118,9 @@ export default {
                         {
                             title: "Team",
                             icon: 'fas fa-users',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
+                            href: {
+                                path: "/admin/all/team"
+                            }
                         },
                         {
                             title: "Address",
