@@ -31,7 +31,6 @@
     <div class="home" style="max-width:100%; overflow:hidden;">
       <div>
         <h1 class="black">Welcome to ProFotball!</h1>
-        {{process.env.API_URL}}
         <hr class="pretty" />
       </div>
 
