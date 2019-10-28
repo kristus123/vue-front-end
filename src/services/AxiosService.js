@@ -1,6 +1,7 @@
 import axios from 'axios';
 require('dotenv').config();
 
+
 const headers = {
     'Content-Type' : 'application/x-www-form-urlencoded',
     'Content-Type': 'application/json',
@@ -8,7 +9,7 @@ const headers = {
 }
 
 const instance = axios.create({
-    baseURL: process.env.API_URL || "ausduasdj", 
+    baseURL: process.env || "http://localhost:8090", 
     headers: headers
 }
 ); // http://localhost:8090 // https://young-everglades-84944.herokuapp.com/
