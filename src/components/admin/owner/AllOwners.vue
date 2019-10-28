@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h1>Update owners</h1>
+    <h1>Owners</h1>
       <b-row class="justify-content-center">
         <b-col cols="12">
           <flexible-form

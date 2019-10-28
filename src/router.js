@@ -192,7 +192,7 @@ export default new Router({
         },
 
         {
-          path: "all/address",
+          path: "add/address",
           component: AddAddress
         },
         {
