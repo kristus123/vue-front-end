@@ -15,7 +15,7 @@ import CreateMatch from '@/components/admin/CreateMatch';
 import CreatePerson from '@/components/admin/CreatePerson';
 import AddLocation from '@/components/admin/location/AddLocation';
 import AdminHome from '@/views/admin/Home';
-
+import RecentPlayerMatches from '@/views/players/RecentPlayerMatches';
 import UserHome from '@/views/user/Home';
 import WatchTeamsPage from '@/views/user/WatchTeamsPage';
 import WatchPlayersPage from '@/views/user/WatchPlayersPage';
@@ -32,7 +32,7 @@ import AddAssociation from '@/components/admin/association/AddAssociation';
 import AllAssociations from '@/components/admin/association/AllAssociations';
 import AllTeams from '@/components/userPanelComponents/AllTeams';
 import UpdateAssociation from '@/components/admin/association/UpdateAssociation';
-
+import AllPlayers from '@/views/players/AllPlayers';
 import AllUsers from '@/components/admin/userManagement/AllUsers';
 import AddOwner from '@/components/admin/owner/AddOwner';
 import UpdateUser from '@/components/admin/userManagement/UpdateUser';
@@ -42,7 +42,7 @@ import UpdateLocation from '@/components/admin/location/UpdateLocation';
 import ShowAllLocations from '@/components/admin/location/ShowAllLocations'
 
 import UpdateAddress from '@/components/admin/address/UpdateAddress';
-
+import  PlayerInfo from '@/views/players/PlayerInfo';
 import AddCoach from '@/components/admin/coach/AddCoach';
 
 import AddSeason from '@/components/season/AddSeason';
@@ -302,10 +302,28 @@ export default new Router({
       name: "user",
       component: UserHome,
       children: [
-        // {
-        //   path: "",
-        //   component: UserLandingPage
-        // },
+        {
+          path: "all/player",
+          component: AllPlayers
+        },
+
+        {
+          path: "player/:playerId",
+          component: PlayerInfo
+        },
+
+        {
+          path: "player/:playerId/team-history",
+          component: RecentPlayerMatches
+        },
+
+        {
+          path: "player/:playerId/recent-matches",
+          component: RecentPlayerMatches
+        },
+
+
+
         {
           path: "watchteam",
           component: WatchTeamsPage
