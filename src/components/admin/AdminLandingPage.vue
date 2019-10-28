@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <img src="@/assets/footballField.jpeg" alt="Snow" style="width:80%;" />
+    <img src="@/assets/bird-s-eye-view-circle-drone-photography-2291006.jpg" alt="Snow" style="width:80%; height: 700px;" />
     <div class="centered">
       <h1>Team-structure for 'DREAMTEAM'</h1>
       <br />

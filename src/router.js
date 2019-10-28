@@ -16,6 +16,9 @@ import CreatePerson from '@/components/admin/CreatePerson';
 import AddLocation from '@/components/admin/location/AddLocation';
 import AdminHome from '@/views/admin/Home';
 
+import UserHome from '@/views/user/Home';
+import WatchTeamsPage from '@/views/user/WatchTeamsPage';
+import WatchPlayersPage from '@/views/user/WatchPlayersPage';
 import AddPlayer from '@/components/admin/player/AddPlayer'
 import UpdatePlayer from '@/components/admin/player/UpdatePlayer'
 
@@ -57,12 +60,14 @@ import AddContact from '@/components/admin/contact/AddContact';
 import ShowAllAddress from '@/components/admin/address/ShowAllAddress';
 
 import AdminLandingPage from '@/components/admin/AdminLandingPage';
+import UserLandingPage from '@/components/user/UserLandingPage';
 
 import Season from '@/components/admin/season/Season'
 import Result from '@/components/admin/result/Result'
 import Match from "@/components/admin/match/Match"
 import MatchGoal from "@/components/admin/matchGoal/MatchGoal"
 import GoalType from "@/components/admin/goalType/GoalType"
+import MatchPosition from "@/components/admin/matchPosition/MatchPosition"
 
 
 Vue.use(Router)
@@ -121,10 +126,12 @@ export default new Router({
       component: AdminHome,
       children: [
 
+        /*
         {
           path: "/",
           component: AdminLandingPage
         },
+*/
         {
           path: "add/player",
           component: AddPlayer
@@ -270,7 +277,10 @@ export default new Router({
           path: "goalType",
           component: GoalType
         },
-
+        {
+          path: "matchPosition",
+          component: MatchPosition
+        },
         {
           path: "all/team",
           component: AllTeams
@@ -285,16 +295,27 @@ export default new Router({
           path: "add/location",
           component: AddLocation
         },
-
-        
-
-
-        
-
-        
       ]
     },
-
+    {
+      path: "/user",
+      name: "user",
+      component: UserHome,
+      children: [
+        // {
+        //   path: "",
+        //   component: UserLandingPage
+        // },
+        {
+          path: "watchteam",
+          component: WatchTeamsPage
+        },
+        {
+          path: "watchplayer",
+          component: WatchPlayersPage
+        }
+      ]
+    },
     {
       path: "/testForm",
       name: "testForm",
