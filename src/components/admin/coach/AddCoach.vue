@@ -20,22 +20,21 @@
               </b-col>
             </b-form-row>
           </template>
-
-          <template v-slot:teamDropdown>
-            <b-form-row class="justify-content-center">
-              <b-col cols="8">
-                <b-form-group class="text-white" label="Pick a team" style="text-align: left;">
-                  <b-input-group>
-                    <form-select :options="teamOptions" :preselect="preselectTeam" v-on:DropDownValue="onSelectTeam"/>
-                  </b-input-group>
-                </b-form-group>
-              </b-col>
-            </b-form-row>
-          </template>
-
-
-
         </flexible-form>
+
+        <b-row id="showSuccessMsg" class="justify-content-center">
+          <b-col cols="7">
+              <b-alert variant="success" show>You have successfully added a coach</b-alert>
+          </b-col>
+        </b-row>
+
+        <b-row id="showErrorMsg" class="justify-content-center">
+          <b-col cols="7">
+              <b-alert variant="danger" show>Something went wrong. Please try again later.</b-alert>
+          </b-col>
+        </b-row>
+
+
       </b-col>
     </b-row>
   </b-container>
@@ -48,6 +47,7 @@ import coachService from '@/services/coach/CoachService';
 import personService from '@/services/person/PersonService';
 import formService from '@/services/form/FormService.js';
 import teamService from "@/services/team/TeamService";
+import animateService from '@/services/AnimateService'
 
 export default {
   name: "Addplayer",
@@ -58,21 +58,26 @@ export default {
 
   async beforeMount() {
     await this.getPeople();
-    await this.getTeams();
+  },
+
+  mounted: function() {
+    document.getElementById('showSuccessMsg').setAttribute("hidden", "");
+    document.getElementById('showErrorMsg').setAttribute("hidden", "");
   },
 
   methods: {
-    submitForm(value) {
-      coachService.turnPersonIntoCoach(value);
+    async submitForm() {
+      let response = await coachService.create(this.preselectPerson);
+      if(response.status === 200) {
+        this.printMsg('showSuccessMsg', true);
+      } else {
+        this.printMsg('showErrorMsg');
+      }
     },
 
     onSelectPerson(value) {
       this.preselectPerson = value;
       this.onShowBtns = true;
-    },
-
-    onSelectTeam(value) {
-      this.preselectTeam = value;
     },
 
     async getPeople() {
@@ -120,28 +125,20 @@ export default {
 
     },
 
-    async getTeams() {
-      let teams = await teamService.findAll();
-      console.log(teams);
-      let options = [];
-
-      for(var i = 0; i < teams.length; i++) {
-        if(i === 0) {
-            options[i] = {
-            value: null,
-            text: 'Please pick a team',
-            disabled: true
-          }
-        }
-        
-        options[i+1] = {
-          value: teams[i].teamId,
-          text: teams[i].association.name,
-          disabled: false
-        }
-      }
-      this.teamOptions = options;
+    printMsg(element, success) {
+      document.getElementById(element).removeAttribute("hidden");
+          animateService.animate(element, 'fadeInDown', null, () => {
+              animateService.animate(element, 'fadeOutUp', 'delay-2s', () => {
+                if(success) {
+                  document.getElementById(element).setAttribute("hidden", "");
+                  this.$router.go(-1);
+                } else {
+                  document.getElementById(element).setAttribute("hidden", "");
+                }
+              });
+          });
     }
+
   },
 
   data() {
@@ -149,8 +146,6 @@ export default {
       textColor: "text-white",
       image: require(`@/assets/adult-agenda-black-1543924.jpg`),
       personOptions: [],
-      teamOptions: [],
-      preselectTeam: null,
       preselectPerson: null,
       onShowBtns: false
     };

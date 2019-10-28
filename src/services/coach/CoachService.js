@@ -44,6 +44,13 @@ class CoachService {
             .catch(error => error)
     }
 
+    create(id) {
+        const jsonObject = {
+            personId: id
+        }
+        return instance.post("/v1/admin/post/coach", jsonObject).then(response => response);
+    }
+
 }
 
 const coachService = new CoachService();
