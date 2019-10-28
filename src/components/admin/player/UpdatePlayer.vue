@@ -196,7 +196,7 @@ export default {
 
         async getPlayers() {
 
-            let players = await PlayerService.findAll();
+            let players = await PlayerService.getAll();
             let option = [];
             
             for(var i = 0; i < players._embedded.playerModelList.length; i++) {

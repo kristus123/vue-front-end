@@ -374,10 +374,11 @@ export default {
     async getMatchPositions(matchId, players) {
         let pos = [];
         let count = 0;
+        let control = 0;
         LOOP: for(var i = 0; i < players.length; i++) {
             let positions = await MatchPositionService.findById(matchId, players[i].playerId);
             if(positions.status !== 404) {
-                pos[i] = {
+                pos[i - control] = {
                     playerId: positions.id.playerId,
                     position: positions.position
                 }
@@ -386,13 +387,15 @@ export default {
                 if(count === 11) {
                     break LOOP;
                 }
+            } else {
+                control++;
             }
         }
         return pos;
     },
 
     async getPlayers(teamId) {
-        let players = await playerService.findAll();
+        let players = await playerService.getAll();
         let options = [];
         let allPlayers = [];
 
@@ -425,6 +428,7 @@ export default {
     },
 
     placePlayers(positions) {
+        console.log(positions);
 
         for(var i = 0; i < positions.length; i++) {
 

@@ -108,11 +108,13 @@ export default {
         async submitForm() {
 
             const teamObject = {
-                associationId: this.associationPreselect,
-                coachId: this.coachPreselect,
-                ownerId: this.ownerPreselect,
-                locationId: this.locationPreselect
+                associationId: this.associationPreselect === null ? this.team.association.associationId : this.assosicationPreselect,
+                coachId: this.coachPreselect === null ? this.team.coach.coachId : this.coachPreselect,
+                ownerId: this.ownerPreselect === null ? this.team.owner.ownerId : this.ownerPreselect,
+                locationId: this.locationPreselect === null ? this.team.location.locationId : this.locationPreselect
             }
+
+            console.log(teamObject);
 
             let response = await teamService.update(teamObject, this.$route.params.teamId);
             if(response.status === 201) {
