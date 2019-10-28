@@ -15,6 +15,14 @@ class SeasonService {
         return instance.post("/v1/admin/post/season", jsonObject).then(response => response);
     }
 
+    createWithoutConvert(seasonObject) {
+        return instance.post("/v1/admin/post/season", seasonObject).then(response => response);
+    }
+
+    updateWithoutConvert(seasonObject, id) {
+        return instance.put(`/v1/admin/update/season/${id}`, seasonObject).then(response => response);
+    }
+
     findAll() {
         return instance.get("/v1/common/get/season").then(response => response.data);
     }

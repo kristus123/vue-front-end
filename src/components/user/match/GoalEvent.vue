@@ -1,71 +1,91 @@
 <template>
-    <b-container class="bv-example-row" :class="opt" style="max-width: 370px;">
-        <b-row>
-            <b-col class="description" :class="eventOpt">
-                <h5> <b> {{matchGoals.player.team.association.name}} scored a goal! </b> </h5>
-                <b>  Goal:  <span v-bind:id="hooverId"> {{matchGoals.player.playername}} </span> ({{matchGoals.goalType.replace("_", " ").toLowerCase()}}) </b> <br>
-                {{matchGoals.description}}
-                
-                <b-popover v-bind:target="hooverId"  triggers="hover" placement="right" boundary-padding = 0 boundary= 'viewport'>
-                    <player-card :playerAttr="matchGoals.player"/>
-                </b-popover>
-            </b-col>
-        </b-row>
-</b-container>
+  <b-container class="bv-example-row" :class="opt" style="max-width: 370px;">
+    <b-row>
+      <!-- {{matchGoals}} -->
+      <b-col class="description" :class="eventOpt + ' div-box'">
+        <h5>
+          <b>{{matchGoals.player.team.association.name}} scored a goal!</b>
+        </h5>
+        <br />
+        <b>
+          Goal:
+          <span v-bind:id="hooverId">{{matchGoals.player.playername}}</span>
+          {{matchGoals.goalType.typeName.replace("_", " ").toLowerCase()}}
+        </b>
+        <br />
+        <br />
+        {{matchGoals.description}}
+        <b-popover
+          v-bind:target="hooverId"
+          triggers="hover"
+          placement="right"
+          boundary-padding="0"
+          boundary="viewport"
+        >
+          <player-card :playerAttr="matchGoals.player" />
+        </b-popover>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
-    import PlayerCard from '@/components/cards/player/PlayerCard';
-    export default {
-        props: ["matchGoals"],
-        components: {PlayerCard},
-        data() {
-            return {
-                eventOpt : "",
-                opt : "",
-                hooverId : "yupp"
-            }
-        },
-        beforeMount() {
-            if(this.matchGoals.player.team.teamId == this.matchGoals.match.homeTeam.teamId) {
-                this.opt = "floatright";
-                this.eventOpt = "eventRight";
-            }
-            else {
-                this.eventOpt = "eventLeft";
-                this.opt = "floatleft";
-            }
-            this.hooverId = this.matchGoals.goalId.toString(10);
-        }
+import PlayerCard from "@/components/cards/player/PlayerCard";
+export default {
+  props: ["matchGoals"],
+  components: { PlayerCard },
+  data() {
+    return {
+      eventOpt: "",
+      opt: "",
+      hooverId: "yupp"
+    };
+  },
+  beforeMount() {
+    if (
+      this.matchGoals.player.team.teamId ==
+      this.matchGoals.match.homeTeam.teamId
+    ) {
+      this.opt = "floatright";
+      this.eventOpt = "eventRight";
+    } else {
+      this.eventOpt = "eventLeft";
+      this.opt = "floatleft";
     }
+    this.hooverId = this.matchGoals.goalId.toString(10);
+  }
+};
 </script>
 
 <style>
+.div-box {
+  padding: 1em;
+  margin: 1em;
+  text-align: left;
+  border-radius: 30px;
+  padding: 20px;
+  text-align: left;
+}
+.eventRight {
+  background: rgba(18, 74, 255, 0.8);
+  color: white;
+}
 
-    .eventRight {
-        padding: 1em;
-        margin: 1em;
-        background: rgba(18, 74, 255, 0.8);
-        text-align: left;
-    }
+.eventLeft {
+  background: rgba(237, 162, 0, 0.849);
+  text-align: left;
 
-    .eventLeft {
-        padding: 1em;
-        margin: 1em;
-        background: rgba(237, 181, 00, 0.8);
-        text-align: left;
-    }
+}
 
-    .floatleft {
-        float:left;
-    }
+.floatleft {
+  float: left;
+}
 
-    .floatright {
-        float:right;
-    }
+.floatright {
+  float: right;
+}
 
-    .b-popover {
-        max-width: 100%;
-    }
-
+.b-popover {
+  max-width: 100%;
+}
 </style>

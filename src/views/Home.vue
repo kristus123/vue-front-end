@@ -54,10 +54,10 @@
       <div class="section-split"></div>
 
       <div class="parallax secondSection">
-        <center>
+        <center style="padding-top:20px; padding-bottom:100px;" >
           <div class="transparent-grey">
             <div style="margin-bottom: 60px;">
-              <p style="visibility: hidden;">dadsa</p>
+              <p style="visibility: hidden;"></p>
             </div>
 
             <center>
