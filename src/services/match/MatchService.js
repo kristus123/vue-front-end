@@ -3,7 +3,7 @@ import instance from '@/services/AxiosService'
 class MatchService {
 
     getMatch(id) {
-        return instance.get(`/v1/admin/get/match/${id}`)
+        return instance.get(`/v1/common/get/match/${id}`)
             .then(response => response.data);
     }
 
