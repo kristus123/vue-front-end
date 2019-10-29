@@ -8,7 +8,7 @@
       <b-row class="justify-content-center">
         <b-col cols="8">
           <form-select :options="matchOptions" v-on:DropDownValue="onSelectMatch" />
-          <p>{{resultat}}</p>
+          <p><br>{{resultat}}</p>
         </b-col>
       </b-row>
       <hr class="pretty" />
@@ -23,15 +23,7 @@
             </div>
           </b-col>
 
-          <b-col>
-            <strong>
-              <b-card style="margin-top:20px;">  
-                
-                
-
-              </b-card>
-            </strong>
-          </b-col>
+          
         </b-row>
       </b-container>
     </center>
@@ -80,7 +72,7 @@ export default {
 
     async onSelectMatch(value) {
       this.resultat = "";
-            this.match = await MatchService.findById(value);
+            this.match = await MatchService.findAnonMatchById(value);
             console.log(this.match.matchModel.homeTeam.association.name)
             console.log(this.match.matchModel.awayTeam.association.name)
             console.log(this.match.result)

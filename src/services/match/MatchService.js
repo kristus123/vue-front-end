@@ -7,6 +7,9 @@ class MatchService {
             .then(response => response.data);
     }
 
+    findAnonMatchById(id) {
+        return instance.get(`/v1/anonymous/browse/match/${id}`).then(response => response.data);
+    }
     findAll() {
         return instance.get("/v1/common/get/match").then(response => response.data);
     }

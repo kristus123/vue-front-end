@@ -8,7 +8,7 @@
       <b-row class="justify-content-center">
         <b-col cols="8">
           <form-select :options="playerOptions" v-on:DropDownValue="onSelectPlayer" />
-          <p>{{playerData}}</p>
+          <p><br>{{playerData}}</p>
         </b-col>
       </b-row>
       <hr class="pretty" />
@@ -23,15 +23,7 @@
             </div>
           </b-col>
 
-          <b-col>
-            <strong>
-              <b-card style="margin-top:20px;">  
-                
-                
-
-              </b-card>
-            </strong>
-          </b-col>
+          
         </b-row>
       </b-container>
     </center>
@@ -55,21 +47,21 @@ export default {
       let options = [];
       
 
-      for(var i = 0; i < players._embedded.playerModelList.length; i++) {
-        console.log(players._embedded.playerModelList[i]);
-        delete players._embedded.playerModelList[i]._links;
+      for(var i = 0; i < players.length; i++) {
+        console.log(players[i]);
+        delete players[i]._links;
 
         if(i === 0) {
           options[i] = {
             value: null,
-            text: '',
+            text: 'Please select a player',
             disabled: true
           }
         }
 
         options[i+1] = {
-          value: players._embedded.playerModelList[i].playerId,
-          text: players._embedded.playerModelList[i].playername + " " + players._embedded.playerModelList[i].team.association.name,
+          value: players[i].playerId,
+          text: players[i].playername,
                     
           disabled: false
         }
@@ -81,9 +73,9 @@ export default {
 
     async onSelectPlayer(value) {
       this.playerData = "";
-            this.player = await PlayerService.findById(value); // I somehow couldn't get this to work
+            this.player = await PlayerService.findAnonPlayerById(value); 
             console.log(this.player);
-            this.playerData = "Test";
+            this.playerData = this.player.playerName + " plays for " + this.player.teamName;
             
     },
   },
