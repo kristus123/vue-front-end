@@ -24,6 +24,8 @@ class AuthenticationService {
                 console.log("authenticated")
                 console.log(response.data)
 
+                localStorage.setItem("ROLE", response.data.roles[0])
+
 
                 //instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('user-token')}`;
                 instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('user-token')}`;
