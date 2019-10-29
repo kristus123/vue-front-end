@@ -62,6 +62,7 @@ export default {
             textColor: "text-black",
             image: require(`@/assets/action-adult-athlete-1311619.jpg`),
             selectedTeam: null,
+            removeTeam: null,
 
             teams : [], // teams in my own watchlist
             infoTeams : [],
@@ -70,7 +71,7 @@ export default {
         }
     },
     
-    created: async function () {
+    created: async function () { // find my fav teams
         try {
             // let resp = await userTeamService.findAll(); // this is what we want
             let resp = await teamService.findAll(); // hack for demo purposes
@@ -98,9 +99,8 @@ export default {
         // document.getElementById('showSuccessMsg').setAttribute("hidden", "");
         // document.getElementById('showErrorMsg').setAttribute("hidden", "");
     },
-    beforeMount: async function() {
+    beforeMount: async function() { // find teams from the system that are NOT in fav list
 
-        this.onShowBtns = false;
 
         let allTeams = await teamService.findAll();
         let teamOption = [];
@@ -138,6 +138,9 @@ export default {
         onSelectedTeam(value) {
             this.selectedTeam = value;
         },
+        onRemoveTeam(value) {
+            this.removeTeam = value;
+        },
         async addTeam() {
             let teamObject = {
                 teamId: this.selectedTeam.teamId,
@@ -149,6 +152,12 @@ export default {
             //     // this.printMsg('showSuccessMsg');
             // } else {
             //     // this.printMsg('showErrorMsg');
+            // }
+        },
+        async removeTeam() {
+            let response = await userTeamService.deleteTeam(this.removeTeam.teamId);
+            // if (response.status === 201) {
+            //     
             // }
         }
     }

@@ -307,7 +307,10 @@ export default new Router({
           path: "all/player",
           component: AllPlayers
         },
-
+        {
+          path: "all/team",
+          component: TeamsPage
+        },
         {
           path: "match/:matchId",
           component: MatchEvent
@@ -328,11 +331,11 @@ export default new Router({
           component: RecentPlayerMatches
         },
         {
-          path: "watchteam",
+          path: "my/team",
           component: WatchTeamsPage
         },
         {
-          path: "watchplayer",
+          path: "my/player",
           component: WatchPlayersPage
         }
       ]
