@@ -1,24 +1,32 @@
 <template>
   <b-container>
-    <div v-if="!showSuccess">
-      <h1>Add an address</h1>
-    <flexible-form
-      :inputs="inputs"
-      width="100%"
-      :image="image"
-      :color="textColor"
-      @clicked="submitForm"
-    />
-    </div>
+    <h1>Add an address</h1>
+    <b-row class="justify-content-center">
+      <b-col cols="12">
 
-    <div v-else>
-      <h1>
-        hei
-      </h1>
-        <b-button>
-          add another address
-        </b-button>
-    </div>
+      <flexible-form
+        :inputs="inputs"
+        width="100%"
+        :image="image"
+        :color="textColor"
+        @clicked="submitForm"
+      />
+
+        <b-row id="showSuccessMsg" class="justify-content-center">
+          <b-col cols="7">
+              <b-alert variant="success" show>You have successfully added an address.</b-alert>
+          </b-col>
+        </b-row>
+
+        <b-row id="showErrorMsg" class="justify-content-center">
+          <b-col cols="7">
+              <b-alert variant="danger" show>Something went wrong. Please try again later.</b-alert>
+          </b-col>
+        </b-row>
+
+      </b-col>
+    </b-row>
+
 
   </b-container>
 </template>
@@ -26,6 +34,7 @@
 <script>
 import FlexibleForm from "@/components/forms/FlexibleForm";
 import addressService from '@/services/address/AddressService';
+import animateService from '@/services/AnimateService'
 
 export default {
   name: "Addplayer",
@@ -33,23 +42,46 @@ export default {
     FlexibleForm
   },
 
+  mounted: function() {
+    document.getElementById('showSuccessMsg').setAttribute("hidden", "");
+    document.getElementById('showErrorMsg').setAttribute("hidden", "");
+  },
+
+
   methods: {
-    submitForm(value) {
-        addressService.create(value);
-        console.log(value); // someValue
-        this.showSuccess = true;
+    async submitForm(value) {
+        let response = await addressService.create(value);
+        if(response.status === 201) {
+          this.printMsg('showSuccessMsg', true);
+        } else {
+          this.printMsg('showErrorMsg');
+        }
+    },
+
+    printMsg(element, success) {
+      document.getElementById(element).removeAttribute("hidden");
+          animateService.animate(element, 'fadeInDown', null, () => {
+              animateService.animate(element, 'fadeOutUp', 'delay-2s', () => {
+                if(success) {
+                  document.getElementById(element).setAttribute("hidden", "");
+                  this.$router.go(-1);
+                } else {
+                  document.getElementById(element).setAttribute("hidden", "");
+                }
+              });
+          });
     }
   },
 
   data() {
     return {
       showSuccess : false,
-      textColor: "text-black",
-      image: require(`@/assets/action-adult-athlete-1311619.jpg`),
+      textColor: "text-white",
+      image: require(`@/assets/architecture-buildings-cars-1034662.jpg`),
       inputs: [
         {
           title: "Address",
-          placeholder: "what is the address ?",
+          placeholder: "Type inn the address",
           type: "text",
           required: true,
           disabled: false,
@@ -73,7 +105,7 @@ export default {
         },
         {
           title: "Country",
-          placeholder: "Eg. Sweden",
+          placeholder: "Eg. Norway",
           type: "text",
           required: true,
           disabled: false,

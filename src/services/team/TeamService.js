@@ -7,14 +7,9 @@ class TeamService {
     }
 
     create(teamObject) {
-        const jsonObject = {
-            "owner": 1,
-            "location": 1,
-            "association": 1,
-            "coach": 1
-        }
+        console.log(teamObject);
         return instance.post("/v1/admin/post/team", teamObject)
-            .then(response => response.data)
+            .then(response => response)
             .catch(error => error)
     }
 
@@ -52,8 +47,14 @@ class TeamService {
             .catch(error => error)
     }
 
-    getAllPlayersOfTeam(id) {
-        return instance.get(`/v1/common/get/team/${id}/players`)
+    getAllPlayersOfTeam(teamId) {
+        return instance.get(`/v1/common/get/team/${teamId}/players`)
+            .then(response => response.data)
+            .catch(error => error)
+    }
+
+    getTeamStats(teamId) {
+        return instance.get(`/v1/common/get/team/${teamId}/stats`)
             .then(response => response.data)
             .catch(error => error)
     }

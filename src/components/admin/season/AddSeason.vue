@@ -1,28 +1,43 @@
 <template>
   <b-container>
     <h1>Add a season</h1>
-    <flexible-form
-      :inputs="inputs"
-      width="100%"
-      :image="image"
-      :color="textColor"
-      :size="size"
-      @clicked="submitForm"
-    />
-    
-    <b-row id="showSuccessMsg" class="justify-content-center">
-        <b-col cols="10">
-            <b-alert variant="success" show>You have successfully added a season</b-alert>
-        </b-col>
-    </b-row>
+      <b-row class="justify-content-center">
+      <b-col cols="12">
+        <flexible-form
+          :image="image"
+          :color="textColor"
+          :inputs="inputs"
+          :showBtns="onShowBtns"
+          @clicked="submitForm"
+        >
+          <template v-slot:newForm>
+            <b-form-row class="justify-content-center">
+              <b-col cols="8">
+                <b-form-group class="text-white" label="Date" style="text-align: left;">
+                  <v-date-picker v-model="dateRange" mode="range" :columns="2" :input-props='{
+                    placeholder: "Please enter a range",
+                    readonly: true
+                  }'/>
+                </b-form-group>
+              </b-col>
+            </b-form-row>
+          </template>
 
-    <b-row id="showErrorMsg" class="justify-content-center">
-        <b-col cols="10">
-            <b-alert variant="danger" show>Something went wrong. Please try again later.</b-alert>
-        </b-col>
-    </b-row>
+        </flexible-form>
+        <b-row id="showSuccessMsg" class="justify-content-center">
+            <b-col cols="7">
+                <b-alert variant="success" show>You have successfully added a season.</b-alert>
+            </b-col>
+        </b-row>
 
+        <b-row id="showErrorMsg" class="justify-content-center">
+            <b-col cols="7">
+                <b-alert variant="danger" show>Something went wrong. Please try again later.</b-alert>
+            </b-col>
+        </b-row>
 
+      </b-col>
+      </b-row>
   </b-container>
 </template>
 
@@ -31,6 +46,8 @@ import FlexibleForm from "@/components/forms/FlexibleForm";
 import seasonService from "@/services/season/SeasonService";
 
 import animateService from '@/services/AnimateService'
+
+var dateFormat = require('dateformat');
 
 export default {
   components: {
@@ -43,20 +60,32 @@ export default {
   },
 
   methods: {
-    async submitForm(value) {
-      let response = await seasonService.create(value);
+    async submitForm() {
+      const seasonObject = {
+        name: this.inputs[0].value,
+        description: this.inputs[1].value,
+        startDate: dateFormat(this.dateRange.start, "yyyy-mm-dd"),
+        endDate: dateFormat(this.dateRange.end, "yyyy-mm-dd")
+      }
+
+      let response = await seasonService.createWithoutConvert(seasonObject);
       if(response.status === 201) {
-        this.printMsg('showSuccessMsg');
+        this.printMsg('showSuccessMsg', true);
       } else {
         this.printMsg('showErrorMsg');
       }
     },
 
-    printMsg(element) {
+    printMsg(element, success) {
     document.getElementById(element).removeAttribute("hidden");
         animateService.animate(element, 'fadeInDown', 'delay-1s', () => {
             animateService.animate(element, 'fadeOutUp', 'delay-2s', () => {
+              if(success) {
                 document.getElementById(element).setAttribute("hidden", "");
+                this.$router.go(-1);
+              } else {
+                document.getElementById(element).setAttribute("hidden", "");
+              }
             });
         });
     }
@@ -66,7 +95,12 @@ export default {
     return {
       textColor: "text-white",
       image: require(`@/assets/action-adult-athletes-1657332.jpg`),
-      size: 12,
+      onShowBtns: true,
+      dateRange: {
+        start: null,
+        end: null
+      },
+
       inputs: [
         {
           title: "Season",
@@ -82,22 +116,6 @@ export default {
           required: true,
           icon: "fas fa-user"
         },
-        {
-          title: "Start date",
-          placeholder: "Enter startDate",
-          type: "date",
-          required: true,
-          disabled: false,
-          icon: "fas fa-users"
-        },
-        {
-          title: "End date",
-          placeholder: "Enter endDate",
-          type: "date",
-          required: true,
-          disabled: false,
-          icon: "fas fa-layer-group"
-        }
       ]
     };
   }

@@ -19,7 +19,20 @@
                   </b-form-group>
                 </b-col>
               </b-form-row>
+
               <flexible-inputs v-if="onShowInputs" :inputs="inputs" :color="textColor" />
+
+              <b-form-row class="justify-content-center" v-if="onShowInputs">
+                <b-col cols="8">
+                  <b-form-group class="text-white" label="Date" style="text-align: left;">
+                    <v-date-picker v-model="date" mode="single" :input-props='{
+                      placeholder: "Please enter a date",
+                      readonly: true
+                    }'/>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+
               <b-form-row v-if="onShowAddressDropdown" class="justify-content-center">
                 <b-col cols="8">
                   <b-form-group class="text-white" label="Address" style="text-align:left;">
@@ -77,6 +90,8 @@ import FlexibleInputs from "@/components/forms/inputs/FlexibleInputs";
 import personService from "@/services/person/PersonService";
 import addressService from "@/services/address/AddressService";
 import animateService from "@/services/AnimateService";
+
+var dateFormat = require('dateformat');
 export default {
   name: "UpdatePerson",
   components: {
@@ -91,6 +106,7 @@ export default {
       onShowAddressDropdown: false,
       onShowAddressInputs: false,
       preselect: null,
+      date: null,
       inputs: [],
       addressOptions: [],
       addressInputs: "",
@@ -152,7 +168,7 @@ export default {
       personObject = {
         firstName: this.inputs[0].value,
         lastName: this.inputs[1].value,
-        dateOfBirth: this.inputs[2].value,
+        dateOfBirth: dateFormat(this.date, "yyyy-mm-dd"),
         addressId: addressId
       };
       let response = await personService.updatePerson(
@@ -225,16 +241,16 @@ export default {
     async getAddress() {
       let addresses = await addressService.getAll();
       let address = [];
-      for (var i = 0; i < addresses._embedded.addressModelList.length; i++) {
-        delete addresses._embedded.addressModelList[i]._links;
+      for (var i = 0; i < addresses.length; i++) {
+        delete addresses[i]._links;
         address[i] = {
-          value: addresses._embedded.addressModelList[i],
+          value: addresses[i],
           text:
-            addresses._embedded.addressModelList[i].addresses[0] +
+            addresses[i].addresses[0] +
             " - " +
-            addresses._embedded.addressModelList[i].city +
+            addresses[i].city +
             " - " +
-            addresses._embedded.addressModelList[i].country
+            addresses[i].country
         };
       }
 
@@ -259,17 +275,10 @@ export default {
           required: true,
           disabled: false,
           icon: "fas fa-users"
-        },
-        {
-          title: "Date of birth",
-          placeholder: "Enter a date",
-          type: "date",
-          value: value.dateOfBirth,
-          required: true,
-          disabled: false,
-          icon: "fas fa-users"
         }
       ];
+
+      this.date = new Date(value.dateOfBirth);
     },
     async resetForm() {
       this.onShowInputs = false;

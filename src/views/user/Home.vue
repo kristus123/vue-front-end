@@ -1,7 +1,11 @@
 <template>
-  <b-container>
+  <b-container >
     <user-navbar />
-    <!-- <user-landing-page /> -->
+
+    <div style="padding-top:20px;">
+    <router-view />
+    </div>
+    <!-- <h1>{{$store.state.userObject.username}}</h1> -->
   </b-container>
 </template>
 

@@ -20,6 +20,10 @@ class MatchService {
     create(matchObject) {
         return instance.post("/v1/admin/post/match", matchObject).then(response => response);
     }
+
+    getMatchesByTeamId(teamId) {
+        return instance.get(`/v1/common/get/match/${teamId}/byTeam`).then(response => response);
+    }
 }
 
 const matchService = new MatchService();

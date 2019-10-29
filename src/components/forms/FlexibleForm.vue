@@ -11,6 +11,7 @@
 
             <flexible-inputs :inputs="inputs" :color="color"/>
 
+            <slot name="date"></slot>
             <slot name="dropdown"></slot>
             <slot name="newForm"></slot>
 
@@ -31,7 +32,7 @@
                 <b-btn pill id="subBtn" type="submit" variant="success" value="submit" size="lg">Submit</b-btn>
               </b-col>
               <b-col cols="3">
-                <b-btn pill id="resetBtn" type="reset" variant="danger" size="lg" v-on:click="resetForm">Reset</b-btn>
+                <b-btn pill id="resetBtn" variant="danger" size="lg" v-on:click="resetForm">Reset</b-btn>
               </b-col>
             </b-form-row>
 

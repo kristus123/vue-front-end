@@ -1,7 +1,7 @@
 <template>
     <b-container>
         <h1>Update a player</h1>
-        <flexible-form :image="image" :inputs="inputs" :color="textColor" @clicked="submitForm" >
+        <flexible-form :image="image" :inputs="inputs" :color="textColor" @clicked="submitForm" @reset="resetForm" >
 
             <template v-slot:firstDropdown>
                 <b-form-row class="justify-content-center">
@@ -154,6 +154,7 @@ export default {
             if(response.status === 201) {
                 this.printMsg('showSuccessMsg');
                 this.resetForm();
+                this.getPlayers();
             } else {
                 this.printMsg('showErrorMsg');
             }
@@ -195,7 +196,7 @@ export default {
 
         async getPlayers() {
 
-            let players = await PlayerService.findAll();
+            let players = await PlayerService.getAll();
             let option = [];
             
             for(var i = 0; i < players._embedded.playerModelList.length; i++) {
@@ -241,7 +242,7 @@ export default {
         
         printMsg(element) {
             document.getElementById(element).removeAttribute("hidden");
-                animateService.animate(element, 'fadeInDown', 'delay-1s', () => {
+                animateService.animate(element, 'fadeInDown', null, () => {
                     animateService.animate(element, 'fadeOutUp', 'delay-2s', () => {
                         document.getElementById(element).setAttribute("hidden", "");
                     });

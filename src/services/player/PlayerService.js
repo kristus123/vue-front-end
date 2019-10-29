@@ -3,7 +3,19 @@ import formService from '@/services/form/FormService.js';
 
 class PlayerService {
     findAll() {
+        return instance.get("v1/common/get/player").then(response => response.data._embedded.playerModelList)
+    }
+
+    getAll() {
         return instance.get("v1/common/get/player").then(response => response.data)
+    }
+
+    findById(id) {
+        return instance.get(`v1/common/get/player/${id}`).then(response => response.data)
+    }
+
+    findPlayerHistory(playerId) {
+        return instance.get(`v1/common/get/player/${playerId}/history`).then(response => response.data.playerTeamHistory)
     }
 
     create(formObject) {

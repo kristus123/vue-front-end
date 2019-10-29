@@ -43,6 +43,14 @@ class LocationService {
         return instance.post("/v1/admin/add/location", jsonObject)
             .then(respone => respone.data);
     }
+
+    createWithoutConvert(locationObject) {
+        return instance.post("/v1/admin/add/location", locationObject).then(response => response);
+    }
+
+    updateWithoutConvert(locationObject, id) {
+        return instance.put(`/v1/admin/update/location/${id}`, locationObject).then(response => response);
+    }
 }
 
 const locationService = new LocationService();
