@@ -80,14 +80,12 @@ export default {
 
     onSubmitForm() {
       if (this.login()) {
-        this.$router.push("/user")
       } else { 
         this.showErrorMsg = true;
       }
     },
 
     async login() {
-
       const cred = await authenticationService.login(this.username, this.password);
 
       if (cred === false) {
@@ -100,6 +98,13 @@ export default {
           console.log(this.$store.state.userObject.username);
           console.log(this.signedIn)
           this.signedIn = true;
+
+
+          console.log ("denen burde være true " + this.$store.state.userObject.roles[0] === "ADMINISTRATOR")
+          if (this.$store.state.userObject.roles[0] === "ADMINISTRATOR") {
+            this.$router.push("/admin")
+          } else this.$router.push("/user")
+          
           
           
         

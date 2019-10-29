@@ -123,13 +123,6 @@ export default new Router({
       name: "admin",
       component: AdminHome,
       children: [
-
-        /*
-        {
-          path: "/",
-          component: AdminLandingPage
-        },
-*/
         {
           path: "add/player",
           component: AddPlayer

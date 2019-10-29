@@ -13,6 +13,10 @@
           <b-nav-item>
             <router-link class="router" to="/user/all/player">Players</router-link>
           </b-nav-item>
+
+          <b-nav-item v-if="$store.state.userObject.roles[0] === 'ADMINISTRATOR' ">
+            <router-link class="router" to="/admin">Go back to admin-page</router-link>
+          </b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -28,7 +32,6 @@
             <b-dropdown-item href="/user/my/player">Favourite players</b-dropdown-item>
             <b-dropdown-item href="#">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
-
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
