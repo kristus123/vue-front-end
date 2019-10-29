@@ -6,14 +6,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VCalendar from 'v-calendar'
-
-
-
-
 //import axiosService from '@/services/AxiosService';
 import authenticationService from '@/services/AuthenticationService'
 import instance from '@/services/AxiosService.js';
 
+Vue.config.productionTip = false
+Vue.use(VCalendar);
 
 
 router.beforeEach(async (to, from, next) => {
