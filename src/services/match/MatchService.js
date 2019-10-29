@@ -1,6 +1,11 @@
-import instance from '@/services/AxiosService';
+import instance from '@/services/AxiosService'
 
 class MatchService {
+
+    getMatch(id) {
+        return instance.get(`/v1/admin/get/match/${id}`)
+            .then(response => response.data);
+    }
 
     findAll() {
         return instance.get("/v1/common/get/match").then(response => response.data);
@@ -16,7 +21,10 @@ class MatchService {
         return instance.post("/v1/admin/post/match", matchObject).then(response => response);
     }
 
-
+    getMatchesByTeamId(teamId) {
+        return instance.get(`/v1/common/get/match/${teamId}/byTeam`).then(response => response);
+    }
 }
+
 const matchService = new MatchService();
 export default matchService;

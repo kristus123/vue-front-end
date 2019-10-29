@@ -21,23 +21,7 @@
         <tr v-for="user in users" v-bind:key="user.id">
           <th scope="row">
             <!-- <b-button>delete</b-button> -->
-            <b-button variant="danger" v-b-modal="`delete-user-${user.id}`">Delete</b-button>
-
-            <b-modal
-              centered
-              :hide-footer="true"
-              :hide-header="true"
-              size="lg"
-              :id="`delete-user-${user.id}`"
-              title="Delete user"
-            >
-              <center>
-                <hr class="pretty" />
-                <h3>Are you sure you want to delete {{user.username}}</h3>
-                <b-button variant="danger" @click="() => deleteUser(user.id)">DELETE !!!!</b-button>
-                <hr class="pretty" />
-              </center>
-            </b-modal>
+          
           </th>
           <td>{{user.username}}</td>
           <td>{{user.roles[0]}}</td>

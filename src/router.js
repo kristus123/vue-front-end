@@ -13,12 +13,15 @@ import FlexibleForm from '@/components/forms/FlexibleForm';
 import UserPanel from '@/views/players/userpanel/UserPanel';
 import CreateMatch from '@/components/admin/CreateMatch';
 import CreatePerson from '@/components/admin/CreatePerson';
-
+import AddLocation from '@/components/admin/location/AddLocation';
 import AdminHome from '@/views/admin/Home';
-
+import RecentPlayerMatches from '@/views/players/RecentPlayerMatches';
+import UserHome from '@/views/user/Home';
+import WatchTeamsPage from '@/views/user/WatchTeamsPage';
+import WatchPlayersPage from '@/views/user/WatchPlayersPage';
 import AddPlayer from '@/components/admin/player/AddPlayer'
 import UpdatePlayer from '@/components/admin/player/UpdatePlayer'
-
+import MatchEvent from '@/components/user/match/MatchEvent';
 import AddPerson from '@/components/admin/person/AddPerson'
 import DeletePerson from '@/components/admin/person/DeletePerson'
 import UpdatePerson from '@/components/admin/person/UpdatePerson'
@@ -29,7 +32,7 @@ import AddAssociation from '@/components/admin/association/AddAssociation';
 import AllAssociations from '@/components/admin/association/AllAssociations';
 
 import UpdateAssociation from '@/components/admin/association/UpdateAssociation';
-
+import AllPlayers from '@/views/players/AllPlayers';
 import AllUsers from '@/components/admin/userManagement/AllUsers';
 import AddOwner from '@/components/admin/owner/AddOwner';
 import UpdateUser from '@/components/admin/userManagement/UpdateUser';
@@ -39,30 +42,33 @@ import UpdateLocation from '@/components/admin/location/UpdateLocation';
 import ShowAllLocations from '@/components/admin/location/ShowAllLocations'
 
 import UpdateAddress from '@/components/admin/address/UpdateAddress';
-
+import  PlayerInfo from '@/views/players/PlayerInfo';
 import AddCoach from '@/components/admin/coach/AddCoach';
 
-import AddSeason from '@/components/season/AddSeason';
+import AddSeason from '@/components/admin/season/AddSeason';
+import UpdateSeason from '@/components/admin/season/UpdateSeason';
 
-
+import AllTeams from '@/components/admin/team/AllTeams';
+import AddTeam from '@/components/admin/team/AddTeam';
+import UpdateTeam from '@/components/admin/team/UpdateTeam';
 
 import AllCoach from '@/components/admin/coach/AllCoach';
 
 import UpdateOwner from '@/components/admin/owner/UpdateOwner';
-
-import AddTeam from '@/components/userPanelComponents/AddTeam';
 
 import AddContact from '@/components/admin/contact/AddContact';
 
 import ShowAllAddress from '@/components/admin/address/ShowAllAddress';
 
 import AdminLandingPage from '@/components/admin/AdminLandingPage';
+import UserLandingPage from '@/components/user/UserLandingPage';
 
 import Season from '@/components/admin/season/Season'
 import Result from '@/components/admin/result/Result'
 import Match from "@/components/admin/match/Match"
 import MatchGoal from "@/components/admin/matchGoal/MatchGoal"
 import GoalType from "@/components/admin/goalType/GoalType"
+import MatchPosition from "@/components/admin/matchPosition/MatchPosition"
 
 import BrowsePlayer from "@/components/anonymous/BrowsePlayer"
 import BrowserMatch from "@/components/anonymous/BrowseMatch"
@@ -133,10 +139,12 @@ export default new Router({
       component: AdminHome,
       children: [
 
+        /*
         {
           path: "/",
           component: AdminLandingPage
         },
+*/
         {
           path: "add/player",
           component: AddPlayer
@@ -197,7 +205,7 @@ export default new Router({
         },
 
         {
-          path: "all/address",
+          path: "add/address",
           component: AddAddress
         },
         {
@@ -218,8 +226,16 @@ export default new Router({
           component: UpdateCoach
         },
         {
+          path: "season",
+          component: Season
+        },
+        {
           path: "add/season",
           component: AddSeason
+        },
+        {
+          path: "update/season/:seasonId",
+          component: UpdateSeason
         },
 
         {
@@ -241,15 +257,6 @@ export default new Router({
           path: "show/address",
           component: ShowAllAddress
         },
-        {
-          path: "season",
-          component: Season
-        },
-        {
-          path: "add/team",
-          component: AddTeam
-        },
-
         {
           path: "add/owner",
           component: AddOwner
@@ -281,10 +288,72 @@ export default new Router({
         {
           path: "goalType",
           component: GoalType
+        },
+        {
+          path: "matchPosition",
+          component: MatchPosition
+        },
+        {
+          path: "all/team",
+          component: AllTeams
+        },
+        {
+          path: "add/team",
+          component: AddTeam
+        },
+        {
+          path: "update/team/:teamId",
+          component: UpdateTeam
+        },
+
+        {
+          path: "add/location",
+          component: AddLocation
+        },
+      ]
+    },
+    {
+      path: "/user",
+      name: "user",
+      component: UserHome,
+      children: [
+        {
+          path: "all/player",
+          component: AllPlayers
+        },
+
+        {
+          path: "match/:matchId",
+          component: MatchEvent
+        },
+
+        {
+          path: "player/:playerId",
+          component: PlayerInfo
+        },
+
+        {
+          path: "player/:playerId/team-history",
+          component: RecentPlayerMatches
+        },
+
+        {
+          path: "player/:playerId/recent-matches",
+          component: RecentPlayerMatches
+        },
+
+
+
+        {
+          path: "watchteam",
+          component: WatchTeamsPage
+        },
+        {
+          path: "watchplayer",
+          component: WatchPlayersPage
         }
       ]
     },
-
     {
       path: "/testForm",
       name: "testForm",

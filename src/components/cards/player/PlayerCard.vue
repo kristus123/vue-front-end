@@ -62,7 +62,7 @@ This is grande importante, as e.g. playerDTO would not work. -->
                     <player-stats-bar :width="100" :height="100" :chartdata="chartdataBar" :options="barOptions" />
                     <font color="#f87979">Goal per match</font>
                 </b-col>
-                <b-col>
+                <b-col v-if="chartData.datasets[0].data.length > 0">
                     <player-stats-pie :width="100" :height="100" :chart-data="chartData" :options="pieOptions"/>
                     <font color="33ff4">Goal types</font>
                 </b-col>
@@ -89,13 +89,11 @@ export default {
         playerService
     },
 
-    async beforeMount() {
+    async created() {
         this.goals = await playerService.getPlayerGoals(this.playerAttr.playerId);
         this.stats = await playerService.getPlayerStats(this.playerAttr.playerId);
+        
         this.setPlayerData();
-    },
-    
-    mounted() {
         var self = this;
         var myVar;
         /** Some pie charts would create to early, meaning the animation would not show
@@ -103,13 +101,12 @@ export default {
          */
         myVar = setTimeout(function(){
             self.setPieChart();
-            
-        },100);
-        
+        },500); 
     },
 
     methods: {
         setPieChart() {
+            
             var new_label = new Array();
             var new_nums = new Array();
             for(let key in this.stats.data.goalTypes) {
@@ -153,6 +150,7 @@ export default {
             //this.playerName;
             this.playerTotalGoals = this.stats.data.totalGoals;
             this.playerSeasonGoals = this.stats.data.seasonGoals;
+            
 
         },
     },
