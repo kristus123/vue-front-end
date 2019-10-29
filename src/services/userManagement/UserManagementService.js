@@ -16,7 +16,10 @@ class UserManagementService {
     createUser(formObject) {
         const username = formService.findValue("username", formObject);
         const password = formService.findValue("password", formObject);
-        return instance.post(`/v1/users/signup?username=${username}&password=${password}`)
+        return instance.post(`/v1/users/signup?username=${username}&password=${password}`, {
+            username : formService.findValue("username", formObject),
+            password : formService.findValue("password", formObject)
+        })
             .then(response => response.data)
     }
 
