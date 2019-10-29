@@ -71,7 +71,13 @@ import GoalType from "@/components/admin/goalType/GoalType"
 import MatchPosition from "@/components/admin/matchPosition/MatchPosition"
 import RefreshYourself from '@/views/user/RefreshYourself';
 
-Vue.use(Router)
+
+
+
+
+
+
+
 
 
 
