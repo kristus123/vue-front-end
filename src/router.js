@@ -69,6 +69,7 @@ import Match from "@/components/admin/match/Match"
 import MatchGoal from "@/components/admin/matchGoal/MatchGoal"
 import GoalType from "@/components/admin/goalType/GoalType"
 import MatchPosition from "@/components/admin/matchPosition/MatchPosition"
+import AllMatches from "@/components/user/match/AllMatches";
 
 
 Vue.use(Router)
@@ -126,13 +127,11 @@ export default new Router({
       name: "admin",
       component: AdminHome,
       children: [
-
-        /*
         {
           path: "/",
           component: AdminLandingPage
         },
-*/
+
         {
           path: "add/player",
           component: AddPlayer
@@ -308,6 +307,10 @@ export default new Router({
         {
           path: "all/player",
           component: AllPlayers
+        },
+        {
+          path: "all/match",
+          component: AllMatches
         },
 
         {

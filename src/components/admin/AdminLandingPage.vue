@@ -1,109 +1,24 @@
 <template>
-  <div class="container">
-    <img src="@/assets/bird-s-eye-view-circle-drone-photography-2291006.jpg" alt="Snow" style="width:80%; height: 700px;" />
-    <div class="centered">
-      <h1>Team-structure for 'DREAMTEAM'</h1>
-      <br />
-      <br />
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-6">
-            <b-card>
-              <select-player
-                :options="options"
-                @addPlayerToTeam="addPlayerToTeam"
-                position="front"
-              />
-            </b-card>
-          </div>
+ <div>
+   <h1>Velkommen til admin {{$store.state.userObject.username}}</h1>
+    <hr class="pretty" />
 
-          <div class="col-md-6">
-            <b-card>
-              <select-player
-                :options="options"
-                @addPlayerToTeam="addPlayerToTeam"
-                position="front"
-              />
-            </b-card>
-          </div>
-        </div>
-      </div>
-      <br />
-
-      <div>
-        <div class="row">
-          <div class="col-md-3">
-            <b-card>
-              <select-player
-                :options="options"
-                @addPlayerToTeam="addPlayerToTeam"
-                position="middle"
-              />
-            </b-card>
-          </div>
-
-          <div class="col-md-3">
-            <b-card>
-              <select-player
-                :options="options"
-                @addPlayerToTeam="addPlayerToTeam"
-                position="middle"
-              />
-            </b-card>
-          </div>
-          <div class="col-md-3">
-            <b-card>
-              <select-player
-                :options="options"
-                @addPlayerToTeam="addPlayerToTeam"
-                position="middle"
-              />
-            </b-card>
-          </div>
-          <div class="col-md-3">
-            <b-card>
-              <select-player
-                :options="options"
-                @addPlayerToTeam="addPlayerToTeam"
-                position="middle"
-              />
-            </b-card>
-          </div>
-        </div>
-      </div>
-
-      <br />
-
-      <div>
-        <div class="row">
-          <div class="col-md-3">
-            <b-card>
-              <select-player :options="options" @addPlayerToTeam="addPlayerToTeam" position="back" />
-            </b-card>
-          </div>
-
-          <div class="col-md-3">
-            <b-card>
-              <select-player :options="options" @addPlayerToTeam="addPlayerToTeam" position="back" />
-            </b-card>
-          </div>
-          <div class="col-md-3">
-            <b-card>
-              <select-player :options="options" @addPlayerToTeam="addPlayerToTeam" position="back" />
-            </b-card>
-          </div>
-          <div class="col-md-3">
-            <b-card>
-              <select-player :options="options" @addPlayerToTeam="addPlayerToTeam" position="back" />
-            </b-card>
-          </div>
-        </div>
-      </div>
-      <hr class="pretty">
-        <b-button @click="updatePlayers" variant="primary" size="lg">Submit your changes</b-button>
-    </div>
-    <!-- <h1 style="color:black;">{{teamStructure}}</h1> -->
-  </div>
+    <b-container class="bv-example-row">
+      <b-row>
+        <b-col>1 of 3</b-col>
+        <b-col>
+          <router-link to="/admin/manage/user">
+            <b-button variant="outline-warning" size="sm">Administrate users</b-button>
+          </router-link>
+        </b-col>
+        <b-col>
+          <router-link to="/user">
+            <b-button variant="outline-primary" size="sm">Go to user-panel</b-button>
+          </router-link>
+        </b-col>
+      </b-row>
+    </b-container>
+ </div>
 </template>
 
 <script>
