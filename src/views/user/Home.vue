@@ -1,8 +1,8 @@
 <template>
   <b-container >
-    <user-navbar style="position:absolute; left: 0; width:100%"/>
+    <user-navbar style="position:absolute; left: 0; width:100%;"/>
 
-    <div style="padding-top:20px;">
+    <div style="padding-top:70px;">
     <router-view />
     </div>
     <!-- <h1>{{$store.state.userObject.username}}</h1> -->
