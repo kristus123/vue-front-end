@@ -5,7 +5,9 @@ class PlayerService {
     findAll() {
         return instance.get("v1/common/get/player").then(response => response.data._embedded.playerModelList)
     }
-
+    findAnonPlayerById(id) {
+        return instance.get(`/v1/anonymous/browse/player/${id}`).then(response => response.data);  
+    }
     getAll() {
         return instance.get("v1/common/get/player").then(response => response.data)
     }
