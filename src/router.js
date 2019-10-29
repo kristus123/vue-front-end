@@ -69,6 +69,8 @@ import Match from "@/components/admin/match/Match"
 import MatchGoal from "@/components/admin/matchGoal/MatchGoal"
 import GoalType from "@/components/admin/goalType/GoalType"
 import MatchPosition from "@/components/admin/matchPosition/MatchPosition"
+import RefreshYourself from '@/views/user/RefreshYourself';
+
 
 
 
@@ -99,6 +101,15 @@ export default new Router({
       component: SignupPage
 
     },
+
+    {
+      path: "/refresh-yourself",
+      name: "refreshYourself",
+      component: RefreshYourself
+
+    },
+
+    
 
     {
       path: "/player",
