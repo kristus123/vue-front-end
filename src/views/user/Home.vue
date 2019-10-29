@@ -1,9 +1,9 @@
 <template>
-  <b-container >
+  <b-container>
     <user-navbar />
-
     <div style="padding-top:20px;">
-    <router-view />
+
+      <router-view />
     </div>
     <!-- <h1>{{$store.state.userObject.username}}</h1> -->
   </b-container>
