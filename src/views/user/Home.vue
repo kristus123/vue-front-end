@@ -1,6 +1,6 @@
 <template>
   <b-container >
-    <user-navbar />
+    <user-navbar style="position:absolute; left: 0; width:100%"/>
 
     <div style="padding-top:20px;">
     <router-view />
