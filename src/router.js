@@ -69,9 +69,11 @@ import Match from "@/components/admin/match/Match"
 import MatchGoal from "@/components/admin/matchGoal/MatchGoal"
 import GoalType from "@/components/admin/goalType/GoalType"
 import MatchPosition from "@/components/admin/matchPosition/MatchPosition"
-
+import RefreshYourself from '@/views/user/RefreshYourself';
 
 Vue.use(Router)
+
+
 
 export default new Router({
   mode: 'history',
@@ -93,6 +95,15 @@ export default new Router({
       component: SignupPage
 
     },
+
+    {
+      path: "/refresh-yourself",
+      name: "refreshYourself",
+      component: RefreshYourself
+
+    },
+
+    
 
     {
       path: "/player",

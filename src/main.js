@@ -6,9 +6,33 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VCalendar from 'v-calendar'
+//import axiosService from '@/services/AxiosService';
+import authenticationService from '@/services/AuthenticationService'
+import instance from '@/services/AxiosService.js';
 
 Vue.config.productionTip = false
 Vue.use(VCalendar);
+
+
+router.beforeEach(async (to, from, next) => {
+  // console.log("HELLO")
+
+
+  if (authenticationService.isAuthenticated() && await authenticationService.getUserInfo() === false ) {
+    console.log("INSIDE HERER")
+    instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('user-token')}`;
+    next("/refresh-yourself")  
+  }
+  next()
+})
+
+// router.beforeEach(async (to, from, next) => {  
+//   console.log(await authenticationService.getUserInfo());
+//   if (true) {
+//     next()
+//   }
+//   else next('/')
+// })
 
 new Vue({
   router,

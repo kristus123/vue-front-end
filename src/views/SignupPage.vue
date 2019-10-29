@@ -150,15 +150,10 @@ export default {
       );
       if (response.status === 200) {
         authenticationService.login(this.email, this.password);
+        this.$store.state.userObject = response.data;
+        if (localStorage.getItem("ROLE", "ADMINISTRATOR")) this.$router.push("/admin")
 
-        this.$store.state.userObject = response.data
-        console.log(this.$store.state.userObject.username);
-        // console.log(this.signedIn);
-        // this.signedIn = true;
-
-        this.$router.push("/user");
-      } else {
-        alert("shit went rip dude");
+        this.$router.push("/user")
       }
     },
 

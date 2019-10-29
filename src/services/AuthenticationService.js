@@ -21,6 +21,7 @@ class AuthenticationService {
             .then(response => {
                 console.log(response.data);
                 localStorage.setItem('user-token', response.data.token);
+                localStorage.setItem('ROLE', response.data.roles[0]);
                 console.log("authenticated")
                 console.log(response.data)
 
@@ -39,7 +40,17 @@ class AuthenticationService {
 
     async getUserInfo() {
         return instance.get("/v1/users/me")
-            .then(response => response.data);
+            .then(response => {
+                console.log(response);
+                if (response.data === "") return false;
+               
+                return response.data;
+            })
+            .catch(error => {
+                console.log("HAHAAHAH")
+                // console.log(error.data)
+                return false;
+            });
     }
 
 
