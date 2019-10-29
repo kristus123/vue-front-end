@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="welcome-txt">
-        <h1>USER LANDING PAGE </h1>
+
     </div>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {}
   position: absolute;
   width: 75%;
   /* height : 10%; */
-  top: 80%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }

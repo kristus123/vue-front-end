@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <user-navbar />
-    <user-landing-page />
+    <!-- <user-landing-page /> -->
   </b-container>
 </template>
 

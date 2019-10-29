@@ -59,9 +59,6 @@ import AddContact from '@/components/admin/contact/AddContact';
 
 import ShowAllAddress from '@/components/admin/address/ShowAllAddress';
 
-import AdminLandingPage from '@/components/admin/AdminLandingPage';
-import UserLandingPage from '@/components/user/UserLandingPage';
-
 import Season from '@/components/admin/season/Season'
 import Result from '@/components/admin/result/Result'
 import Match from "@/components/admin/match/Match"
@@ -300,19 +297,25 @@ export default new Router({
     {
       path: "/user",
       name: "user",
-      component: UserHome,
+      component: UserHome
+      ,
       children: [
-        // {
-        //   path: "",
-        //   component: UserLandingPage
-        // },
-     
         {
           path: "watchplayer",
           component: WatchPlayersPage
         }
+      //   ,
+      //   {
+      //     path: "watchteam",
+      //     component: WatchTeamsPage
+      //   }
       ]
     },
+    // {
+    //   path: "/watchplayer",
+    //   name: "WatchPlayersPage",
+    //   component: WatchPlayersPage
+    // },
     {
       path: "/watchteam",
       name: "WatchTeamsPage",
