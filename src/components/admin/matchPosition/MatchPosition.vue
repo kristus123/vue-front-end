@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <h1 class="text-black">Match Position</h1>
-    <br />
+    <hr  class="pretty" />
     <b-row>
       <b-col cols="4">
         <b-card>
@@ -177,13 +177,6 @@
       </b-col>
       <center v-else>
         <div>
-          <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
-          <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
-          <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
-          <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
-          <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
-          <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
-          <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
           <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
         </div>
       </center>

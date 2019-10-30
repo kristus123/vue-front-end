@@ -161,27 +161,6 @@ export default {
                                 path: "/admin/match"
                             }
                         },
-                        {
-                            title: "History",
-                            icon: 'fas fa-history',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
-                        }
                     ]
                 },
                 {
