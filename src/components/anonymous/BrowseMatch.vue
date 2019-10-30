@@ -1,6 +1,8 @@
 <template>
+<b-container>
   <div>
-    <h1 style="color:black;">One match</h1>
+    <h1 style="color:black;">Browse matches</h1>
+    <p style="color:grey;">Limited features, please log in for the full experience</p>
     <hr class="pretty" />
 
     <center>
@@ -8,7 +10,8 @@
       <b-row class="justify-content-center">
         <b-col cols="8">
           <form-select :options="matchOptions" v-on:DropDownValue="onSelectMatch" />
-          <p><br>{{resultat}}</p>
+          <!-- <p><br></p> -->
+          <h1 style="margin-top:40px;">{{resultat}}</h1>
         </b-col>
       </b-row>
       <hr class="pretty" />
@@ -28,6 +31,7 @@
       </b-container>
     </center>
   </div>
+</b-container>
 </template>
 
 <script>
