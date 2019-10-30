@@ -22,20 +22,32 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <!-- <b-nav-form>
+          <b-nav-form>
             <b-nav-item v-if="$store.state.userObject.roles[0] === 'ADMINISTRATOR' ">
               <router-link class="router" to="/admin">Admin</router-link>
             </b-nav-item>
-          </b-nav-form> -->
+          </b-nav-form>
 
           <b-nav-item-dropdown right>
             <!-- Using 'button-content' slot -->
             <template v-slot:button-content>
               <em>User</em>
             </template>
-            <b-dropdown-item href="/">Homepage</b-dropdown-item>
-            <b-dropdown-item href="/user/my/team">Favourite teams</b-dropdown-item>
-            <b-dropdown-item href="/user/my/player">Favourite players</b-dropdown-item>
+            <b-dropdown-item>
+              <b-nav-item>
+                <router-link class="router" to="/">Main page</router-link>
+              </b-nav-item>
+            </b-dropdown-item>
+            <b-dropdown-item>
+              <b-nav-item>
+                <router-link class="router" to="/user/my/team">Favourite teams</router-link>
+              </b-nav-item>
+            </b-dropdown-item>
+            <b-dropdown-item>
+              <b-nav-item>
+                <router-link class="router" to="/user/my/player">Favourite players</router-link>
+              </b-nav-item>
+            </b-dropdown-item>
             <b-dropdown-item @click="logout" href="#">Sign Out</b-dropdown-item>
 
           </b-nav-item-dropdown>
