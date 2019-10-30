@@ -1,55 +1,72 @@
 <template>
   <div>
-    <div v-if="!loading">
-      <h1 style="margin-bottom:30px;">Match Info</h1>
+    <h1 style="margin-bottom:30px;">Match Info</h1>
+     
+    <b-container style="position:fixed; " v-if="matchInfo !== null">
+      <b-row>
+        <b-col>
+          <h4 :class="{headerTransition: scrollPosition > 214}" >{{matchInfo.homeTeam.association.name}}</h4>
 
-      <b-container v-if="matchInfo !== null">
-        <b-row>
-          <b-col>
-            <h4>{{matchInfo.homeTeam.association.name}}</h4>
-
-            <b-img
-              v-if="homeTeamLogoUrl !== null"
-              class="team-logo"
-              v-bind:src="homeTeamLogoUrl"
-              fluid
-              alt="image"
-            ></b-img>
-            <!-- <img src="" alt="" srcset=""> -->
-          </b-col>
-          <b-col>
-            <p>VS</p>
-            <br />
-            <br />
-            <h1 class="score">{{homeGoals}} - {{awayGoals}}</h1>
-          </b-col>
-          <b-col>
-            <h4>{{matchInfo.awayTeam.association.name}}</h4>
-            <b-img class="team-logo" v-bind:src="awayTeamLogoUrl" fluid alt="image"></b-img>
-          </b-col>
-        </b-row>
-      </b-container>
-      <!-- <h1 class="text-left">hei</h1> -->
-      <!-- <h1 class="text-right">hei</h1> -->
-      <hr class="pretty" />
-      <b-container class="parallax">
-        <b-row>
-          <b-col></b-col>
-          <b-col cols="6">
-            <ul style="list-style-type:none">
-              <li v-for="goals in match" :key="goals.goaldId">
-                <goal-event :matchGoals="goals" />
-              </li>
-            </ul>
-          </b-col>
-          <b-col></b-col>
-        </b-row>
-      </b-container>
-    </div>
-    <div v-else>
-
-      <b-spinner style="margin-top:20px;" variant="primary" label="Spinning"></b-spinner>
-    </div>
+          <b-img v-if="homeTeamLogoUrl !== null"
+            class="team-logo"
+            v-bind:src="homeTeamLogoUrl"
+            fluid
+            alt="image"
+          ></b-img>
+          <!-- <img src="" alt="" srcset=""> -->
+        </b-col>
+        <b-col cols="6">
+          <b-row>
+            <b-col >
+              <div :class="{scrollDownLeft: scrollPosition > transitionPosition, scrollUp: scrollPosition < 20}">
+                <br>
+                <br>
+                <h1 class="score"> {{homeGoals}}</h1>
+              </div>
+              
+            </b-col>
+            <b-col>
+              <br>
+              <br>
+              <h1 class="score" v-if="scrollPosition < transitionPosition"> -</h1>
+              </b-col>
+            <b-col>
+              <div :class="{scrollDownRight: scrollPosition > transitionPosition, scrollUp: scrollPosition < 20}">
+              <br>
+              <br>
+                <h1 class="score">{{awayGoals}} </h1>
+              </div>
+              </b-col>
+            
+          </b-row>
+        </b-col>
+        <b-col>
+          <h4 :class="{headerTransition: scrollPosition > 214}" >{{matchInfo.awayTeam.association.name}}</h4>
+          <b-img
+            class="team-logo"
+            v-bind:src="awayTeamLogoUrl"
+            fluid
+            alt="image"
+          ></b-img>
+        </b-col>
+      </b-row>
+    </b-container>
+    <!-- <h1 class="text-left">hei</h1> -->
+    <!-- <h1 class="text-right">hei</h1> -->
+    <hr class="pretty" />
+    <b-container style="margin-top: 260px;" class="parallax">
+      <b-row>
+        <b-col></b-col>
+        <b-col cols="6">
+          <ul style="list-style-type:none">
+            <li v-for="goals in match" :key="goals.goaldId">
+              <goal-event :matchGoals="goals" />
+            </li>
+          </ul>
+        </b-col>
+        <b-col></b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -73,7 +90,10 @@ export default {
     this.getLogo("away");
     this.loading = false;
   },
-
+  mounted() {
+    window.addEventListener('scroll', this.updateScroll);
+  },
+  
   name: "MatchEvent",
 
   data() {
@@ -87,7 +107,9 @@ export default {
       awayTeamLogoUrl: null,
       matchInfo: "",
       homeGoals: 0,
-      awayGoals: 0
+      awayGoals: 0,
+      scrollPosition: null,
+      transitionPosition: 160
     };
   },
   methods: {
@@ -117,15 +139,21 @@ export default {
             teamName
         )
         .then(resp => resp.data);
-
-      if (home === "home") {
-        this.homeTeamLogoUrl = resp.teams[0].strTeamBadge;
-        console.log(this.homeTeamLogoUrl);
-      } else {
-        console.log(this.awayTeamLogoUrl);
-        this.awayTeamLogoUrl = resp.teams[0].strTeamBadge;
-      }
-    }
+        
+        if(home === "home") {
+          this.homeTeamLogoUrl = resp.teams[0].strTeamBadge;
+          console.log(this.homeTeamLogoUrl);
+          }
+        else {
+          console.log(this.awayTeamLogoUrl);
+          this.awayTeamLogoUrl = resp.teams[0].strTeamBadge;
+        }
+    },
+    updateScroll() {
+      this.scrollPosition = window.scrollY;
+      console.log(this.scrollPosition);
+    },
+    
   }
 };
 </script>
@@ -169,5 +197,24 @@ export default {
 
 .score {
   font-size: 70px;
+}
+
+.scrollDownLeft {
+  text-align: left;
+  float: left;
+}
+
+.scrollDownRight {
+  text-align: right;
+  float: right;
+}
+
+.scrollUp {
+  text-align: center;
+  float: center;
+}
+
+.headerTransition {
+  color:white;
 }
 </style>
