@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-card id="overlayDiv" v-if="missingData && !loading">
-      <h10>You need to create the following to be able to create a fully-fledged team</h10>
+    <b-card id="overlayDiv" v-if="missingData && loading">
+      <h5>You need to create the following to be able to create a fully-fledged team</h5>
       <hr class="pretty" />
       <p>available coaches : {{coachOptions.length === 0 ? "❌": "✅"}}</p>
       <div v-if="coachOptions.length === 0">
@@ -36,7 +36,7 @@
       <hr class="pretty" />
     </b-card>
 
-    <b-container v-else>
+    <b-container>
       <h1>Add a team</h1>
       <b-spinner v-if="loading" variant="primary" label="Spinning"></b-spinner>
       <b-row class="justify-content-center">
@@ -189,10 +189,15 @@ export default {
   },
   methods: {
     missingData() {
-      coachOptions.length === 0;
-      locationOptions.length === 0;
-      ownerOptions.length === 0;
-      return true;
+      if (
+        coachOptions.length === 0 ||
+        locationOptions.length === 0 ||
+        ownerOptions.length === 0
+      ) {
+        return true;
+      }
+      
+      return false;
     },
     async submitForm() {
       const teamObject = {
