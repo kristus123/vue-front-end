@@ -33,7 +33,16 @@
             <template v-slot:button-content>
               <em>User</em>
             </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <b-dropdown-item >
+              <router-link class="router" to="/">Main page</router-link>
+            </b-dropdown-item>
+            <b-dropdown-item >
+              <router-link class="router" to="/user/my/team">Favourite Teams</router-link>
+            </b-dropdown-item>
+            <b-dropdown-item >
+              <router-link class="router" to="/user/my/player">Favourite Players</router-link>
+            </b-dropdown-item>
+            <b-dropdown-item @click="logout" href="#">Sign Out</b-dropdown-item>
 
             <b-dropdown-item @click="logout" href="#">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
