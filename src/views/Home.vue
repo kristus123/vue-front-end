@@ -157,6 +157,7 @@ hr.pretty {
 .footer {
   padding-top: 70px;
   position: absolute;
+  z-index: -10;
   bottom: 0;
   width: 100%;
   height: 60px; /* Height of the footer */
