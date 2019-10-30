@@ -77,6 +77,8 @@ import UpdateContact from "@/components/admin/contact/UpdateContact";
 import BrowsePlayer from "@/components/anonymous/BrowsePlayer"
 import BrowserMatch from "@/components/anonymous/BrowseMatch"
 
+import Database from "@/components/admin/database/Database";
+
 Vue.use(Router)
 
 export default new Router({
@@ -145,6 +147,10 @@ export default new Router({
         {
           path: "/",
           component: AdminLandingPage
+        },
+        {
+          path: "database",
+          component: Database
         },
 
         {
