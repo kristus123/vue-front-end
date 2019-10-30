@@ -43,8 +43,6 @@
               <router-link class="router" to="/user/my/player">Favourite Players</router-link>
             </b-dropdown-item>
             <b-dropdown-item @click="logout" href="#">Sign Out</b-dropdown-item>
-
-            <b-dropdown-item @click="logout" href="#">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
