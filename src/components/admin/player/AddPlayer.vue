@@ -18,6 +18,9 @@
           <b-col cols="8">
             <b-form-group class="text-black" label="Pick a person" style="text-align: left;">
               <b-input-group>
+                <b-input-group-prepend>
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </b-input-group-prepend>
                 <form-select
                   :options="personOptions"
                   :preselect="selectedPerson"
@@ -34,6 +37,9 @@
           <b-col cols="8">
             <b-form-group class="text-black" label="Pick a team" style="text-align: left;">
               <b-input-group>
+                  <b-input-group-prepend>
+                      <span class="input-group-text"><i class="fas fa-users"></i></span>
+                  </b-input-group-prepend>
                 <form-select
                   :options="teamOptions"
                   :preselect="selectedTeam"
