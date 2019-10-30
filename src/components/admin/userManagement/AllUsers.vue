@@ -8,7 +8,7 @@
     <br />
     <br />
     <br />
-    <table class="table" v-if="users.length !== 0" >
+    <table class="table" v-if="users.length !== 0">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -21,7 +21,6 @@
         <tr v-for="user in users" v-bind:key="user.id">
           <th scope="row">
             <!-- <b-button>delete</b-button> -->
-          
           </th>
           <td>{{user.username}}</td>
           <td>{{user.roles[0]}}</td>
@@ -42,12 +41,15 @@
       </tbody>
     </table>
     <div v-else>
-      <hr class="pretty">
-      <h1>No users created</h1>
-      <hr class="pretty">
+      <hr class="pretty" />
+      <div v-if="loading">
+        <b-spinner variant="primary" label="Spinning"></b-spinner>
+      </div>
+      <!-- <h1>No users created</h1> -->
+      <hr class="pretty" />
       <router-link v-if="users.length === 0" to="/admin/create/user">
-      <b-button variant="primary">create your first user!</b-button>
-    </router-link>
+        <b-button variant="primary">create your first user!</b-button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -69,7 +71,9 @@ export default {
     },
 
     async updateSite() {
+      this.loading = true;
       this.users = await userManagementService.findAll();
+      this.loading = false;
     },
 
     async elevateUserToAdmin(user) {
@@ -91,6 +95,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       users: [],
       response: null
     };

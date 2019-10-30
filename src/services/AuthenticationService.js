@@ -1,6 +1,7 @@
 
 import instance from '@/services/AxiosService.js';
 
+import store from '@/store'
 class AuthenticationService {
     async signup(username, password) {
         return instance.post("v1/users/signup", {
@@ -35,6 +36,12 @@ class AuthenticationService {
 
             })
             .catch(error => { console.log(error); return false; });
+    }
+
+    logout() {
+        localStorage.setItem("user-token", null)
+        store.state.userObject = null;
+        localStorage.setItem('ROLE', null)
     }
 
 

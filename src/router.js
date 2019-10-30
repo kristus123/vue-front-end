@@ -69,6 +69,7 @@ import Match from "@/components/admin/match/Match"
 import MatchGoal from "@/components/admin/matchGoal/MatchGoal"
 import GoalType from "@/components/admin/goalType/GoalType"
 import MatchPosition from "@/components/admin/matchPosition/MatchPosition"
+import AllMatches from "@/components/user/match/AllMatches";
 
 import BrowsePlayer from "@/components/anonymous/BrowsePlayer"
 import BrowserMatch from "@/components/anonymous/BrowseMatch"
@@ -315,9 +316,29 @@ export default new Router({
       name: "user",
       component: UserHome,
       children: [
+
+        {
+          path: "/",
+          component: UserLandingPage
+        },
+        
+
+        {
+          path: "all/team/favoritess",
+          component: WatchTeamsPage
+        },
+        {
+          path: "all/team",
+          name: "teamsPage",
+          component: TeamsPage
+        },
         {
           path: "all/player",
           component: AllPlayers
+        },
+        {
+          path: "all/match",
+          component: AllMatches
         },
 
         {
@@ -341,11 +362,6 @@ export default new Router({
         },
 
 
-
-        {
-          path: "watchteam",
-          component: WatchTeamsPage
-        },
         {
           path: "watchplayer",
           component: WatchPlayersPage

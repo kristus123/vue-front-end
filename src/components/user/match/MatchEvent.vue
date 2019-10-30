@@ -74,17 +74,21 @@
 import matchGoalService from "@/services/matchGoal/MatchGoalService.js";
 import matchService from "@/services/match/MatchService.js";
 import GoalEvent from "@/components/user/match/GoalEvent";
-import axios from 'axios'
+import axios from "axios";
 export default {
   components: {
-    GoalEvent, matchService, matchGoalService
+    GoalEvent,
+    matchService,
+    matchGoalService
   },
-  async created() {
+  async beforeMount() {
+    this.loading = true;
     this.match = await matchGoalService.getMatchGoalByMatchId(this.matchId);
     this.matchInfo = await matchService.getMatch(this.matchId);
     this.caluclateGoals();
     this.getLogo("home");
     this.getLogo("away");
+    this.loading = false;
   },
   mounted() {
     window.addEventListener('scroll', this.updateScroll);
@@ -94,12 +98,13 @@ export default {
 
   data() {
     return {
+      loading: true,
       teamLeft: null,
       matchId: this.$route.params.matchId,
       matchGoal: "",
       match: [],
-      homeTeamLogoUrl : null,
-      awayTeamLogoUrl : null,
+      homeTeamLogoUrl: null,
+      awayTeamLogoUrl: null,
       matchInfo: "",
       homeGoals: 0,
       awayGoals: 0,
@@ -111,21 +116,28 @@ export default {
     caluclateGoals() {
       this.homeGoals = 0;
       this.awayGoals = 0;
-      for(var i = 0; i < this.match.length; i++) {
-        if(this.match[i].player.team.association.associationId === this.matchInfo.homeTeam.association.associationId) {
+      for (var i = 0; i < this.match.length; i++) {
+        if (
+          this.match[i].player.team.association.associationId ===
+          this.matchInfo.homeTeam.association.associationId
+        ) {
           this.homeGoals += 1;
-        }
-        else {
+        } else {
           this.awayGoals += 1;
         }
       }
     },
     async getLogo(home) {
+      var teamName =
+        home === "home"
+          ? this.matchInfo.homeTeam.association.name
+          : this.matchInfo.awayTeam.association.name;
 
-      var teamName = home === "home" ? this.matchInfo.homeTeam.association.name : this.matchInfo.awayTeam.association.name;
-      
       const resp = await axios
-        .get('https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=' + teamName)
+        .get(
+          "https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=" +
+            teamName
+        )
         .then(resp => resp.data);
         
         if(home === "home") {
@@ -140,8 +152,8 @@ export default {
     updateScroll() {
       this.scrollPosition = window.scrollY;
       console.log(this.scrollPosition);
-    }
-
+    },
+    
   }
 };
 </script>
