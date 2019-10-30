@@ -9,7 +9,7 @@
                 <b-col cols="8">
                 <b-form-group class="text-black" style="text-align: left;">
                     <b-input-group>
-                        <b-form-select :options="teamOptions" v-model="selectedTeam" v-on:DropDownValue="onSelectedTeam"/>
+                        <b-form-select :options="teamToAddOptions" v-model="selectedTeam" v-on:DropDownValue="onSelectedTeam"/>
                         <b-input-group-append>
                             <b-btn variant="primary" v-on:click="addTeam" :disabled="selectedTeam == null">Add</b-btn>
                         </b-input-group-append>
@@ -20,7 +20,7 @@
 
             <!-- <b-row id="showSuccessMsg" class="justify-content-center">
                 <b-col cols="7">
-                    <b-alert variant="success" show>You have successfully added a player</b-alert>
+                    <b-alert variant="success" show>You have successfully added a team</b-alert>
                 </b-col>
             </b-row>
 
@@ -30,6 +30,20 @@
                 </b-col>
             </b-row> -->
 
+        </b-container>
+        <b-container>
+            <b-form-row class="justify-content-center">
+                <b-col cols="8">
+                <b-form-group class="text-black" style="text-align: left;">
+                    <b-input-group>
+                        <b-form-select :options="teams" v-model="deletedTeam" v-on:DropDownValue="onRemoveTeam"/>
+                        <b-input-group-append>
+                            <b-btn variant="primary" v-on:click="removeTeam" :disabled="deletedTeam == null">Delete</b-btn>
+                        </b-input-group-append>
+                    </b-input-group>
+                </b-form-group>
+                </b-col>
+            </b-form-row>
         </b-container>
 
         <br>
@@ -62,25 +76,25 @@ export default {
             textColor: "text-black",
             image: require(`@/assets/action-adult-athlete-1311619.jpg`),
             selectedTeam: null,
-            removeTeam: null,
+            deletedTeam: null,
 
             teams : [], // teams in my own watchlist
             infoTeams : [],
-            teamOptions: [] // teams in the whole system
-
+            teamToAddOptions: [], // teams in the whole system, exept the ones in my watchlist
+            teamToRemoveOptions: []
         }
     },
     
     created: async function () { // find my fav teams
         try {
-            // let resp = await userTeamService.findAll(); // this is what we want
-            let resp = await teamService.findAll(); // hack for demo purposes
+            let resp = await userTeamService.findAll(); // this is what we want
+            // let resp = await teamService.findAll(); // hack for demo purposes
                 this.infoTeams = resp;
 
             //console.log(this.infoTeams);
 
             for(var i = 0; i < this.infoTeams.length; i++) {
-                const player = {
+                const team = {
                     id: this.infoTeams[i].teamId,
                     stadium: this.infoTeams[i].location.name,
                     coach: this.infoTeams[i].coach.person.firstName,
@@ -89,7 +103,14 @@ export default {
                     formed: '2000'
 
                 };
-                if (i % 3 == 0) this.teams.push(player); // hack for demo purposes
+
+                const teamToRemove = {
+                    value: this.infoTeams[i],
+                    text: this.infoTeams[i].association.name
+                };
+
+                //this.teamToRemoveOptions[i+1] = 
+                if (i % 3 == 0) this.teams.push(team); // hack for demo purposes
             }
         } catch (error) {
             console.error(error);
@@ -105,7 +126,7 @@ export default {
         let allTeams = await teamService.findAll();
         let teamOption = [];
 
-        //Populating the player options for the dropdown
+        //Populating the team options for the dropdown
         if(allTeams.length === 0) {
             teamOption[0] = {
             value: null,
@@ -131,7 +152,7 @@ export default {
             }
         }
 
-        this.teamOptions = teamOption;
+        this.teamToAddOptions = teamOption;
     },
     methods: {
       

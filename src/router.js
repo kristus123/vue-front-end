@@ -338,11 +338,11 @@ export default new Router({
     //   name: "WatchPlayersPage",
     //   component: WatchPlayersPage
     // },
-    {
-      path: "/watchteam",
-      name: "WatchTeamsPage",
-      component: WatchTeamsPage
-    },
+    // {
+    //   path: "/watchteam",
+    //   name: "WatchTeamsPage",
+    //   component: WatchTeamsPage
+    // },
     {
       path: "/testForm",
       name: "testForm",

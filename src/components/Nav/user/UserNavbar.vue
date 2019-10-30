@@ -14,9 +14,9 @@
             <router-link class="router" to="/user/all/player">Players</router-link>
           </b-nav-item>
 
-          <b-nav-item v-if="$store.state.userObject.roles[0] === 'ADMINISTRATOR' ">
+          <!-- <b-nav-item v-if="$store.state.userObject.roles[0] === 'ADMINISTRATOR' ">
             <router-link class="router" to="/admin">Go back to admin-page</router-link>
-          </b-nav-item>
+          </b-nav-item> -->
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
