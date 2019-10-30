@@ -13,7 +13,7 @@ class UserTeamService {
     }
 
     add(teamObject) {
-        return instance.post("/v1/user/watchlist/post/team", teamObject).then(response => response.data);
+        return instance.post("/v1/user/watchlist/post/team", teamObject).then(response => response);
     }
 
     findAll() {

@@ -1,9 +1,5 @@
 <template>
   <div>
-<<<<<<< HEAD
-    <div class="welcome-txt">
-
-=======
     <h1>Welcome to Pro-football</h1>
     <!-- <img src="https://i.imgur.com/pqdICWJ.mp4" alt=""> -->
     <!-- <iframe src="https://giphy.com/embed/BHNfhgU63qrks" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/BHNfhgU63qrks">via GIPHY</a></p> -->
@@ -36,7 +32,6 @@
         </b-row>
       </b-container>
       <!-- <h2>haei</h2> -->
->>>>>>> 0d9a926c8dc00c496432a00aa2ac3014ce687f96
     </div>
   </div>
 </template>

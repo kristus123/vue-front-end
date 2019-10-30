@@ -17,6 +17,7 @@ import AddLocation from '@/components/admin/location/AddLocation';
 import AdminHome from '@/views/admin/Home';
 import RecentPlayerMatches from '@/views/players/RecentPlayerMatches';
 import UserHome from '@/views/user/Home';
+import UserLandingPage from '@/components/user/UserLandingPage';
 import WatchTeamsPage from '@/views/user/WatchTeamsPage';
 import WatchPlayersPage from '@/views/user/WatchPlayersPage';
 import AddPlayer from '@/components/admin/player/AddPlayer'
@@ -332,7 +333,6 @@ export default new Router({
         },
         {
           path: "all/team",
-          name: "teamsPage",
           component: TeamsPage
         },
         {
@@ -340,16 +340,10 @@ export default new Router({
           component: AllPlayers
         },
         {
-<<<<<<< HEAD
-          path: "all/team",
-          component: TeamsPage
-        },
-=======
           path: "all/match",
           component: AllMatches
         },
 
->>>>>>> 0d9a926c8dc00c496432a00aa2ac3014ce687f96
         {
           path: "match/:matchId",
           component: MatchEvent
@@ -369,15 +363,10 @@ export default new Router({
           path: "player/:playerId/recent-matches",
           component: RecentPlayerMatches
         },
-<<<<<<< HEAD
         {
           path: "my/team",
           component: WatchTeamsPage
         },
-=======
-
-
->>>>>>> 0d9a926c8dc00c496432a00aa2ac3014ce687f96
         {
           path: "my/player",
           component: WatchPlayersPage

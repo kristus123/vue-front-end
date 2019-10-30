@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
     <div>
         <br>
         <h1>Favourite teams</h1>
@@ -32,12 +31,13 @@
             </b-row> -->
 
         </b-container>
-        <b-container>
+
+        <!-- <b-container>
             <b-form-row class="justify-content-center">
                 <b-col cols="8">
                 <b-form-group class="text-black" style="text-align: left;">
                     <b-input-group>
-                        <b-form-select :options="teams" v-model="deletedTeam" v-on:DropDownValue="onRemoveTeam"/>
+                        <b-form-select :options="teamToRemoveOptions" v-model="deletedTeam" v-on:DropDownValue="onRemoveTeam"/>
                         <b-input-group-append>
                             <b-btn variant="primary" v-on:click="removeTeam" :disabled="deletedTeam == null">Delete</b-btn>
                         </b-input-group-append>
@@ -45,7 +45,7 @@
                 </b-form-group>
                 </b-col>
             </b-form-row>
-        </b-container>
+        </b-container> -->
 
         <br>
         <br>
@@ -88,11 +88,19 @@ export default {
     
     created: async function () { // find my fav teams
         try {
-            let resp = await userTeamService.findAll(); // this is what we want
-            // let resp = await teamService.findAll(); // hack for demo purposes
+            // let resp = await userTeamService.findAll(); // this is what we want
+            let resp = await teamService.findAll(); // hack for demo purposes
                 this.infoTeams = resp;
 
+            let teamToRemoveOption = [];
+
             //console.log(this.infoTeams);
+
+            teamToRemoveOption[0] = {
+                value: null,
+                text: 'Please select a team',
+                disabled: true
+            }
 
             for(var i = 0; i < this.infoTeams.length; i++) {
                 const team = {
@@ -105,14 +113,25 @@ export default {
 
                 };
 
-                const teamToRemove = {
-                    value: this.infoTeams[i],
-                    text: this.infoTeams[i].association.name
-                };
-
-                //this.teamToRemoveOptions[i+1] = 
-                if (i % 3 == 0) this.teams.push(team); // hack for demo purposes
+                if (i % 3 === 0) {
+                    teamToRemoveOption[i+1] = {
+                        value: this.infoTeams[i],
+                        text: this.infoTeams[i].association.name
+                    };
+                    this.teams.push(team); // hack for demo purposes
+                }
             }
+
+            if (this.teams.length === 0) {
+                teamToRemoveOption[0] = {
+                    value: null,
+                    text: 'No teams available!',
+                    disabled: true
+                }
+            }
+
+            this.teamToRemoveOptions = teamToRemoveOption;
+
         } catch (error) {
             console.error(error);
         }
@@ -127,31 +146,31 @@ export default {
         let allTeams = await teamService.findAll();
         let teamOption = [];
 
-        //Populating the team options for the dropdown
-        if(allTeams.length === 0) {
-            teamOption[0] = {
+        //Populating teamOptions for the dropdown
+
+        teamOption[0] = {
             value: null,
-            text: 'No teams available!',
+            text: 'Please select a team',
             disabled: true
-            }
-        } else {
-
-            for(var i = 0; i < allTeams.length; i++) {
-                if(i === 0) {
-                    teamOption[i] = {
-                        value: null,
-                        text: 'Please select a team',
-                        disabled: true
-                    }
-                } else if (!this.teams.some(item => item.teamId ===  allTeams[i].teamId)) {
-
-                    teamOption[i+1] = {
-                        value: allTeams[i],
-                        text: allTeams[i].association.name
-                    }
+        }
+        for(var i = 0; i < allTeams.length; i++) {
+            if (!this.teams.some(item => (item.id === allTeams[i].teamId))) {
+                //console.log("TESTING ALLTEAMS: " + allTeams[i].teamId + " " + allTeams[i].association.name)
+                teamOption[i+1] = {
+                    value: allTeams[i],
+                    text: allTeams[i].association.name
                 }
             }
         }
+
+        if (teamOption.length === 1) {
+            teamOption[0] = {
+                value: null,
+                text: 'No teams available!',
+                disabled: true
+            }
+        }
+        
 
         this.teamToAddOptions = teamOption;
     },
@@ -161,94 +180,50 @@ export default {
             this.selectedTeam = value;
         },
         onRemoveTeam(value) {
-            this.removeTeam = value;
+            this.deletedTeam = value;
         },
         async addTeam() {
             let teamObject = {
                 teamId: this.selectedTeam.teamId,
             }
-            console.log("TEAM BANANANANANANANAN");
+            console.log("Trying to add teamId=" + this.selectedTeam.teamId)
             let response = await userTeamService.add(teamObject);
-            // if(response.status === 201) {
-            //     // this.$delete(this.players, this.players.indexOf(this.selectedTeam)); // how to do??
-            //     // this.printMsg('showSuccessMsg');
-            // } else {
-            //     // this.printMsg('showErrorMsg');
-            // }
+            if(response.status === 201) {
+                // this.$delete(this.players, this.players.indexOf(this.selectedTeam)); // how to do??
+                //this.printMsg('showSuccessMsg');
+                console.log("added successfully")
+                // const team = {
+                //     id: response.data.teamId,
+                //     stadium: response.data.location.name,
+                //     coach: response.data.coach.person.firstName,
+                //     description: response.data.association.description,
+                //     name: response.data.association.name,
+                //     formed: '2000'
+
+                // };
+                // this.teams.push(team);
+
+                // const teamToRemoveOptiom = {
+                //     value: response.data,
+                //     text: response.data.association.name
+                // }
+
+                // this.teamToRemoveOptions.push(teamToRemoveOption);
+
+            } else {
+                //this.printMsg('showErrorMsg');
+                console.log(response.status)
+            }
         },
         async removeTeam() {
-            let response = await userTeamService.deleteTeam(this.removeTeam.teamId);
-            // if (response.status === 201) {
-            //     
-            // }
+            console.log("Trying to delete teamId=" + this.deletedTeam.teamId)
+            let response = await userTeamService.deleteTeam(this.deletedTeam.teamId);
+            if (response.status === 200) {
+                console.log("removed successfully")
+            }
         }
-=======
-  <div>
-    <h1 class="welcome-txt">Favourite teams</h1>
-    <br />
-    <br />
-    <teams-page-card :teams="teams" class="centered" />
-  </div>
-</template>
-
-<script>
-import TeamsPageCard from "@/components/cards/TeamsPageCard";
-// import userTeamService from '@/services/user/UserTeamService';
-import teamService from "@/services/team/TeamService";
-
-export default {
-  name: "WatchTeamsPage",
-  components: {
-    TeamsPageCard
-  },
-  data() {
-    return {
-      teams: [],
-      infoTeams: []
-    };
-  },
-
-  created: async function() {
-    try {
-      // console.log('TEST ' + localStorage.getItem('username'))
-      // let resp = await userTeamService.findAll();
-      //     this.infoTeams = resp;
-
-      // for(var i = 0; i < this.infoTeams._embedded.teamModelList.length; i++) {
-      //     const team = {
-      //         id: this.infoTeams._embedded.teamModelList[i].teamId,
-      //         name: this.infoTeams._embedded.teamModelList[i].association.name,
-      //         coach: this.infoTeams._embedded.teamModelList[i].coach.person.firstName,
-      //         img: '',
-      //         stadium: this.infoTeams._embedded.teamModelList[i].location.name,
-      //         formed: '',
-      //         description: this.infoTeams._embedded.teamModelList[i].association.description
-
-      //     };
-      //     this.teams.push(team);
-      // }
-      console.log("TEST " + localStorage.getItem("username"));
-      let resp = await teamService.findAll();
-      this.infoTeams = resp;
-
-      for (var i = 0; i < this.infoTeams._embedded.teamModelList.length; i++) {
-        const team = {
-          id: this.infoTeams[i].teamId,
-          name: this.infoTeams[i].association.name,
-          coach: this.infoTeams[i].coach.person.firstName,
-          img: "",
-          stadium: this.infoTeams[i].location.name,
-          formed: "",
-          description: this.infoTeams[i].association.description
-        };
-        this.teams.push(team);
-      }
-    } catch (error) {
-      console.error(error);
->>>>>>> 0d9a926c8dc00c496432a00aa2ac3014ce687f96
     }
   }
-};
 </script>
 
 <style>

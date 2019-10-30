@@ -10,7 +10,7 @@
                 <b-col cols="8">
                 <b-form-group class="text-black" style="text-align: left;">
                     <b-input-group>
-                        <b-form-select :options="playerOptions" v-model="selectedPlayer" v-on:DropDownValue="onSelectedPlayer"/>
+                        <b-form-select :options="playerToAddOptions" v-model="selectedPlayer" v-on:DropDownValue="onSelectedPlayer"/>
                         <b-input-group-append>
                             <b-btn variant="primary" v-on:click="addPlayer" :disabled="selectedPlayer == null">Add</b-btn>
                         </b-input-group-append>
@@ -32,6 +32,21 @@
             </b-row> -->
 
         </b-container>
+
+        <!-- <b-container>
+            <b-form-row class="justify-content-center">
+                <b-col cols="8">
+                <b-form-group class="text-black" style="text-align: left;">
+                    <b-input-group>
+                        <b-form-select :options="playerToRemoveOptions" v-model="deletedPlayer" v-on:DropDownValue="onRemovePlayer"/>
+                        <b-input-group-append>
+                            <b-btn variant="primary" v-on:click="removePlayer" :disabled="deletedPlayer == null">Delete</b-btn>
+                        </b-input-group-append>
+                    </b-input-group>
+                </b-form-group>
+                </b-col>
+            </b-form-row>
+        </b-container> -->
 
         <br>
         <br>
@@ -69,10 +84,12 @@ export default {
             textColor: "text-black",
             image: require(`@/assets/action-adult-athlete-1311619.jpg`),
             selectedPlayer: null,
+            deletedPlayer: null,
 
             players : [], // players in my own watchlist
             infoPlayers : [],
-            playerOptions: [] // players in the whole system
+            playerToAddOptions: [], // players in the whole system
+            playerToRemoveOptions: []
 
         }
     },
@@ -83,20 +100,45 @@ export default {
             let resp = await playerService.findAll(); // hack for demo purposes
                 this.infoPlayers = resp;
 
+            let playerToRemoveOption = [];
             //console.log(this.infoPlayers);
 
-            for(var i = 0; i < this.infoPlayers._embedded.playerModelList.length; i++) {
+            playerToRemoveOption[0] = {
+                value: null,
+                text: 'Please select a player',
+                disabled: true
+            }
+
+            for(var i = 0; i < this.infoPlayers.length; i++) {
                 const player = {
-                    playerId: this.infoPlayers._embedded.playerModelList[i].playerId,
-                    playername: this.infoPlayers._embedded.playerModelList[i].person.firstName + ' ' + this.infoPlayers._embedded.playerModelList[i].person.lastName,
-                    team: this.infoPlayers._embedded.playerModelList[i].team,
-                    imageUrl: this.infoPlayers._embedded.playerModelList[i].imageUrl,
-                    normalPosition: this.infoPlayers._embedded.playerModelList[i].normalPosition,
-                    playerNumber: this.infoPlayers._embedded.playerModelList[i].playerNumber
+                    playerId: this.infoPlayers[i].playerId,
+                    playername: this.infoPlayers[i].person.firstName + ' ' + this.infoPlayers[i].person.lastName,
+                    team: this.infoPlayers[i].team,
+                    imageUrl: this.infoPlayers[i].imageUrl,
+                    normalPosition: this.infoPlayers[i].normalPosition,
+                    playerNumber: this.infoPlayers[i].playerNumber
 
                 };
-                if (i % 6 == 0) this.players.push(player); // hack for demo purposes
+                if (i % 6 == 0) {
+                    playerToRemoveOption[i+1] = {
+                        value: this.infoPlayers[i],
+                        text: player.playername
+                    };
+
+                    this.players.push(player); // hack for demo purposes
+                }
             }
+
+            if (this.players.length === 0) {
+                playerToRemoveOption[0] = {
+                    value: null,
+                    text: 'No players available!',
+                    disabled: true
+                }
+            }
+
+            this.playerToRemoveOptions = playerToRemoveOption;
+
         } catch (error) {
             console.error(error);
         }
@@ -107,43 +149,45 @@ export default {
     },
     beforeMount: async function() {
 
-        this.onShowBtns = false;
-
         let allPlayers = await playerService.findAll();
         let playerOption = [];
 
         //Populating the player options for the dropdown
-        if(allPlayers._embedded.playerModelList.length === 0) {
-            playerOption[0] = {
+
+        playerOption[0] = {
             value: null,
-            text: 'No players available!',
+            text: 'Please select a player',
             disabled: true
-            }
-        } else {
+        }
 
-            for(var i = 0; i < allPlayers._embedded.playerModelList.length; i++) {
-                if(i === 0) {
-                    playerOption[0] = {
-                        value: null,
-                        text: 'Please select a player',
-                        disabled: true
-                    }
-                } else if (!this.players.some(item => item.playerId === allPlayers._embedded.playerModelList[i].playerId)) {
+        for(var i = 0; i < allPlayers.length; i++) {
+            if (!this.players.some(item => item.playerId === allPlayers[i].playerId)) {
 
-                    playerOption[i+1] = {
-                        value: allPlayers._embedded.playerModelList[i],
-                        text: allPlayers._embedded.playerModelList[i].person.firstName + " " + allPlayers._embedded.playerModelList[i].person.lastName
-                    }
+                playerOption[i+1] = {
+                    value: allPlayers[i],
+                    text: allPlayers[i].person.firstName + " " + allPlayers[i].person.lastName
                 }
             }
         }
 
-        this.playerOptions = playerOption;
+        if (playerOption.length === 1) {
+            playerOption[0] = {
+                value: null,
+                text: 'No players available!',
+                disabled: true
+            }
+        }
+
+
+        this.playerToAddOptions = playerOption;
     },
     methods: {
       
         onSelectedPlayer(value) {
             this.selectedPlayer = value;
+        },
+        onRemovePlayer(value) {
+            this.deletedPlayer = value;
         },
         async addPlayer() {
             let playerObject = {
@@ -151,12 +195,21 @@ export default {
             }
             console.log(playerObject);
             let response = await userPlayerService.add(playerObject);
-            // if(response.status === 201) {
-            //     // this.$delete(this.players, this.players.indexOf(this.selectedPlayer)); // how to do??
-            //     // this.printMsg('showSuccessMsg');
-            // } else {
-            //     // this.printMsg('showErrorMsg');
-            // }
+            if(response.status === 201) {
+                // this.$delete(this.players, this.players.indexOf(this.selectedPlayer)); // how to do??
+                // this.printMsg('showSuccessMsg');
+                console.log("added successfully")
+            } else {
+                // this.printMsg('showErrorMsg');
+                console.log(response.status)
+            }
+        },
+        async removePlayer() {
+            console.log("Trying to delete teamId=" + this.deletedPlayer.playerId)
+            let response = await userPlayerService.deletePlayer(this.deletedPlayer.playerId);
+            if (response.status === 200) {
+                console.log("removed successfully")
+            }
         }
     }
 

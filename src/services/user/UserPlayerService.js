@@ -17,7 +17,7 @@ class UserPlayerService {
     }
 
     findAll() {
-        return instance.get("/v1/user/watchlist/get/player").then(response => response.data);
+        return instance.get("/v1/user/watchlist/get/player").then(response => response.data._embedded.playerModelList);
     }
 
     getPlayer(playerId) {
