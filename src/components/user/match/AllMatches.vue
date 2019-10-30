@@ -1,7 +1,10 @@
 <template>
     <b-container>
         <h1>All matches</h1>
-        <b-row class="justify-content-center">
+        <div v-if="loading">
+             <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
+        </div>
+        <b-row class="justify-content-center" v-else >
             <b-col cols="12">
                 <flexible-form :showBtns="onShowBtns" :image="image">
                     <template v-slot:dropdown>
@@ -37,9 +40,8 @@ export default {
     },
 
     async beforeMount() {
-
         await this.getMatches();
-
+        this.loading = false;
     },
 
     methods: {
@@ -79,6 +81,7 @@ export default {
 
     data() {
         return {
+            loading : true,
             onShowBtns: false,
             image: require(`@/assets/athletes-competition-fans-9003.jpg`),
             matchOptions: [],

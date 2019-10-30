@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width:100%;">
+  <div v-if="player !== null" style="max-width:100%;">
     <h1>{{player.playername}}</h1>
 
     <hr class="pretty" style="padding-bottom:50px;" />

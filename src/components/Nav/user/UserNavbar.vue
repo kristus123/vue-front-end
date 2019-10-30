@@ -1,7 +1,9 @@
 <template>
   <div>
     <b-navbar :sticky="true" toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand>ProFootball</b-navbar-brand>
+      <router-link to="/user">
+        <b-navbar-brand>ProFootball</b-navbar-brand>
+      </router-link>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -11,13 +13,11 @@
             <router-link class="router" to="/user/all/player">Players</router-link>
           </b-nav-item>
           <b-nav-item>
-            <router-link class="router" to="/teamsPage">Teams</router-link>
+            <router-link class="router" to="/user/all/team">Teams</router-link>
           </b-nav-item>
           <b-nav-item>
             <router-link class="router" to="/user/all/match">Matches</router-link>
           </b-nav-item>
-
-
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -34,7 +34,8 @@
               <em>User</em>
             </template>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+
+            <b-dropdown-item @click="logout" href="#">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -46,7 +47,15 @@
 
 
 <script>
-export default {};
+import authenticationService from '@/services/AuthenticationService'
+export default {
+  methods : {
+    logout() {
+      authenticationService.logout();
+      this.$router.push("/");
+    }
+  }
+};
 </script>
 
 <style>

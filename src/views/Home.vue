@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- {{$store.state.userObject}} -->
 
     <div style="float:left; padding-top:20px; padding-left:20px;">
       <div v-if="$store.state.userObject === null">
@@ -13,8 +12,8 @@
         </router-link>
       </div>
     </div>
-
     <div style="float:right; padding-top:20px; padding-right:20px;">
+
 
     <div v-if="$store.state.userObject === null">
       <router-link to="/signup">
@@ -32,12 +31,15 @@
       </router-link>
     </div>
 
+  
+
     <div v-else-if="$store.state.userObject.roles[0] === 'STANDARD' ">
       <router-link to="/user">
         <b-button variant="outline-primary">go to client-area</b-button>
       </router-link>
     </div>
     </div>
+    <!-- <h1>{{$store.state.userObject.roles[0]}}</h1> -->
 
     <br />
 
