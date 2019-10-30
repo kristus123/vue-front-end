@@ -72,13 +72,6 @@ export default {
                                 },
                                 {
                                     href: {
-                                        path: "/admin/delete/person"
-                                    },
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href: {
                                         path: "/admin/update/person"
                                     },
                                     title: "Update",

@@ -201,12 +201,12 @@ export default {
             addressInputs: [
                 {
                     title: "Address",
-                    placeholder: "what is the address ?",
+                    placeholder: "Enter an address",
                     type: "text",
                     value: '',
                     required: true,
                     disabled: false,
-                    icon: "fas fa-users"
+                    icon: "fas fa-address-card"
                 },
                 {
                     title: "Postal code",
@@ -214,7 +214,7 @@ export default {
                     type: "number",
                     required: true,
                     disabled: false,
-                    icon: "fas fa-users"
+                    icon: "fas fa-map-pin"
                 },
                 {
                     title: "City",
@@ -222,7 +222,7 @@ export default {
                     type: "text",
                     required: true,
                     disabled: false,
-                    icon: "fas fa-users"
+                    icon: "fas fa-map-marked-alt"
                 },
                 {
                     title: "Country",
@@ -230,7 +230,7 @@ export default {
                     type: "text",
                     required: true,
                     disabled: false,
-                    icon: "fas fa-users"
+                    icon: "fas fa-map"
                 },
             ],
             inputs: [
