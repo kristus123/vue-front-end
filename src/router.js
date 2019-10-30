@@ -330,7 +330,8 @@ export default new Router({
     {
       path: "/user",
       name: "user",
-      component: UserHome,
+      component: UserHome
+      ,
       children: [
 
         {
@@ -352,7 +353,6 @@ export default new Router({
         },
         {
           path: "all/team",
-          name: "teamsPage",
           component: TeamsPage
         },
         {
@@ -383,14 +383,26 @@ export default new Router({
           path: "player/:playerId/recent-matches",
           component: RecentPlayerMatches
         },
-
-
         {
-          path: "watchplayer",
+          path: "my/team",
+          component: WatchTeamsPage
+        },
+        {
+          path: "my/player",
           component: WatchPlayersPage
         }
       ]
     },
+    // {
+    //   path: "/watchplayer",
+    //   name: "WatchPlayersPage",
+    //   component: WatchPlayersPage
+    // },
+    // {
+    //   path: "/watchteam",
+    //   name: "WatchTeamsPage",
+    //   component: WatchTeamsPage
+    // },
     {
       path: "/testForm",
       name: "testForm",
