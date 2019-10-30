@@ -7,12 +7,15 @@
 
                      <template v-slot:firstDropdown v-if="showDropdown">
                         <b-form-row class="justify-content-center">
-                            <b-col cols="8">
+                            <b-col cols="9">
                                 <b-form-group class="text-white" label="Pick a goal type" style="text-align: left;">
                                     <b-input-group>
+                                            <b-input-group-prepend>
+                                                <span class="input-group-text"><i class="fas fa-crosshairs"></i></span>
+                                            </b-input-group-prepend>
                                         <form-select :options="goalTypeOptions" :preselect="goalTypePreselect" v-on:DropDownValue="onSelectGoalType"/>
                                         <b-input-group-append>
-                                            <b-btn variant="primary" v-on:click="newGoalType">New goal type</b-btn>
+                                            <b-btn variant="primary" v-on:click="newGoalType">Create new</b-btn>
                                         </b-input-group-append>
                                     </b-input-group>
                                 </b-form-group>
@@ -80,7 +83,7 @@ export default {
             let goalTypeObject = {
                 typeName: this.inputs[0].value
             }
-            if(this.showDropdown) {
+            if(this.update) {
                 let response = await GoalTypeService.update(goalTypeObject,this.goalTypePreselect.goalTypeId);
                 if(response.status === 201) {
                     this.resetForm();
@@ -109,9 +112,13 @@ export default {
             this.goalTypePreselect = null;
             this.onShowBtns = false;
             this.showInput = false;
+            this.showDropdown = true;
+            this.update = false;
         },
 
         onSelectGoalType(value) {
+            this.update = true;
+            this.showDropdown = false;
             this.showInput = true;
             this.onShowBtns = true;
             this.goalTypePreselect = value;
@@ -162,6 +169,7 @@ export default {
             onShowBtns: false,
             showInput: false,
             showDropdown: true,
+            update: false,
             
             color: 'text-white',
             goalTypePreselect: null,

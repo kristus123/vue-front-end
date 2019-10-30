@@ -8,6 +8,9 @@
                     <b-col cols="8">
                     <b-form-group class="text-black" label="Pick a player" style="text-align: left;">
                         <b-input-group>
+                        <b-input-group-prepend>
+                            <span class="input-group-text"><i class="fas fa-running"></i></span>
+                        </b-input-group-prepend>
                         <form-select :options="playerOptions" :preselect="playerPreselect" v-on:DropDownValue="onSelectedPlayer"/>
                         </b-input-group>
                     </b-form-group>
@@ -20,6 +23,9 @@
                     <b-col cols="8">
                     <b-form-group class="text-black" label="Pick a team" style="text-align: left;">
                         <b-input-group>
+                        <b-input-group-prepend>
+                            <span class="input-group-text"><i class="fas fa-users"></i></span>
+                        </b-input-group-prepend>
                         <form-select :options="teamOptions" :preselect="teamPreselect" v-on:DropDownValue="onSelectedTeam"/>
                         </b-input-group>
                     </b-form-group>

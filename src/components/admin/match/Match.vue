@@ -10,9 +10,12 @@
                             <b-col cols="8">
                             <b-form-group class="text-white" label="Pick a match" style="text-align: left;">
                                 <b-input-group>
+                                <b-input-group-prepend>
+                                    <span class="input-group-text"><i class="fas fa-fire-alt"></i></span>
+                                </b-input-group-prepend>
                                 <form-select :options="matchOptions" :preselect="matchPreselect" v-on:DropDownValue="onSelectMatch"/>
                                     <b-input-group-append>
-                                        <b-btn variant="primary" v-on:click="newMatch">New Match</b-btn>
+                                        <b-btn variant="primary" v-on:click="newMatch">Create new</b-btn>
                                     </b-input-group-append>
                                 </b-input-group>
                             </b-form-group>
@@ -27,24 +30,36 @@
 
                                 <b-form-group class="text-white" label="Pick home team" style="text-align: left;">
                                     <b-input-group>
+                                    <b-input-group-prepend>
+                                        <span class="input-group-text"><i class="fas fa-users"></i></span>
+                                    </b-input-group-prepend>
                                     <form-select :options="homeTeamOptions" :preselect="homeTeamPreselectUpdate" v-on:DropDownValue="onSelectHomeTeamUpdate"/>
                                     </b-input-group>
                                 </b-form-group>
 
                                  <b-form-group class="text-white" label="Pick away team" style="text-align: left;">
                                     <b-input-group>
+                                    <b-input-group-prepend>
+                                        <span class="input-group-text"><i class="fas fa-users"></i></span>
+                                    </b-input-group-prepend>
                                     <form-select :options="awayTeamOptions" :preselect="awayTeamPreselectUpdate" v-on:DropDownValue="onSelectAwayTeamUpdate"/>
                                     </b-input-group>
                                 </b-form-group>
 
                                 <b-form-group class="text-white" label="Pick a location" style="text-align: left;">
                                     <b-input-group>
+                                    <b-input-group-prepend>
+                                        <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
+                                    </b-input-group-prepend>
                                     <form-select :options="locationOptions" :preselect="locationPreselectUpdate" v-on:DropDownValue="onSelectLocationUpdate"/>
                                     </b-input-group>
                                 </b-form-group>
 
                                 <b-form-group class="text-white" label="Pick a season" style="text-align: left;">
                                     <b-input-group>
+                                    <b-input-group-prepend>
+                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                    </b-input-group-prepend>
                                     <form-select :options="seasonOptions" :preselect="seasonPreselectUpdate" v-on:DropDownValue="onSelectSeasonUpdate"/>
                                     </b-input-group>
                                 </b-form-group>
@@ -67,24 +82,36 @@
                             <b-col cols="8">
                                 <b-form-group class="text-white" label="Pick home team" style="text-align: left;">
                                     <b-input-group>
+                                    <b-input-group-prepend>
+                                        <span class="input-group-text"><i class="fas fa-users"></i></span>
+                                    </b-input-group-prepend>
                                     <form-select :options="homeTeamOptions" :preselect="homeTeamPreselect" v-on:DropDownValue="onSelectHomeTeam"/>
                                     </b-input-group>
                                 </b-form-group>
 
                                 <b-form-group class="text-white" label="Pick away team" style="text-align: left;">
                                     <b-input-group>
+                                    <b-input-group-prepend>
+                                        <span class="input-group-text"><i class="fas fa-users"></i></span>
+                                    </b-input-group-prepend>
                                     <form-select :options="awayTeamOptions" :preselect="awayTeamPreselect" v-on:DropDownValue="onSelectAwayTeam"/>
                                     </b-input-group>
                                 </b-form-group>
 
                                 <b-form-group class="text-white" label="Pick a location" style="text-align: left;">
                                     <b-input-group>
+                                    <b-input-group-prepend>
+                                        <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
+                                    </b-input-group-prepend>
                                     <form-select :options="locationOptions" :preselect="locationPreselect" v-on:DropDownValue="onSelectLocation"/>
                                     </b-input-group>
                                 </b-form-group>
 
                                 <b-form-group class="text-white" label="Pick a season" style="text-align: left;">
                                     <b-input-group>
+                                    <b-input-group-prepend>
+                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                    </b-input-group-prepend>
                                     <form-select :options="seasonOptions" :preselect="seasonPreselect" v-on:DropDownValue="onSelectSeason"/>
                                     </b-input-group>
                                 </b-form-group>

@@ -9,6 +9,9 @@
               <b-col cols="8">
                 <b-form-group class="text-white" label="Pick a coach" style="text-align: left;">
                   <b-input-group>
+                    <b-input-group-prepend>
+                      <span class="input-group-text"><i class="fas fa-user-shield"></i></span>
+                    </b-input-group-prepend>
                     <form-select :options="coachOptions" :preselect="coachPreselect" v-on:DropDownValue="onSelectCoach"/>
                     <b-input-group-append>
                       <b-btn variant="primary" @click="$router.push('/admin/add/coach')">Create new</b-btn>

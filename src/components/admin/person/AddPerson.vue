@@ -9,10 +9,12 @@
             <b-form-row class="justify-content-center">
             <b-col cols="8">
               <b-form-group class="text-white" label="Date of birth" style="text-align: left;">
-                <v-date-picker v-model="date" mode="single" :input-props='{
+                  
+                <v-date-picker style="width: 90%;" v-model="date" mode="single" :input-props='{
                   placeholder: "Please enter a date",
                   readonly: true
                 }'/>
+                
               </b-form-group>
             </b-col>
           </b-form-row>
@@ -23,6 +25,9 @@
                 <b-col cols="8">
                     <b-form-group class="text-white" label="Address" style="text-align:left;">
                         <b-input-group>
+                            <b-input-group-prepend>
+                                <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+                            </b-input-group-prepend>
                             <form-select :options="addressOptions" :preselect="addressPreselect" v-on:DropDownValue="onSelected"/>
                             <b-input-group-append>
                             <b-btn variant="primary" v-on:click="newAddress">New</b-btn>
@@ -196,12 +201,12 @@ export default {
             addressInputs: [
                 {
                     title: "Address",
-                    placeholder: "what is the address ?",
+                    placeholder: "Enter an address",
                     type: "text",
                     value: '',
                     required: true,
                     disabled: false,
-                    icon: "fas fa-users"
+                    icon: "fas fa-address-card"
                 },
                 {
                     title: "Postal code",
@@ -209,7 +214,7 @@ export default {
                     type: "number",
                     required: true,
                     disabled: false,
-                    icon: "fas fa-users"
+                    icon: "fas fa-map-pin"
                 },
                 {
                     title: "City",
@@ -217,7 +222,7 @@ export default {
                     type: "text",
                     required: true,
                     disabled: false,
-                    icon: "fas fa-users"
+                    icon: "fas fa-map-marked-alt"
                 },
                 {
                     title: "Country",
@@ -225,7 +230,7 @@ export default {
                     type: "text",
                     required: true,
                     disabled: false,
-                    icon: "fas fa-users"
+                    icon: "fas fa-map"
                 },
             ],
             inputs: [

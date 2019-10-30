@@ -12,6 +12,9 @@
             <b-col cols="8">
               <b-form-group class="text-white" label="Pick a location" style="text-align: left;">
                 <b-input-group>
+                    <b-input-group-prepend>
+                      <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
+                    </b-input-group-prepend>
                   <form-select :options="locationOptions" :preselect="locationPreselect" v-on:DropDownValue="onSelectLocation"/>
                   <b-input-group-append>
                     <b-btn variant="primary" @click="$router.push('/admin/add/location')">Create new</b-btn>

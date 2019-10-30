@@ -71,8 +71,13 @@ import GoalType from "@/components/admin/goalType/GoalType"
 import MatchPosition from "@/components/admin/matchPosition/MatchPosition"
 import AllMatches from "@/components/user/match/AllMatches";
 
+import AllContacts from "@/components/admin/contact/AllContacts";
+import UpdateContact from "@/components/admin/contact/UpdateContact";
+
 import BrowsePlayer from "@/components/anonymous/BrowsePlayer"
 import BrowserMatch from "@/components/anonymous/BrowseMatch"
+
+import Database from "@/components/admin/database/Database";
 
 Vue.use(Router)
 
@@ -142,6 +147,10 @@ export default new Router({
         {
           path: "/",
           component: AdminLandingPage
+        },
+        {
+          path: "database",
+          component: Database
         },
 
         {
@@ -246,10 +255,17 @@ export default new Router({
           path: "add/team",
           component: AddTeam
         },
-
+        {
+          path: "all/contacts",
+          component: AllContacts
+        },
         {
           path: "add/contact",
           component: AddContact
+        },
+        {
+          path: "update/contact/:contactId",
+          component: UpdateContact
         },
 
         {

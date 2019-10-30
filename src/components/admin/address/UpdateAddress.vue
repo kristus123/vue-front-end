@@ -48,7 +48,7 @@ export default {
         type: "text",
         value: this.address.addresses[0],
         required: true,
-        icon: "fas fa-user"
+        icon: "fas fa-address-card"
       },
       {
         title: "Postal code",
@@ -56,7 +56,7 @@ export default {
         value: this.address.postalCode,
         required: "required",
         disabled: false,
-        icon: "fas fa-hashtag"
+        icon: "fas fa-map-pin"
       },
       
       {
@@ -65,7 +65,7 @@ export default {
         type: "text",
         required: true,
         disabled: false,
-        icon: "fas fa-users"
+        icon: "fas fa-map-marked-alt"
       },
       {
         title: "Country",
@@ -73,7 +73,7 @@ export default {
         type: "text",
         required: true,
         disabled: false,
-        icon: "fas fa-layer-group"
+        icon: "fas fa-map"
       }
     ];
   },

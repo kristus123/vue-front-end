@@ -13,6 +13,9 @@
             <b-col cols="8">
               <b-form-group class="text-white" label="Pick an address" style="text-align: left;">
                 <b-input-group>
+                    <b-input-group-prepend>
+                      <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+                    </b-input-group-prepend>
                   <form-select :options="addressOptions" :preselect="addressPreselect" v-on:DropDownValue="onSelectAddress"/>
                   <b-input-group-append>
                     <b-btn variant="primary" @click="$router.push('/admin/add/address')">Create new</b-btn>

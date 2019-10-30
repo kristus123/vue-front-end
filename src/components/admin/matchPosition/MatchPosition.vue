@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <h1 class="text-black">Match Position</h1>
-    <br />
+    <hr  class="pretty" />
     <b-row>
       <b-col cols="4">
         <b-card>
@@ -52,7 +52,7 @@
           </b-col>
         </b-row>
       </b-col>
-      <b-col v-if="loading" cols="8">
+      <b-col v-if="showMap" cols="8">
         <img
           src="@/assets/bird-s-eye-view-circle-drone-photography-2291006.jpg"
           alt="Snow"
@@ -175,18 +175,14 @@
           </b-row>
         </div>
       </b-col>
-      <center v-else>
-        <div>
-          <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
-          <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
-          <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
-          <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
-          <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
-          <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
-          <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
-          <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
-        </div>
-      </center>
+      <b-row class="justify-content-center" v-else>
+        <b-col cols="12">
+          <div v-if="loading">
+            <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
+          </div>
+          <h1 v-if="!loading">Waiting for input</h1>
+        </b-col>
+      </b-row>
     </b-row>
   </b-container>
 </template>
@@ -286,6 +282,7 @@ export default {
         this.placePlayers(positions);
       }
       this.loading = false;
+      this.showMap = true;
     },
 
     onSelectLeftStriker(value) {
@@ -425,6 +422,7 @@ export default {
     },
 
     async getMatches() {
+      
       let matches = await MatchService.findAll();
       let options = [];
 
@@ -565,6 +563,7 @@ export default {
   data() {
     return {
       loading: false,
+      showMap: false,
       teamOptions: [],
       matchOptions: [],
       playerOptions: [],

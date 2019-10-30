@@ -12,6 +12,9 @@
             <b-col cols="8">
               <b-form-group class="text-white" label="Pick a team" style="text-align: left;">
                 <b-input-group>
+                    <b-input-group-prepend>
+                      <span class="input-group-text"><i class="fas fa-users"></i></span>
+                    </b-input-group-prepend>
                   <form-select :options="teamOptions" :preselect="teamPreselect" v-on:DropDownValue="onSelectTeam"/>
                   <b-input-group-append>
                     <b-btn variant="primary" @click="$router.push('/admin/add/team')">Create new</b-btn>
