@@ -17,20 +17,15 @@
             <router-link class="router" to="/user/all/match">Matches</router-link>
           </b-nav-item>
 
-          <b-nav-item v-if="$store.state.userObject.roles[0] === 'ADMINISTRATOR' ">
-            <router-link class="router" to="/admin">Go back to admin-page</router-link>
-          </b-nav-item>
+
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-form>
-            <router-link class="router" to="/signup">
-              <b-button size="sm" variant="outline-light">Signup</b-button>
-            </router-link>
-            <router-link class="router" to="/login">
-              <b-button size="sm" variant="outline-light">Login</b-button>
-            </router-link>
+            <b-nav-item v-if="$store.state.userObject.roles[0] === 'ADMINISTRATOR' ">
+              <router-link class="router" to="/admin">Admin</router-link>
+            </b-nav-item>
           </b-nav-form>
 
           <b-nav-item-dropdown right>
