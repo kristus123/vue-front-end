@@ -101,11 +101,4 @@ export default {
     align-content: left;
 }
 
-#teamContainer {
- background: url("../assets/ball-field-grass-46792.jpg");
- background-size: cover;
- background-repeat: no-repeat;
-    
-}
-
 </style>
