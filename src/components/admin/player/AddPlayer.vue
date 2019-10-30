@@ -5,7 +5,8 @@
       <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
     </div>
 
-    <flexible-form v-else
+    <flexible-form
+      v-else
       :image="image"
       :inputs="inputs"
       :color="textColor"
@@ -49,13 +50,13 @@
           <b-col cols="8">
             <b-form-group class="text-black" label="Date" style="text-align: left;">
               <v-date-picker
-                v-model="dateRange"
-                mode="range"
-                :columns="2"
-                :input-props="{
-                  placeholder: "Please enter a range",
-                  readonly: true
-                }"
+              v-model="dateRange"
+              mode="range"
+              :columns="2"
+              :input-props='{
+                placeholder: "Please enter a range",
+                readonly: true
+              }'
               />
             </b-form-group>
           </b-col>
