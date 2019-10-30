@@ -17,7 +17,6 @@ import AddLocation from '@/components/admin/location/AddLocation';
 import AdminHome from '@/views/admin/Home';
 import RecentPlayerMatches from '@/views/players/RecentPlayerMatches';
 import UserHome from '@/views/user/Home';
-import UserLandingPage from '@/components/user/UserLandingPage';
 import WatchTeamsPage from '@/views/user/WatchTeamsPage';
 import WatchPlayersPage from '@/views/user/WatchPlayersPage';
 import AddPlayer from '@/components/admin/player/AddPlayer'
@@ -43,7 +42,7 @@ import UpdateLocation from '@/components/admin/location/UpdateLocation';
 import ShowAllLocations from '@/components/admin/location/ShowAllLocations'
 
 import UpdateAddress from '@/components/admin/address/UpdateAddress';
-import  PlayerInfo from '@/views/players/PlayerInfo';
+import PlayerInfo from '@/views/players/PlayerInfo';
 import AddCoach from '@/components/admin/coach/AddCoach';
 
 import AddSeason from '@/components/admin/season/AddSeason';
@@ -61,6 +60,9 @@ import AddContact from '@/components/admin/contact/AddContact';
 
 import ShowAllAddress from '@/components/admin/address/ShowAllAddress';
 
+import AdminLandingPage from '@/components/admin/AdminLandingPage';
+import UserLandingPage from '@/components/user/UserLandingPage';
+
 import Season from '@/components/admin/season/Season'
 import Result from '@/components/admin/result/Result'
 import Match from "@/components/admin/match/Match"
@@ -74,6 +76,8 @@ import UpdateContact from "@/components/admin/contact/UpdateContact";
 
 import BrowsePlayer from "@/components/anonymous/BrowsePlayer"
 import BrowserMatch from "@/components/anonymous/BrowseMatch"
+
+import Database from "@/components/admin/database/Database";
 
 Vue.use(Router)
 
@@ -140,6 +144,15 @@ export default new Router({
       name: "admin",
       component: AdminHome,
       children: [
+        {
+          path: "/",
+          component: AdminLandingPage
+        },
+        {
+          path: "database",
+          component: Database
+        },
+
         {
           path: "add/player",
           component: AddPlayer
@@ -322,10 +335,17 @@ export default new Router({
       children: [
 
         {
+          path: "teamPage",
+          name: "teamPage",
+          component: TeamPage,
+          props: true
+        },
+
+        {
           path: "/",
           component: UserLandingPage
         },
-        
+
 
         {
           path: "all/team/favoritess",
@@ -394,12 +414,7 @@ export default new Router({
       name: "teamsPage",
       component: TeamsPage
     },
-    {
-      path: "/teamPage",
-      name: "teamPage",
-      component: TeamPage,
-      props: true
-    },
+
     {
       path: '/about',
       name: 'about',

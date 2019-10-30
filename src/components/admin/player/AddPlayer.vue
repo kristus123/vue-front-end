@@ -5,7 +5,8 @@
       <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
     </div>
 
-    <flexible-form v-else
+    <flexible-form
+      v-else
       :image="image"
       :inputs="inputs"
       :color="textColor"
@@ -17,6 +18,9 @@
           <b-col cols="8">
             <b-form-group class="text-black" label="Pick a person" style="text-align: left;">
               <b-input-group>
+                <b-input-group-prepend>
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </b-input-group-prepend>
                 <form-select
                   :options="personOptions"
                   :preselect="selectedPerson"
@@ -33,6 +37,9 @@
           <b-col cols="8">
             <b-form-group class="text-black" label="Pick a team" style="text-align: left;">
               <b-input-group>
+                  <b-input-group-prepend>
+                      <span class="input-group-text"><i class="fas fa-users"></i></span>
+                  </b-input-group-prepend>
                 <form-select
                   :options="teamOptions"
                   :preselect="selectedTeam"
@@ -49,13 +56,13 @@
           <b-col cols="8">
             <b-form-group class="text-black" label="Date" style="text-align: left;">
               <v-date-picker
-                v-model="dateRange"
-                mode="range"
-                :columns="2"
-                :input-props="{
-                  placeholder: "Please enter a range",
-                  readonly: true
-                }"
+              v-model="dateRange"
+              mode="range"
+              :columns="2"
+              :input-props='{
+                placeholder: "Please enter a range",
+                readonly: true
+              }'
               />
             </b-form-group>
           </b-col>

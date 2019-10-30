@@ -73,74 +73,11 @@
                                     </b-col>
                                 </b-form-row>
                             </template>
-
+                            
                         </flexible-form>
-
                     </b-card>
                     <br>
           </b-card-body>
-
-          <flexible-form :image="image" @clicked="submitForm" @reset="resetForm" v-if="showForm">
-            <template v-slot:firstDropdown>
-              <b-form-row class="justify-content-center">
-                <b-col cols="8">
-                  <b-form-group class="text-white" label="Player" style="text-align: left;">
-                    <b-input-group>
-                      <form-select
-                        :options="playerOptions"
-                        :preselect="playerPreselect"
-                        v-on:DropDownValue="onSelectPlayer"
-                      />
-                    </b-input-group>
-                  </b-form-group>
-                </b-col>
-              </b-form-row>
-            </template>
-
-            <template v-slot:personDropdown>
-              <b-form-row class="justify-content-center">
-                <b-col cols="8">
-                  <b-form-group class="text-white" label="Match" style="text-align: left;">
-                    <b-input-group>
-                      <form-select
-                        :options="matchOptions"
-                        :preselect="matchPreselect"
-                        v-on:DropDownValue="onSelectMatch"
-                      />
-                    </b-input-group>
-                  </b-form-group>
-                </b-col>
-              </b-form-row>
-            </template>
-
-            <template v-slot:teamDropdown>
-              <b-form-row class="justify-content-center">
-                <b-col cols="8">
-                  <b-form-group class="text-white" label="Goal type" style="text-align: left;">
-                    <b-input-group>
-                      <form-select
-                        :options="goalTypeOptions"
-                        :preselect="goalTypePreselect"
-                        v-on:DropDownValue="onSelectGoalType"
-                      />
-                    </b-input-group>
-                  </b-form-group>
-                </b-col>
-              </b-form-row>
-            </template>
-
-            <template v-slot:newForm>
-              <b-form-row class="justify-content-center">
-                <b-col cols="8">
-                  <b-form-group class="text-white" label="Description" style="text-align: left;">
-                    <b-input-group>
-                      <b-form-textarea v-model="description" rows="3" ymax-rows="8"></b-form-textarea>
-                    </b-input-group>
-                  </b-form-group>
-                </b-col>
-              </b-form-row>
-            </template>
-          </flexible-form>
         </b-card>
         <br />
         <b-row id="showSuccessMsg" class="justify-content-center">
