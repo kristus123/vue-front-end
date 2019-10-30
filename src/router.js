@@ -69,6 +69,7 @@ import Match from "@/components/admin/match/Match"
 import MatchGoal from "@/components/admin/matchGoal/MatchGoal"
 import GoalType from "@/components/admin/goalType/GoalType"
 import MatchPosition from "@/components/admin/matchPosition/MatchPosition"
+import AllMatches from "@/components/user/match/AllMatches";
 
 import BrowsePlayer from "@/components/anonymous/BrowsePlayer"
 import BrowserMatch from "@/components/anonymous/BrowseMatch"
@@ -318,6 +319,10 @@ export default new Router({
         {
           path: "all/player",
           component: AllPlayers
+        },
+        {
+          path: "all/match",
+          component: AllMatches
         },
 
         {
