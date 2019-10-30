@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <!-- {{$store.state.userObject}} -->
 
     <div style="float:left; padding-top:20px; padding-left:20px;">
@@ -13,8 +14,8 @@
         </router-link>
       </div>
     </div>
-
     <div style="float:right; padding-top:20px; padding-right:20px;">
+
 
     <div v-if="$store.state.userObject === null">
       <router-link to="/signup">
