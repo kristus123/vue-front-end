@@ -71,6 +71,8 @@ import GoalType from "@/components/admin/goalType/GoalType"
 import MatchPosition from "@/components/admin/matchPosition/MatchPosition"
 import AllMatches from "@/components/user/match/AllMatches";
 
+import BrowsePlayer from "@/components/anonymous/BrowsePlayer"
+import BrowserMatch from "@/components/anonymous/BrowseMatch"
 
 Vue.use(Router)
 
@@ -93,6 +95,16 @@ export default new Router({
       name: "signup",
       component: SignupPage
 
+    },
+    {
+      path: "/browse/match",
+      name: "browseMatch",
+      component: BrowserMatch
+    },
+    {
+      path: "/browse/player",
+      name: "browsePlayer",
+      component: BrowsePlayer
     },
 
     {

@@ -2,11 +2,15 @@
     
     <div style="text-align:center;">
         <ul>
-            <li  v-for="(result, index) in results" v-bind:key="index">
+            
+            <li v-for="result in results" v-bind:key="result.matchId">
+              <router-link  v-bind:to="'user/match/' + result.matchId" style="text-decoration: none;">
                 <div :class="result.result">
                     {{result.homeTeam}} - {{result.awayTeam}} ({{result.home}} - {{result.away}})
                 </div>
+              </router-link>
             </li>
+            
         </ul>
     </div>
     
@@ -23,6 +27,7 @@ export default {
 
     async mounted() {
         var data = await MatchService.getMatchesByTeamId(this.teamId);
+
         this.results = data.data;
     },
 
@@ -30,6 +35,11 @@ export default {
         return {
             results : []
         }
+    },
+    methods: {
+      redirect: function (url, id) {
+        window.location=url + "/" + id;
+      }
     }
 }
 
