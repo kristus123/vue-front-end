@@ -45,7 +45,7 @@ export default {};
   position: absolute;
   width: 75%;
   /* height : 10%; */
-  top: 50%;
+  top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
 }

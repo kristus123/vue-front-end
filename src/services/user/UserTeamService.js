@@ -12,10 +12,6 @@ class UserTeamService {
         return instance.post("/v1/user/watchlist/post/team", jsonObject).then(response => response);
     }
 
-    add(teamObject) {
-        return instance.post("/v1/user/watchlist/post/team", teamObject).then(response => response);
-    }
-
     findAll() {
         return instance.get("/v1/user/watchlist/get/team").then(response => response.data);
     }

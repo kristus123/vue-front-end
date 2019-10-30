@@ -42,7 +42,7 @@ import UpdateLocation from '@/components/admin/location/UpdateLocation';
 import ShowAllLocations from '@/components/admin/location/ShowAllLocations'
 
 import UpdateAddress from '@/components/admin/address/UpdateAddress';
-import PlayerInfo from '@/views/players/PlayerInfo';
+import  PlayerInfo from '@/views/players/PlayerInfo';
 import AddCoach from '@/components/admin/coach/AddCoach';
 
 import AddSeason from '@/components/admin/season/AddSeason';
@@ -330,22 +330,14 @@ export default new Router({
     {
       path: "/user",
       name: "user",
-      component: UserHome
-      ,
+      component: UserHome,
       children: [
-
-        {
-          path: "teamPage",
-          name: "teamPage",
-          component: TeamPage,
-          props: true
-        },
 
         {
           path: "/",
           component: UserLandingPage
         },
-
+        
 
         {
           path: "all/team/favoritess",
@@ -353,6 +345,7 @@ export default new Router({
         },
         {
           path: "all/team",
+          name: "teamsPage",
           component: TeamsPage
         },
         {
@@ -383,26 +376,14 @@ export default new Router({
           path: "player/:playerId/recent-matches",
           component: RecentPlayerMatches
         },
+
+
         {
-          path: "my/team",
-          component: WatchTeamsPage
-        },
-        {
-          path: "my/player",
+          path: "watchplayer",
           component: WatchPlayersPage
         }
       ]
     },
-    // {
-    //   path: "/watchplayer",
-    //   name: "WatchPlayersPage",
-    //   component: WatchPlayersPage
-    // },
-    // {
-    //   path: "/watchteam",
-    //   name: "WatchTeamsPage",
-    //   component: WatchTeamsPage
-    // },
     {
       path: "/testForm",
       name: "testForm",
@@ -414,7 +395,12 @@ export default new Router({
       name: "teamsPage",
       component: TeamsPage
     },
-
+    {
+      path: "/teamPage",
+      name: "teamPage",
+      component: TeamPage,
+      props: true
+    },
     {
       path: '/about',
       name: 'about',
