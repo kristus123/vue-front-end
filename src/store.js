@@ -11,7 +11,7 @@ export default new Vuex.Store({
       owner       : null,
       location    : null
     },
-    userObject : null //{roles: "[STANDARD]", token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJzZ…-QxVGTAgXYWvzxeZORI6ktbRuuauikVzdTfMODZ2yjqdcvzAQ", username: "krispetter@gmail.com"}
+    userObject : {roles: ['ADMINISTRATOR'], token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJzZ…-QxVGTAgXYWvzxeZORI6ktbRuuauikVzdTfMODZ2yjqdcvzAQ", username: "krispetter@gmail.com"}
   },
   mutations: {
 

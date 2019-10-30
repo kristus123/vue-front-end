@@ -1,31 +1,36 @@
 <template>
-<div> 
-  <b-container v-if="response == null">
-    <h1>Add new user</h1>
-    <flexible-form
-      :inputs="inputs"
-      width="100%"
-      :image="image"
-      :color="textColor"
-      @clicked="submitForm"
-    />
-  </b-container>
+  <div>
+      <h1>Add new user</h1>
+      <hr class="pretty">
+    <b-container v-if="response == null && !loading">
+      <flexible-form
+        :inputs="inputs"
+        width="100%"
+        :image="image"
+        :color="textColor"
+        @clicked="submitForm"
+      />
+    </b-container>
 
-  <div v-else>
-      <h1> User : {{response.username}} has been successfully created </h1>
+    <div v-else-if="loading">
+      <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
+    </div>
+
+    <div v-else>
+      <h1 style="margin-top:100px;">{{response.username}}
+        <strong style="color:green;">successfully</strong>
+         created</h1>
 
       <router-link to="/admin/manage/user">
-      <b-button>head back</b-button>
+        <b-button variant="outline-primary" style="margin-top:50px;" size="sm">head back</b-button>
       </router-link>
+    </div>
   </div>
-
-
-</div>
 </template>
 
 <script>
 import FlexibleForm from "@/components/forms/FlexibleForm";
-import userManagementService from '@/services/userManagement/UserManagementService.js';
+import userManagementService from "@/services/userManagement/UserManagementService.js";
 
 export default {
   name: "Addplayer",
@@ -33,20 +38,22 @@ export default {
     FlexibleForm
   },
 
-
   methods: {
     async submitForm(value) {
+      this.loading = true;
       console.log("____________");
       this.response = await userManagementService.createUser(value);
       console.log(value); // someValue
+      this.loading = false;
     }
   },
 
   data() {
     return {
+      loading: false,
       textColor: "text-black",
-        response: null,
-    image: require(`@/assets/action-adult-athlete-1311619.jpg`),
+      response: null,
+      image: require(`@/assets/action-adult-athlete-1311619.jpg`),
       inputs: [
         {
           title: "username",
@@ -63,7 +70,7 @@ export default {
           required: true,
           disabled: false,
           icon: "fas fa-layer-group"
-        },
+        }
       ]
     };
   }
