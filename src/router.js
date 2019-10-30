@@ -317,6 +317,15 @@ export default new Router({
       component: UserHome,
       children: [
         {
+          path: "all/team/favoritess",
+          component: WatchTeamsPage
+        },
+        {
+          path: "all/team",
+          name: "teamsPage",
+          component: TeamsPage
+        },
+        {
           path: "all/player",
           component: AllPlayers
         },
@@ -346,11 +355,6 @@ export default new Router({
         },
 
 
-
-        {
-          path: "watchteam",
-          component: WatchTeamsPage
-        },
         {
           path: "watchplayer",
           component: WatchPlayersPage

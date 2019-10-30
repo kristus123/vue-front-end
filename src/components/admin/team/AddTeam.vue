@@ -1,6 +1,7 @@
 <template>
   <b-container>
     <h1>Add a team</h1>
+    <b-spinner v-if="loading" variant="primary" label="Spinning"></b-spinner>
     <b-row class="justify-content-center">
       <b-col cols="12">
         <flexible-form
@@ -95,6 +96,7 @@ export default {
     await this.getCoaches();
     await this.getOwners();
     await this.getLocations();
+    this.loading = false;
   },
 
   mounted: function() {
@@ -287,6 +289,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       onShowBtns: true,
       textColor: 'text-white',
       image: require(`@/assets/activity-athletes-blue-262524.jpg`),

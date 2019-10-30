@@ -3,13 +3,8 @@
     <center>
       <div class="topnav">
         <router-link to="/UserPanel/AddTeam">Add team</router-link>
-
         <router-link to="/UserPanel/createPerson">Create Person</router-link>
-        
-
         <router-link to="/UserPanel/createMatch">Create a match</router-link>
-        
-        
       </div>
     
 

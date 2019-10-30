@@ -4,7 +4,7 @@
       <h1>All players</h1>
       <hr class="pretty" style="padding-bottom:20px;" />
 
-      <center style="margin-bottom:50px;">
+      <center style="margin-bottom:50px;" v-if="!loading">
         <b-input
           placeholder="Search for a player"
           :value="playerSearch"
@@ -13,6 +13,10 @@
         />
         <p style="color:grey; margin-top:10px;">SMACK that 'Enter' button</p>
       </center>
+
+      <div v-if="loading">
+         <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
+      </div>
 
       <b-row class="justify-content-center">
         <div v-for="player in playerSearchFilter" v-bind:key="player.id">
@@ -52,9 +56,11 @@ export default {
 
   async beforeMount() {
     this.players = await playerService.findAll();
+    this.loading = false;
   },
   data() {
     return {
+      loading : true,
       playerSearch: "",
       players: []
     };
