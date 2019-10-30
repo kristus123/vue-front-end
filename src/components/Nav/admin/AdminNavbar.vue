@@ -167,9 +167,11 @@ export default {
 
                 },
                 {
-                    href:"#",
                     title: "Database",
-                    icon: "fas fa-database"
+                    icon: "fas fa-database",
+                    href : {
+                        path: "/admin/database"
+                    }
                 }
             ]
         }
