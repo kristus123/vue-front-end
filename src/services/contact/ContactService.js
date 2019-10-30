@@ -3,20 +3,24 @@ import formService from '@/services/form/FormService.js';
 
 
 class ContactService {
-    addContactToPerson(formObject) {
-        const jsonObject = {
-            "personId": formService.findValue("Person", formObject), //2,
-            "contactType": formService.findValue("Contact type", formObject), //"Work phone",
-            "contactDetail":  formService.findValue("details", formObject) //"433 84 096"
-        }
-
-        return instance.post("/v1/admin/post/contact", jsonObject)
-            .then(response => response.data)
+    create(formObject) {
+        return instance.post("/v1/admin/post/contact", formObject)
+            .then(response => response)
             .catch(error => error);
 
     }
 
-    
+    findAll() {
+        return instance.get("/v1/common/get/contact").then(response => response.data._embedded.contactModelList);
+    }
+
+    findById(id) {
+        return instance.get(`/v1/common/get/contact/${id}`).then(response => response.data);
+    }
+
+    update(contactObject, id) {
+        return instance.put(`/v1/admin/update/contact/${id}`, contactObject).then(response => response);
+    }
 }
 
 

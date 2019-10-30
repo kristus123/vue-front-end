@@ -100,7 +100,7 @@ export default {
           value: '',
           required: true,
           disabled: false,
-          icon: "fas fa-users"
+          icon: "fas fa-file-signature"
         },
         {
           title: "Description",
@@ -108,7 +108,7 @@ export default {
           type: "text",
           required: true,
           disabled: false,
-          icon: "fas fa-users"
+          icon: "fas fa-align-left"
         },
       ]
     };

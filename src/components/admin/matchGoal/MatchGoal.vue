@@ -9,20 +9,75 @@
         <b-card border-variant="secondary">
           <b-btn variant="primary" v-on:click="newMatchGoal">Add match goal</b-btn>
           <b-card-body>
-            <b-row class="justify-content-center">
-              <b-table
-                class="text-nowrap"
-                sticky-header="sticky-header"
-                striped
-                hover
-                selectable
-                responsive
-                :items="items"
-                :fields="fields"
-                select-mode="single"
-                @row-selected="onRowSelected"
-              ></b-table>
-            </b-row>
+                            <b-row class="justify-content-center">
+                                <b-table class="text-nowrap" sticky-header="sticky-header" striped hover selectable responsive :items="items" :fields="fields" select-mode="single" @row-selected="onRowSelected">
+                                </b-table>
+                            </b-row>
+                        </b-card-body>
+
+                        <flexible-form  :image="image" @clicked="submitForm" @reset="resetForm" v-if="showForm">
+
+                            <template v-slot:firstDropdown>
+                                <b-form-row class="justify-content-center">
+                                    <b-col cols="8">
+                                        <b-form-group class="text-white" label="Player" style="text-align: left;">
+                                            <b-input-group>
+                                                <b-input-group-prepend>
+                                                    <span class="input-group-text"><i class="fas fa-running"></i></span>
+                                                </b-input-group-prepend>
+                                                <form-select :options="playerOptions" :preselect="playerPreselect"  v-on:DropDownValue="onSelectPlayer"/>
+                                            </b-input-group>
+                                        </b-form-group>
+                                    </b-col>
+                                </b-form-row>
+                            </template>
+
+                            <template v-slot:personDropdown>
+                                <b-form-row class="justify-content-center">
+                                    <b-col cols="8">
+                                        <b-form-group class="text-white" label="Match" style="text-align: left;">
+                                            <b-input-group>
+                                                <b-input-group-prepend>
+                                                    <span class="input-group-text"><i class="fas fa-fire-alt"></i></span>
+                                                </b-input-group-prepend>
+                                                <form-select :options="matchOptions"  :preselect="matchPreselect"  v-on:DropDownValue="onSelectMatch"/>
+                                            </b-input-group>
+                                        </b-form-group>
+                                    </b-col>
+                                </b-form-row>
+                            </template>
+
+                            <template v-slot:teamDropdown>
+                                <b-form-row class="justify-content-center">
+                                    <b-col cols="8">
+                                        <b-form-group class="text-white" label="Goal type" style="text-align: left;">
+                                            <b-input-group>
+                                                <b-input-group-prepend>
+                                                    <span class="input-group-text"><i class="fas fa-crosshairs"></i></span>
+                                                </b-input-group-prepend>
+                                                <form-select :options="goalTypeOptions"  :preselect="goalTypePreselect"  v-on:DropDownValue="onSelectGoalType"/>
+                                            </b-input-group>
+                                        </b-form-group>
+                                    </b-col>
+                                </b-form-row>
+                            </template>
+
+                            <template v-slot:newForm>
+                                <b-form-row class="justify-content-center">
+                                    <b-col cols="8">
+                                        <b-form-group class="text-white" label="Description" style="text-align: left;">
+                                            <b-input-group>
+                                               <b-form-textarea v-model="description" rows="3" ymax-rows="8"></b-form-textarea>
+                                            </b-input-group>
+                                        </b-form-group>
+                                    </b-col>
+                                </b-form-row>
+                            </template>
+
+                        </flexible-form>
+
+                    </b-card>
+                    <br>
           </b-card-body>
 
           <flexible-form :image="image" @clicked="submitForm" @reset="resetForm" v-if="showForm">
@@ -211,8 +266,8 @@ export default {
       let players = await PlayerService.findAll();
       let options = [];
 
-      for (var i = 0; i < players._embedded.playerModelList.length; i++) {
-        delete players._embedded.playerModelList[i]._links;
+      for (var i = 0; i < players.length; i++) {
+        delete players[i]._links;
 
         if (i === 0) {
           options[i] = {
@@ -223,8 +278,8 @@ export default {
         }
 
         options[i + 1] = {
-          value: players._embedded.playerModelList[i],
-          text: players._embedded.playerModelList[i].playername,
+          value: players[i],
+          text: players[i].playername,
           disabled: false
         };
       }

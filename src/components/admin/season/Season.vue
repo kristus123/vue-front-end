@@ -13,6 +13,9 @@
                         <b-col cols="8">
                         <b-form-group class="text-white" label="Pick a season" style="text-align: left;">
                             <b-input-group>
+                            <b-input-group-prepend>
+                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                            </b-input-group-prepend>
                             <form-select :options="seasonOptions" :preselect="seasonPreselect" v-on:DropDownValue="onSelectSeason"/>
                             <b-input-group-append>
                                 <b-btn variant="primary" @click="$router.push('/admin/add/season')">Create new</b-btn>

@@ -10,6 +10,9 @@
                 <b-col cols="8">
                   <b-form-group class="text-white" label="Person" style="text-align: left;">
                     <b-input-group>
+                        <b-input-group-prepend>
+                          <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </b-input-group-prepend>
                       <form-select
                         :options="options"
                         :preselect="preselectPerson"
@@ -37,6 +40,9 @@
                 <b-col cols="8">
                   <b-form-group class="text-white" label="Address" style="text-align:left;">
                     <b-input-group>
+                        <b-input-group-prepend>
+                          <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+                        </b-input-group-prepend>
                       <form-select
                         :options="addressOptions"
                         :preselect="preselect"
@@ -207,7 +213,7 @@ export default {
           value: this.preselect.addresses[0],
           required: true,
           disabled: false,
-          icon: "fas fa-users"
+          icon: "fas fa-address-card"
         },
         {
           title: "Postal code",
@@ -216,7 +222,7 @@ export default {
           value: this.preselect.postalCode,
           required: true,
           disabled: false,
-          icon: "fas fa-users"
+          icon: "fas fa-map-pin"
         },
         {
           title: "City",
@@ -225,7 +231,7 @@ export default {
           value: this.preselect.city,
           required: true,
           disabled: false,
-          icon: "fas fa-users"
+          icon: "fas fa-map-marked-alt"
         },
         {
           title: "Country",
@@ -234,7 +240,7 @@ export default {
           value: this.preselect.country,
           required: true,
           disabled: false,
-          icon: "fas fa-users"
+          icon: "fas fa-map"
         }
       ];
     },
@@ -265,7 +271,7 @@ export default {
           value: value.firstName,
           required: true,
           disabled: false,
-          icon: "fas fa-users"
+          icon: "fas fa-file-signature"
         },
         {
           title: "Last name",
@@ -274,7 +280,7 @@ export default {
           value: value.lastName,
           required: true,
           disabled: false,
-          icon: "fas fa-users"
+          icon: "fas fa-file-signature"
         }
       ];
 
