@@ -66,7 +66,13 @@ import Match from "@/components/admin/match/Match"
 import MatchGoal from "@/components/admin/matchGoal/MatchGoal"
 import GoalType from "@/components/admin/goalType/GoalType"
 import MatchPosition from "@/components/admin/matchPosition/MatchPosition"
+import AllMatches from "@/components/user/match/AllMatches";
 
+import AllContacts from "@/components/admin/contact/AllContacts";
+import UpdateContact from "@/components/admin/contact/UpdateContact";
+
+import BrowsePlayer from "@/components/anonymous/BrowsePlayer"
+import BrowserMatch from "@/components/anonymous/BrowseMatch"
 
 Vue.use(Router)
 
@@ -89,6 +95,16 @@ export default new Router({
       name: "signup",
       component: SignupPage
 
+    },
+    {
+      path: "/browse/match",
+      name: "browseMatch",
+      component: BrowserMatch
+    },
+    {
+      path: "/browse/player",
+      name: "browsePlayer",
+      component: BrowsePlayer
     },
 
     {
@@ -225,10 +241,17 @@ export default new Router({
           path: "add/team",
           component: AddTeam
         },
-
+        {
+          path: "all/contacts",
+          component: AllContacts
+        },
         {
           path: "add/contact",
           component: AddContact
+        },
+        {
+          path: "update/contact/:contactId",
+          component: UpdateContact
         },
 
         {
@@ -296,14 +319,37 @@ export default new Router({
       component: UserHome
       ,
       children: [
+
+        {
+          path: "/",
+          component: UserLandingPage
+        },
+        
+
+        {
+          path: "all/team/favoritess",
+          component: WatchTeamsPage
+        },
+        {
+          path: "all/team",
+          name: "teamsPage",
+          component: TeamsPage
+        },
         {
           path: "all/player",
           component: AllPlayers
         },
         {
+<<<<<<< HEAD
           path: "all/team",
           component: TeamsPage
         },
+=======
+          path: "all/match",
+          component: AllMatches
+        },
+
+>>>>>>> 0d9a926c8dc00c496432a00aa2ac3014ce687f96
         {
           path: "match/:matchId",
           component: MatchEvent
@@ -323,10 +369,15 @@ export default new Router({
           path: "player/:playerId/recent-matches",
           component: RecentPlayerMatches
         },
+<<<<<<< HEAD
         {
           path: "my/team",
           component: WatchTeamsPage
         },
+=======
+
+
+>>>>>>> 0d9a926c8dc00c496432a00aa2ac3014ce687f96
         {
           path: "my/player",
           component: WatchPlayersPage

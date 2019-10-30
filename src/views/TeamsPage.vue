@@ -1,5 +1,8 @@
 <template>
+<div>
+     <b-spinner v-if="loading" variant="primary" type="grow" label="Spinning"></b-spinner>
     <teams-page-card :teams="teams"/>
+</div>
 </template>
 
 <script>
@@ -17,13 +20,14 @@ export default {
     },
     data() {
         return {
+            loading: true,
             dbTeams: [],
             teams : [],
             infoTeams : []
         }
     },
 
-    created: async function () {
+    beforeMount: async function () {
         this.dbTeams = await TeamService.findAll();
         try {
             for(var i = 0; i < this.dbTeams.length; i++) {
@@ -43,6 +47,7 @@ export default {
                     description: team.association.description
                 };
                 this.teams.push(teamObj);
+                this.loading = false;
             }
         } catch (error) {
             console.error(error);

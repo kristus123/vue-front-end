@@ -46,11 +46,12 @@ export default {
       this.matchGoals.player.team.teamId ==
       this.matchGoals.match.homeTeam.teamId
     ) {
-      this.opt = "floatright";
-      this.eventOpt = "eventRight";
-    } else {
       this.eventOpt = "eventLeft";
       this.opt = "floatleft";
+    } else {
+      
+      this.opt = "floatright";
+      this.eventOpt = "eventRight";
     }
     this.hooverId = this.matchGoals.goalId.toString(10);
   }

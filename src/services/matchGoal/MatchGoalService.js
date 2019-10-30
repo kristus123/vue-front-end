@@ -9,7 +9,6 @@ class MatchGoalService {
     getMatchGoalByMatchId(id) {
         return instance.get(`/v1/common/get/matchgoal/${id}/byMatchId`)
             .then(response => {
-                console.log(response.data)
                 return response.data;
             })
             .catch(error => console.log(error));

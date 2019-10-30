@@ -1,7 +1,19 @@
 <template>
   <div>
-    <!-- {{$store.state.userObject}} -->
+
+    <div style="float:left; padding-top:20px; padding-left:20px;">
+      <div v-if="$store.state.userObject === null">
+        <router-link to="/browse/player">
+          <b-button variant="outline-success" style="margin-right:20px;">Players</b-button>
+        </router-link>
+
+        <router-link to="/browse/match">
+          <b-button variant="outline-success">Matches</b-button>
+        </router-link>
+      </div>
+    </div>
     <div style="float:right; padding-top:20px; padding-right:20px;">
+
 
     <div v-if="$store.state.userObject === null">
       <router-link to="/signup">
@@ -9,7 +21,7 @@
       </router-link>
 
       <router-link to="/login">
-        <b-button variant="outline-primary">log in</b-button>
+        <b-button variant="outline-primary">Log in</b-button>
       </router-link>
     </div>
 
@@ -19,12 +31,15 @@
       </router-link>
     </div>
 
+  
+
     <div v-else-if="$store.state.userObject.roles[0] === 'STANDARD' ">
       <router-link to="/user">
         <b-button variant="outline-primary">go to client-area</b-button>
       </router-link>
     </div>
     </div>
+    <!-- <h1>{{$store.state.userObject.roles[0]}}</h1> -->
 
     <br />
 

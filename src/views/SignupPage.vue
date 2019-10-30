@@ -95,7 +95,8 @@
 
           <b-form-row class="justify-content-center">
             <b-col cols="8">
-              <b-button id="submitBtn" type="submit" variant="primary" value="Submit">Signup</b-button>
+              <b-button v-if="!loading" id="submitBtn" type="submit" variant="primary" value="Submit">Signup</b-button>
+              <b-spinner v-if="loading" variant="primary" label="Spinning"></b-spinner>
             </b-col>
           </b-form-row>
         </b-form>
@@ -115,6 +116,7 @@ import authenticationService from "@/services/AuthenticationService";
 export default {
   data() {
     return {
+      loading : false,
       showErrorMsg: false,
       errorMsg: "",
       email: "",
@@ -144,6 +146,7 @@ export default {
   methods: {
     async onSubmitForm() {
       console.log("hei");
+      this.loading = true;
       const response = await authenticationService.signup(
         this.email,
         this.password
@@ -151,7 +154,7 @@ export default {
       if (response.status === 200) {
         authenticationService.login(this.email, this.password);
 
-        this.$store.state.userObject = response.data
+        this.$store.state.userObject = response.data;
         console.log(this.$store.state.userObject.username);
         // console.log(this.signedIn);
         // this.signedIn = true;

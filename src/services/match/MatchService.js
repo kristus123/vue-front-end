@@ -3,10 +3,13 @@ import instance from '@/services/AxiosService'
 class MatchService {
 
     getMatch(id) {
-        return instance.get(`/v1/admin/get/match/${id}`)
+        return instance.get(`/v1/common/get/match/${id}`)
             .then(response => response.data);
     }
 
+    findAnonMatchById(id) {
+        return instance.get(`/v1/anonymous/browse/match/${id}`).then(response => response.data);
+    }
     findAll() {
         return instance.get("/v1/common/get/match").then(response => response.data);
     }

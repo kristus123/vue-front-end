@@ -15,6 +15,9 @@
               <b-col cols="8">
                 <b-form-group class="text-white" label="Pick an address" style="text-align: left;">
                   <b-input-group>
+                    <b-input-group-prepend>
+                      <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+                    </b-input-group-prepend>
                     <form-select :options="addressOptions" :preslecet="addressPreselect" v-on:DropDownValue="onSelectAddress"/>
                   </b-input-group>
                 </b-form-group>
@@ -155,7 +158,7 @@ export default {
           required: true,
           value: "empty",
           disabled: false,
-          icon: "fas fa-users"
+          icon: "fas fa-file-signature"
         },
 
         {
@@ -165,7 +168,7 @@ export default {
           value: "empty",
           required: true,
           disabled: false,
-          icon: "fas fa-users"
+          icon: "fas fa-align-left"
         }
       ]
     };

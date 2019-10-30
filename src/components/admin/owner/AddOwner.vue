@@ -14,6 +14,9 @@
               <b-col cols="8">
                 <b-form-group class="text-white" label="Pick a person" style="text-align: left;">
                   <b-input-group>
+                    <b-input-group-prepend>
+                      <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </b-input-group-prepend>
                     <form-select :options="personOptions" :preslecet="preselectPerson" v-on:DropDownValue="onSelectPerson"/>
                   </b-input-group>
                 </b-form-group>

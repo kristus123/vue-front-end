@@ -10,6 +10,9 @@
               <b-col cols="8">
                 <b-form-group class="text-white" label="Pick an association" style="text-align: left;">
                   <b-input-group>
+                      <b-input-group-prepend>
+                          <span class="input-group-text"><i class="fas fa-arrows-alt"></i></span>
+                      </b-input-group-prepend>
                     <form-select :options="associationOptions" :preslecet="preselectAssociation" v-on:DropDownValue="onSelectAssociation"/>
                     <b-input-group-append>
                       <b-btn variant="primary" @click="$router.push('/admin/add/association')">Create new</b-btn>
@@ -18,10 +21,6 @@
                 </b-form-group>
               </b-col>
             </b-form-row>
-          </template>
-
-          <template v-slot:newForm v-if="onUpdate">
-            <b-btn variant="primary" size="lg" @click="$router.push(`/admin/update/association/${preselectAssociation}`)">Update</b-btn>
           </template>
 
         </flexible-form>
@@ -53,7 +52,7 @@ export default {
 
     onSelectAssociation(value) {
       this.preselectAssociation = value;
-      this.onUpdate = true;
+      this.$router.push(`/admin/update/association/${value}`);
     },
 
     async getAssociations() {
