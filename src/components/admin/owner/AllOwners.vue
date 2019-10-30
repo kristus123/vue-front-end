@@ -13,6 +13,9 @@
               <b-col cols="8">
                 <b-form-group class="text-white" label="Pick a coach" style="text-align: left;">
                   <b-input-group>
+                      <b-input-group-prepend>
+                        <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                      </b-input-group-prepend>
                     <form-select :options="ownerOptions" :preselect="ownerPreselect" v-on:DropDownValue="onSelectOwner"/>
                     <b-input-group-append>
                       <b-btn variant="primary" @click="$router.push('/admin/add/owner')">Create new</b-btn>

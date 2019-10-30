@@ -108,17 +108,17 @@ export default {
           value: "",
           required: true,
           disabled: false,
-          icon: "fas fa-users"
+          icon: "fas fa-file-signature"
         },
         {
           id: "Description",
           title: "Description",
           value: "",
-          placeholder: "Descriptipnnnon",
+          placeholder: "Description",
           type: "text",
           required: true,
           disabled: false,
-          icon: "fas fa-users"
+          icon: "fas fa-align-left"
         }
       ]
     };

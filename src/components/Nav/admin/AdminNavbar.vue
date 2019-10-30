@@ -85,7 +85,15 @@ export default {
                                     icon: "fas fa-wrench"
                                 }
                             ]
-                        }, 
+                        },
+                        {
+                            title: "Contact",
+                            icon: "fa fa-address-book",
+                            href: {
+                                path: "/admin/all/contacts"
+                            }
+
+                        },
                         {
                             title: "Association",
                             icon: 'fas fa-arrows-alt',
@@ -108,13 +116,6 @@ export default {
                                 path: "/admin/matchPosition"
                             }
                         },
-                       /* {
-                            title: "Result",
-                            icon: 'fas fa-medal',
-                            href: {
-                                path: "/admin/result"
-                            }
-                        },*/
                         {
                             title: "Team",
                             icon: 'fas fa-users',
@@ -161,27 +162,6 @@ export default {
                                 path: "/admin/match"
                             }
                         },
-                        {
-                            title: "History",
-                            icon: 'fas fa-history',
-                            child: [
-                                {
-                                    href: "#",
-                                    title: "Add",
-                                    icon: 'fas fa-plus-circle'
-                                },
-                                {
-                                    href: "#",
-                                    title: "Delete",
-                                    icon: 'fas fa-minus-circle'
-                                },
-                                {
-                                    href:"#",
-                                    title: "Update",
-                                    icon: "fas fa-wrench"
-                                }
-                            ]
-                        }
                     ]
                 },
                 {

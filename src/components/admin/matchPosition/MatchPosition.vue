@@ -3,17 +3,23 @@
       <h1 class="text-black">Match Position</h1>
       <br>
       <b-row>
-          <b-col cols="4">
+          <b-col cols="5">
               <b-card>
 
                 <b-form-group class="text-black" label="Pick a match" style="text-align: left;">
                     <b-input-group>
+                        <b-input-group-prepend>
+                            <span class="input-group-text"><i class="fas fa-fire-alt"></i></span>
+                        </b-input-group-prepend>
                         <form-select :options="matchOptions" :preselect="matchPreselect" v-on:DropDownValue="onSelectMatch"/>
                     </b-input-group>
                 </b-form-group>
 
                 <b-form-group class="text-black" label="Pick a team" style="text-align: left;" v-if="matchSelected">
                     <b-input-group>
+                            <b-input-group-prepend>
+                                <span class="input-group-text"><i class="fas fa-users"></i></span>
+                            </b-input-group-prepend>
                         <form-select :options="teamOptions" :preselect="teamPreselect" v-on:DropDownValue="onSelectTeam"/>
                     </b-input-group>
                 </b-form-group>
@@ -41,7 +47,7 @@
                     </b-col>
                 </b-row>
           </b-col>
-          <b-col cols="8">
+          <b-col cols="7">
             <img src="@/assets/bird-s-eye-view-circle-drone-photography-2291006.jpg" alt="Snow" style="width:80%; height: 650px;" />
             <div class="centered">
                 <br><br><br><br><br>

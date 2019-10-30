@@ -107,14 +107,14 @@ export default {
           placeholder: "Season name",
           type: "text",
           required: true,
-          icon: "fas fa-running"
+          icon: "fas fa-file-signature"
         },
         {
           title: "Description",
           placeholder: "Enter a description",
           type: "text",
           required: true,
-          icon: "fas fa-user"
+          icon: "fas fa-align-left"
         },
       ]
     };

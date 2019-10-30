@@ -21,6 +21,9 @@
                                     <b-col cols="8">
                                         <b-form-group class="text-white" label="Player" style="text-align: left;">
                                             <b-input-group>
+                                                <b-input-group-prepend>
+                                                    <span class="input-group-text"><i class="fas fa-running"></i></span>
+                                                </b-input-group-prepend>
                                                 <form-select :options="playerOptions" :preselect="playerPreselect"  v-on:DropDownValue="onSelectPlayer"/>
                                             </b-input-group>
                                         </b-form-group>
@@ -33,6 +36,9 @@
                                     <b-col cols="8">
                                         <b-form-group class="text-white" label="Match" style="text-align: left;">
                                             <b-input-group>
+                                                <b-input-group-prepend>
+                                                    <span class="input-group-text"><i class="fas fa-fire-alt"></i></span>
+                                                </b-input-group-prepend>
                                                 <form-select :options="matchOptions"  :preselect="matchPreselect"  v-on:DropDownValue="onSelectMatch"/>
                                             </b-input-group>
                                         </b-form-group>
@@ -45,6 +51,9 @@
                                     <b-col cols="8">
                                         <b-form-group class="text-white" label="Goal type" style="text-align: left;">
                                             <b-input-group>
+                                                <b-input-group-prepend>
+                                                    <span class="input-group-text"><i class="fas fa-crosshairs"></i></span>
+                                                </b-input-group-prepend>
                                                 <form-select :options="goalTypeOptions"  :preselect="goalTypePreselect"  v-on:DropDownValue="onSelectGoalType"/>
                                             </b-input-group>
                                         </b-form-group>
@@ -169,8 +178,6 @@ export default {
             this.showForm = true;
         },
 
-
-
         async onRowSelected(item) {
             this.matchId = item[0].Id;
             this.onSelectNewForm = false;
@@ -196,8 +203,8 @@ export default {
             let players = await PlayerService.findAll();
             let options = [];
 
-            for(var i = 0; i < players._embedded.playerModelList.length; i++) {
-                delete players._embedded.playerModelList[i]._links
+            for(var i = 0; i < players.length; i++) {
+                delete players[i]._links
 
                 if(i === 0) {
                     options[i] = {
@@ -208,8 +215,8 @@ export default {
                 }
 
                 options[i+1] = {
-                    value: players._embedded.playerModelList[i],
-                    text: players._embedded.playerModelList[i].playername,
+                    value: players[i],
+                    text: players[i].playername,
                     disabled: false
                 }
             }
