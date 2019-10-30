@@ -1,7 +1,13 @@
 <template>
   <div>
-    <b-card id="overlayDiv" v-if="missingData && loading">
-      <h5>You need to create the following to be able to create a fully-fledged team</h5>
+    {{missingData}}
+    <b-card id="overlayDiv" v-if="loading || missingData">
+      <div v-if="loading" class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+
+      <h5 v-if="loading">Loading</h5>
+      <h5 v-else>You need to create the following to be able to create a fully-fledged team</h5>
       <hr class="pretty" />
       <p>available coaches : {{coachOptions.length === 0 ? "❌": "✅"}}</p>
       <div v-if="coachOptions.length === 0">
@@ -12,7 +18,7 @@
       <hr class="pretty" />
 
       <p>available locations : {{locationOptions.length === 0 ? "❌": "✅"}}</p>
-
+      
       <div v-if="locationOptions.length === 0">
         <router-link to="/admin/add/location">
           <b-button
@@ -22,11 +28,17 @@
           >Create a new Location</b-button>
         </router-link>
       </div>
+      <hr class="pretty" />
+
+      
+      <p>available Associations : {{associationOptions.length === 0 ? "❌": "✅"}}</p>
+      <router-link to="/admin/add/association">
+          <b-button variant="outline-primary" size="sm">Create a new association</b-button>
+      </router-link>
 
       <hr class="pretty" />
 
       <p>available owners : {{ownerOptions.length === 0 ? "❌": "✅"}}</p>
-
       <div v-if="ownerOptions.length === 0">
         <router-link to="/admin/add/owner">
           <b-button style="margin-top:40px;" variant="outline-primary" size="sm">Create a new owner</b-button>
@@ -176,6 +188,7 @@ export default {
     await this.getOwners();
     await this.getLocations();
     this.loading = false;
+    this.missingData = this.missingDataFunction();
   },
 
   mounted: function() {
@@ -187,18 +200,8 @@ export default {
     FlexibleForm,
     FormSelect
   },
+
   methods: {
-    missingData() {
-      if (
-        coachOptions.length === 0 ||
-        locationOptions.length === 0 ||
-        ownerOptions.length === 0
-      ) {
-        return true;
-      }
-      
-      return false;
-    },
     async submitForm() {
       const teamObject = {
         associationId: this.associationPreselect,
@@ -213,6 +216,18 @@ export default {
       } else {
         this.printMsg("showErrorMsg");
       }
+    },
+
+    missingDataFunction() {
+      if (
+        this.coachOptions.length === 0 ||
+        this.locationOptions.length === 0 ||
+        this.ownerOptions.length === 0 ||
+        this.associationOptions.length === 0
+      ) {
+        return true;
+      }
+      return false;
     },
 
     async getAssociations() {
@@ -385,6 +400,7 @@ export default {
   },
   data() {
     return {
+      missingData: true,
       loading: true,
       onShowBtns: true,
       textColor: "text-white",
@@ -412,7 +428,7 @@ export default {
   width: 80%;
   top: 20px;
   left: 150px;
-  height: 80%;
+  /* height: 80%; */
   z-index: 99;
 }
 </style>
