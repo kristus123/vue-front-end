@@ -34,7 +34,8 @@
               <em>User</em>
             </template>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+
+            <b-dropdown-item @click="logout" href="#">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -46,7 +47,15 @@
 
 
 <script>
-export default {};
+import authenticationService from '@/services/AuthenticationService'
+export default {
+  methods : {
+    logout() {
+      authenticationService.logout();
+      this.$router.push("/");
+    }
+  }
+};
 </script>
 
 <style>

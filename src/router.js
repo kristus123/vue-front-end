@@ -316,6 +316,13 @@ export default new Router({
       name: "user",
       component: UserHome,
       children: [
+
+        {
+          path: "/",
+          component: UserLandingPage
+        },
+        
+
         {
           path: "all/team/favoritess",
           component: WatchTeamsPage
